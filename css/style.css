@@ -1,0 +1,535 @@
+/* ============================================
+   NOSSO AMOR — Site de Casal
+   Paleta: romântica, suave, com corações
+   ============================================ */
+
+:root {
+  --bg: #0e0810;
+  --bg-card: rgba(255, 255, 255, 0.06);
+  --bg-card-hover: rgba(255, 255, 255, 0.10);
+  --primary: #ff4f8b;
+  --primary-soft: #ff8eb4;
+  --accent: #ffd166;
+  --text: #f4ecf3;
+  --text-soft: #c8b8c6;
+  --text-muted: #8a7a89;
+  --border: rgba(255, 79, 139, 0.25);
+  --shadow: 0 8px 30px rgba(255, 79, 139, 0.15);
+  --gradient: linear-gradient(135deg, #ff4f8b 0%, #ff8eb4 50%, #ffd166 100%);
+  --gradient-bg: radial-gradient(ellipse at top, #2a0d1f 0%, #0e0810 60%);
+  --font-script: 'Dancing Script', cursive;
+  --font-body: 'Quicksand', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  height: 100%;
+  font-family: var(--font-body);
+  color: var(--text);
+  background: var(--bg);
+  background-image: var(--gradient-bg);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+body { line-height: 1.6; }
+
+img { max-width: 100%; display: block; }
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+/* ============================================
+   Corações flutuantes de fundo
+   ============================================ */
+.hearts-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 18px;
+  color: var(--primary);
+  opacity: 0.5;
+  animation: float-up linear forwards;
+}
+@keyframes float-up {
+  0% { transform: translateY(0) rotate(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  100% { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
+}
+
+/* ============================================
+   Tela de entrada (gate com senha)
+   ============================================ */
+.gate {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: var(--gradient-bg);
+}
+.gate-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 40px 30px;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+  box-shadow: var(--shadow);
+  animation: fade-in 0.6s ease;
+}
+@keyframes fade-in { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+.gate-hearts { font-size: 40px; margin-bottom: 10px; }
+.gate-title {
+  font-family: var(--font-script);
+  font-size: 42px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+.gate-sub { color: var(--text-soft); margin-bottom: 4px; }
+.gate-hint { color: var(--text-muted); font-size: 13px; margin-bottom: 18px; }
+.gate input {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+  font-family: inherit;
+}
+.gate input:focus { outline: none; border-color: var(--primary); }
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  background: var(--gradient);
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  transition: transform 0.15s;
+}
+.btn-primary:hover { transform: translateY(-2px); }
+.btn-primary:active { transform: translateY(0); }
+.gate-msg { margin-top: 12px; min-height: 22px; color: var(--primary-soft); font-size: 14px; }
+
+/* ============================================
+   App principal
+   ============================================ */
+.app { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding-bottom: 100px; }
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: rgba(14, 8, 16, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.header-left, .header-right { display: flex; align-items: center; gap: 10px; }
+.logo { font-size: 24px; color: var(--primary); }
+.logo-text { font-family: var(--font-script); font-size: 22px; }
+.header-time { color: var(--text-soft); font-size: 13px; }
+.btn-music { font-size: 20px; padding: 4px 8px; }
+
+/* ============================================
+   Tabs
+   ============================================ */
+.tabs {
+  display: flex;
+  gap: 6px;
+  padding: 14px 12px;
+  overflow-x: auto;
+  background: rgba(14, 8, 16, 0.5);
+  border-bottom: 1px solid var(--border);
+  scrollbar-width: none;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab {
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  border-radius: 20px;
+  background: var(--bg-card);
+  color: var(--text-soft);
+  font-size: 13px;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+.tab.active {
+  background: var(--gradient);
+  color: white;
+  font-weight: 600;
+}
+
+.tab-content { display: none; padding: 20px; animation: fade-in 0.4s ease; }
+.tab-content.active { display: block; }
+
+.section-title {
+  font-family: var(--font-script);
+  font-size: 36px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 4px;
+}
+.section-sub { color: var(--text-soft); margin-bottom: 24px; }
+
+/* ============================================
+   HOME — Hero / Contador
+   ============================================ */
+.hero { text-align: center; padding: 20px 0 30px; }
+.hero-title {
+  font-family: var(--font-script);
+  font-size: 48px;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+.hero-subtitle { color: var(--text-soft); margin-bottom: 30px; }
+
+.counter {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.counter-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 6px;
+  text-align: center;
+  backdrop-filter: blur(8px);
+}
+.counter-num {
+  display: block;
+  font-size: 28px;
+  font-weight: 600;
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.counter-label { display: block; font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+.counter-sub { color: var(--text-muted); font-size: 13px; font-style: italic; }
+
+/* ============================================
+   Mensagem do dia
+   ============================================ */
+.daily-msg {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 14px;
+  padding: 20px;
+  margin: 30px 0;
+  position: relative;
+}
+.daily-tag {
+  display: inline-block;
+  background: var(--gradient);
+  color: white;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+.daily-text { font-size: 17px; line-height: 1.6; color: var(--text); font-style: italic; }
+.daily-date { display: block; margin-top: 10px; color: var(--text-muted); font-size: 12px; }
+
+/* ============================================
+   Countdown dia dos namorados
+   ============================================ */
+.countdown-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin: 20px 0;
+  text-align: center;
+}
+.countdown-card h3 { color: var(--text-soft); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+.countdown { font-family: var(--font-script); font-size: 36px; color: var(--primary); }
+
+/* ============================================
+   Foto do dia (porta-retrato)
+   ============================================ */
+.photo-of-day {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  margin: 20px 0;
+}
+.photo-of-day h3 { color: var(--text-soft); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; text-align: center; }
+.photo-of-day img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.photo-caption { color: var(--text-soft); font-size: 14px; text-align: center; font-style: italic; }
+
+/* ============================================
+   TIMELINE
+   ============================================ */
+.timeline { position: relative; padding-left: 30px; }
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--primary), var(--accent));
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 24px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px 18px;
+  transition: transform 0.2s;
+}
+.timeline-item:hover { transform: translateX(4px); background: var(--bg-card-hover); }
+.timeline-item::before {
+  content: '♡';
+  position: absolute;
+  left: -28px;
+  top: 18px;
+  width: 18px;
+  height: 18px;
+  background: var(--gradient);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 10px;
+}
+.timeline-date { color: var(--primary); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+.timeline-title { font-family: var(--font-script); font-size: 24px; margin: 4px 0 8px; }
+.timeline-text { color: var(--text-soft); font-size: 14px; }
+.timeline-img { margin-top: 12px; border-radius: 10px; max-height: 220px; width: 100%; object-fit: cover; }
+
+/* ============================================
+   GALERIA
+   ============================================ */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.gallery-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: transform 0.2s;
+}
+.gallery-item:hover { transform: scale(1.02); }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
+.gallery-item .gallery-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 10px 8px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  font-size: 11px;
+  color: var(--text-soft);
+}
+
+/* ============================================
+   LIGHTBOX
+   ============================================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0,0,0,0.95);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.lightbox img { max-width: 100%; max-height: 85vh; object-fit: contain; border-radius: 8px; }
+.lightbox-close, .lightbox-prev, .lightbox-next {
+  position: absolute;
+  color: white;
+  font-size: 30px;
+  padding: 10px 16px;
+  background: rgba(0,0,0,0.4);
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-close { top: 20px; right: 20px; }
+.lightbox-prev { left: 20px; top: 50%; transform: translateY(-50%); }
+.lightbox-next { right: 20px; top: 50%; transform: translateY(-50%); }
+.lightbox-caption {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: var(--text-soft);
+  font-style: italic;
+  font-size: 14px;
+}
+
+/* ============================================
+   MÚSICAS
+   ============================================ */
+.music-list { display: flex; flex-direction: column; gap: 16px; }
+.music-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  transition: transform 0.2s;
+}
+.music-card:hover { transform: translateX(4px); }
+.music-card img {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.music-info { flex: 1; }
+.music-title { font-weight: 600; margin-bottom: 4px; }
+.music-artist { color: var(--text-soft); font-size: 13px; }
+.music-card iframe { display: none; }
+
+/* ============================================
+   CARTA
+   ============================================ */
+.letter-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 30px 24px;
+  position: relative;
+  background-image: linear-gradient(rgba(14,8,16,0.92), rgba(14,8,16,0.92));
+}
+.letter-content { font-family: var(--font-script); font-size: 22px; line-height: 1.7; color: var(--text); }
+.letter-content p { margin-bottom: 14px; }
+.letter-sign { text-align: right; font-family: var(--font-script); font-size: 22px; margin-top: 20px; color: var(--primary); }
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.app-footer {
+  text-align: center;
+  padding: 30px 20px;
+  color: var(--text-muted);
+  font-size: 12px;
+}
+
+/* ============================================
+   AMBIENT PLAYER
+   ============================================ */
+.ambient-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 60;
+  background: rgba(14, 8, 16, 0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.ap-info { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; }
+.ap-icon { font-size: 18px; }
+.ap-title { color: var(--text-soft); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ap-controls { display: flex; gap: 6px; }
+.ap-controls button { padding: 6px 10px; font-size: 14px; border-radius: 8px; background: var(--bg-card); }
+.ap-controls button:hover { background: var(--bg-card-hover); }
+
+/* ============================================
+   SURPRESA SECRETA
+   ============================================ */
+.secret-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.secret-card {
+  background: var(--bg-card);
+  border: 1px solid var(--primary);
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 400px;
+  text-align: center;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 79, 139, 0.4); }
+  50% { box-shadow: 0 0 0 20px rgba(255, 79, 139, 0); }
+}
+.secret-card h2 { font-family: var(--font-script); font-size: 28px; color: var(--primary); margin-bottom: 14px; }
+.secret-card p { color: var(--text); margin-bottom: 18px; }
+.secret-card button {
+  background: var(--gradient);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+/* ============================================
+   RESPONSIVO
+   ============================================ */
+@media (max-width: 480px) {
+  .hero-title { font-size: 36px; }
+  .section-title { font-size: 28px; }
+  .counter-num { font-size: 22px; }
+  .gallery { grid-template-columns: 1fr; }
+  .gate-title { font-size: 32px; }
+}

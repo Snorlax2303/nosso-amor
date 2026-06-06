@@ -1,0 +1,9 @@
+// API endpoint que o ESP32 consulta
+// Hospede isso na Vercel em /api/dia.json
+// OU altere o firmware pra apontar direto pro JSON estático do site
+
+{
+  "mensagem": "Cada dia com você é o melhor presente que eu poderia ganhar. Te amo mais do que ontem. ♡",
+  "foto_url": "https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?w=400",
+  "dias_juntos": 730
+}
