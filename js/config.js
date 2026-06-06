@@ -11,7 +11,7 @@ const CONFIG = {
   dataInicio: "2023-06-12T20:00:00",
   // Senha da tela de entrada (formato DDMMAAAA da data do primeiro beijo)
   // Mude aqui se quiser outra pergunta/senha
-  senhaGate: "12062023",
+  senhaGate: ""  // deixe vazio pra desabilitar senha,
   // Pergunta da tela de entrada
   perguntaGate: "Qual a data do nosso primeiro beijo?",
   // Dica da tela de entrada

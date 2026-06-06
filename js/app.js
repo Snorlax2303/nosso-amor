@@ -37,11 +37,18 @@ function initGate() {
   const btn = document.getElementById('gate-btn');
   const msg = document.getElementById('gate-msg');
 
+  // Se senha vazia, esconde input (acesso livre só pra dev/teste)
+  if (CONFIG.senhaGate === '') {
+    input.style.display = 'none';
+    btn.textContent = 'Entrar ♡';
+  }
+
   const tentar = () => {
     // Normaliza: tira barras/separadores e compara só os números
     const valor = input.value.replace(/\D/g, '');
     const senhaNumeros = CONFIG.senhaGate.replace(/\D/g, '');
-    if (valor === senhaNumeros) {
+    // Se senha vazia, pula direto (gate desabilitado)
+    if (CONFIG.senhaGate === '' || valor === senhaNumeros) {
       msg.textContent = '♡ Acertou! Entrando...';
       msg.style.color = '#3fb950';
       setTimeout(() => {
