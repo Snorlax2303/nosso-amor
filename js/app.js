@@ -38,8 +38,10 @@ function initGate() {
   const msg = document.getElementById('gate-msg');
 
   const tentar = () => {
-    const valor = input.value.trim();
-    if (valor === CONFIG.senhaGate) {
+    // Normaliza: tira barras/separadores e compara só os números
+    const valor = input.value.replace(/\D/g, '');
+    const senhaNumeros = CONFIG.senhaGate.replace(/\D/g, '');
+    if (valor === senhaNumeros) {
       msg.textContent = '♡ Acertou! Entrando...';
       msg.style.color = '#3fb950';
       setTimeout(() => {
@@ -59,7 +61,11 @@ function initGate() {
   btn.addEventListener('click', tentar);
   input.addEventListener('keypress', e => { if (e.key === 'Enter') tentar(); });
   input.addEventListener('input', e => {
-    e.target.value = e.target.value.replace(/\D/g, '');
+    // Aceita números, barras e traços. Auto-formata tipo 12/06/2023
+    let v = e.target.value.replace(/[^\d]/g, '').slice(0, 8);
+    if (v.length >= 5) v = v.slice(0,2) + '/' + v.slice(2,4) + '/' + v.slice(4);
+    else if (v.length >= 3) v = v.slice(0,2) + '/' + v.slice(2);
+    e.target.value = v;
   });
 }
 
