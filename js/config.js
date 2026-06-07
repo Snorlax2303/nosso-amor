@@ -7,6 +7,8 @@ var CONFIG = {
   nomeCasal: "Rafael & Fernanda",
   // Seu nome (assinatura da carta)
   seuNome: "Rafael",
+  // Subtítulo do hero (frase exibida abaixo do nome do casal)
+  subtitle: "Cada dia ao seu lado é o melhor dia ♡",
   // Data que começaram a namorar (formato ISO: AAAA-MM-DDTHH:MM:SS)
   dataInicio: "2013-01-01T20:00:00",  // primeiro beijo = começaram a ficar
   // Senha da tela de entrada (formato DDMMAAAA da data do primeiro beijo)

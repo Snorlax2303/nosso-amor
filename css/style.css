@@ -132,109 +132,164 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ============================================
    App principal
    ============================================ */
-.app { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding-bottom: 100px; }
-
-.app-header {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 14px 20px;
-  background: rgba(14, 8, 16, 0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-}
-.header-left, .header-right { display: flex; align-items: center; gap: 10px; }
-.logo { font-size: 24px; color: var(--primary); }
-.logo-text { font-family: var(--font-script); font-size: 22px; }
-.header-time { color: var(--text-soft); font-size: 13px; }
-.btn-music { font-size: 20px; padding: 4px 8px; }
+.app { position: relative; z-index: 1; max-width: 100%; margin: 0; padding-bottom: 100px; }
 
 /* ============================================
-   Tabs
+   LANDING — Container + Sections + Reveal
    ============================================ */
-.tabs {
-  display: flex;
-  gap: 6px;
-  padding: 14px 12px;
-  overflow-x: auto;
-  background: rgba(14, 8, 16, 0.5);
-  border-bottom: 1px solid var(--border);
-  scrollbar-width: none;
-}
-.tabs::-webkit-scrollbar { display: none; }
-.tab {
-  flex: 0 0 auto;
-  padding: 8px 14px;
-  border-radius: 20px;
-  background: var(--bg-card);
-  color: var(--text-soft);
-  font-size: 13px;
-  white-space: nowrap;
-  transition: all 0.2s;
-}
-.tab.active {
-  background: var(--gradient);
-  color: white;
-  font-weight: 600;
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
 
-.tab-content { display: none; padding: 20px; animation: fade-in 0.4s ease; }
-.tab-content.active { display: block; }
+.section {
+  padding: 64px 0;
+  position: relative;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  color: var(--primary-soft);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
 
 .section-title {
   font-family: var(--font-script);
-  font-size: 36px;
+  font-size: 38px;
   background: var(--gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 4px;
+  margin-bottom: 24px;
+  line-height: 1.1;
 }
+
 .section-sub { color: var(--text-soft); margin-bottom: 24px; }
 
+/* Scroll reveal (CSS scroll-driven API — funciona Chrome/Edge/Safari/Firefox modernos) */
+.reveal {
+  animation: fade-up linear both;
+  animation-timeline: view();
+  animation-range: entry 5% cover 25%;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: none; }
+}
+
 /* ============================================
-   HOME — Hero / Contador
+   HERO — primeira dobra da landing
    ============================================ */
-.hero { text-align: center; padding: 20px 0 30px; }
+.hero {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 24px 40px;
+  position: relative;
+}
+.hero-inner { max-width: 720px; width: 100%; }
+.hero-eyebrow {
+  color: var(--primary-soft);
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+  opacity: 0;
+  animation: fade-in 1s 0.2s ease-out forwards;
+}
 .hero-title {
   font-family: var(--font-script);
-  font-size: 48px;
+  font-size: clamp(48px, 12vw, 96px);
   background: var(--gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  animation: fade-up 1.2s 0.4s ease-out forwards;
 }
-.hero-subtitle { color: var(--text-soft); margin-bottom: 30px; }
+.hero-subtitle {
+  color: var(--text-soft);
+  font-size: clamp(15px, 3.5vw, 18px);
+  margin-bottom: 48px;
+  font-weight: 300;
+  opacity: 0;
+  animation: fade-up 1.2s 0.6s ease-out forwards;
+}
+.scroll-cue {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--text-muted);
+  font-size: 12px;
+  letter-spacing: 2px;
+  opacity: 0;
+  animation: bounce 2s 2s infinite, fade-in 1s 1.5s ease-out forwards;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(8px); }
+}
 
 .counter {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
+  opacity: 0;
+  animation: fade-up 1.2s 0.8s ease-out forwards;
 }
 .counter-item {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 14px 6px;
+  border-radius: 16px;
+  padding: 18px 6px 14px;
   text-align: center;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .counter-num {
   display: block;
-  font-size: 28px;
+  font-size: clamp(22px, 6vw, 32px);
   font-weight: 600;
   background: var(--gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  font-variant-numeric: tabular-nums;
 }
-.counter-label { display: block; font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
-.counter-sub { color: var(--text-muted); font-size: 13px; font-style: italic; }
+.counter-label {
+  display: block;
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 2px;
+}
+.counter-sub { color: var(--text-muted); font-size: 13px; font-style: italic; opacity: 0; animation: fade-in 1s 1.2s ease-out forwards; }
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 
 /* ============================================
    Mensagem do dia
@@ -243,9 +298,10 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-left: 4px solid var(--primary);
-  border-radius: 14px;
-  padding: 20px;
-  margin: 30px 0;
+  border-radius: 16px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   position: relative;
 }
 .daily-tag {
@@ -269,33 +325,25 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .countdown-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px;
-  margin: 20px 0;
+  border-radius: 20px;
+  padding: 36px 24px;
   text-align: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 .countdown-card h3 { color: var(--text-soft); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
 .countdown { font-family: var(--font-script); font-size: 36px; color: var(--primary); }
-
-/* ============================================
-   Foto do dia (porta-retrato)
-   ============================================ */
-.photo-of-day {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px;
-  margin: 20px 0;
+.countdown-big {
+  font-family: var(--font-script);
+  font-size: clamp(56px, 14vw, 88px);
+  background: var(--gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.05;
+  margin: 8px 0 4px;
+  font-variant-numeric: tabular-nums;
 }
-.photo-of-day h3 { color: var(--text-soft); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; text-align: center; }
-.photo-of-day img {
-  width: 100%;
-  max-height: 360px;
-  object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-.photo-caption { color: var(--text-soft); font-size: 14px; text-align: center; font-style: italic; }
 
 /* ============================================
    TIMELINE
@@ -463,29 +511,30 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 /* ============================================
-   AMBIENT PLAYER
+   MUSIC FAB — botão flutuante de play/pause
    ============================================ */
-.ambient-player {
+.music-fab {
   position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  bottom: 20px;
+  right: 20px;
   z-index: 60;
-  background: rgba(14, 8, 16, 0.95);
-  backdrop-filter: blur(12px);
-  border-top: 1px solid var(--border);
-  padding: 10px 16px;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--gradient);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 10px;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(255, 79, 139, 0.4);
+  cursor: pointer;
+  transition: transform 0.2s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
-.ap-info { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; }
-.ap-icon { font-size: 18px; }
-.ap-title { color: var(--text-soft); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.ap-controls { display: flex; gap: 6px; }
-.ap-controls button { padding: 6px 10px; font-size: 14px; border-radius: 8px; background: var(--bg-card); }
-.ap-controls button:hover { background: var(--bg-card-hover); }
+.music-fab:hover { transform: scale(1.1); }
+.music-fab:active { transform: scale(0.95); }
+.music-fab-icon { font-size: 22px; pointer-events: none; }
+.music-fab.paused { background: var(--bg-card); border: 1px solid var(--border); }
 
 /* ============================================
    SURPRESA SECRETA

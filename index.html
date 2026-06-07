@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nosso Amor ♡</title>
+  <meta name="description" content="Um cantinho só nosso ♡" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
@@ -18,121 +19,98 @@
     <div class="gate-card">
       <div class="gate-hearts">💕</div>
       <h1 class="gate-title">Nosso Cantinho</h1>
-      <p class="gate-sub">Qual a data do nosso primeiro beijo?</p>
-      <p class="gate-hint">Dica: dia/mês/ano com barras (DD/MM/AAAA)</p>
+      <p class="gate-sub" id="gate-sub"></p>
+      <p class="gate-hint" id="gate-hint"></p>
       <input type="text" id="gate-input" placeholder="DD/MM/AAAA" maxlength="10" inputmode="numeric" />
       <button id="gate-btn" class="btn-primary">Entrar ♡</button>
       <p class="gate-msg" id="gate-msg"></p>
     </div>
   </div>
 
-  <!-- App principal -->
+  <!-- App principal — landing única com scroll -->
   <main class="app" id="app" style="display:none;">
-    <!-- Header fixo -->
-    <header class="app-header">
-      <div class="header-left">
-        <span class="logo">♡</span>
-        <span class="logo-text">Nosso Amor</span>
-      </div>
-      <div class="header-right">
-        <span class="header-time" id="header-time"></span>
-        <button class="btn-music" id="btn-music" title="Pausar/Play música">🎵</button>
-      </div>
-    </header>
 
-    <!-- Navegação por abas -->
-    <nav class="tabs">
-      <button class="tab active" data-tab="home">🏠 Início</button>
-      <button class="tab" data-tab="timeline">📖 Marcos</button>
-      <button class="tab" data-tab="gallery">📸 Fotos</button>
-      <button class="tab" data-tab="music">🎶 Músicas</button>
-      <button class="tab" data-tab="letter">💌 Mensagem</button>
-    </nav>
-
-    <!-- ABA: HOME -->
-    <section class="tab-content active" id="tab-home">
-      <div class="hero">
+    <!-- 1. HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <p class="hero-eyebrow">Pra você, com todo meu amor</p>
         <h1 class="hero-title" id="hero-name">Você & Eu</h1>
-        <p class="hero-subtitle">Cada dia ao seu lado é o melhor dia</p>
+        <p class="hero-subtitle" id="hero-subtitle">Cada dia ao seu lado é o melhor dia</p>
 
         <!-- Contador ao vivo -->
-        <div class="counter">
+        <div class="counter" id="counter">
           <div class="counter-item">
             <span class="counter-num" id="c-dias">0</span>
             <span class="counter-label">dias</span>
           </div>
           <div class="counter-item">
-            <span class="counter-num" id="c-horas">0</span>
+            <span class="counter-num" id="c-horas">00</span>
             <span class="counter-label">horas</span>
           </div>
           <div class="counter-item">
-            <span class="counter-num" id="c-min">0</span>
+            <span class="counter-num" id="c-min">00</span>
             <span class="counter-label">min</span>
           </div>
           <div class="counter-item">
-            <span class="counter-num" id="c-seg">0</span>
+            <span class="counter-num" id="c-seg">00</span>
             <span class="counter-label">seg</span>
           </div>
         </div>
-        <p class="counter-sub">juntos e contando...</p>
+        <p class="counter-sub">juntos e contando... ♡</p>
       </div>
-
-      <!-- Mensagem do dia -->
-      <div class="daily-msg">
-        <span class="daily-tag">Mensagem de hoje</span>
-        <p class="daily-text" id="daily-text">Carregando...</p>
-        <span class="daily-date" id="daily-date"></span>
-      </div>
-
-      <!-- Próximo dia dos namorados -->
-      <div class="countdown-card">
-        <h3>Próximo Dia dos Namorados</h3>
-        <div class="countdown" id="countdown-valentines">-- dias</div>
-      </div>
-
-      <!-- Foto do dia (mesma que vai pro porta-retrato) -->
-      <div class="photo-of-day">
-        <h3>📸 Foto do dia no porta-retrato</h3>
-        <img id="photo-of-day-img" src="" alt="Foto do dia" />
-        <p class="photo-caption" id="photo-of-day-caption"></p>
-      </div>
+      <div class="scroll-cue" aria-hidden="true">↓ desce</div>
     </section>
 
-    <!-- ABA: TIMELINE -->
-    <section class="tab-content" id="tab-timeline">
-      <h2 class="section-title">Nossa História 📖</h2>
-      <p class="section-sub">Cada marco, um pedacinho de nós</p>
-      <div class="timeline" id="timeline">
-        <!-- Preenchido via JS a partir de data/marcos.js -->
-      </div>
-    </section>
-
-    <!-- ABA: GALERIA -->
-    <section class="tab-content" id="tab-gallery">
-      <h2 class="section-title">Nossos Momentos 📸</h2>
-      <p class="section-sub">Toque pra ampliar</p>
-      <div class="gallery" id="gallery">
-        <!-- Preenchido via JS -->
-      </div>
-    </section>
-
-    <!-- ABA: MÚSICAS -->
-    <section class="tab-content" id="tab-music">
-      <h2 class="section-title">Nossas Músicas 🎶</h2>
-      <p class="section-sub">As que embalaram a gente</p>
-      <div class="music-list" id="music-list">
-        <!-- Cards com embeds do YouTube Music -->
-      </div>
-    </section>
-
-    <!-- ABA: CARTA / MENSAGEM -->
-    <section class="tab-content" id="tab-letter">
-      <h2 class="section-title">Carta Aberta 💌</h2>
-      <div class="letter-card">
-        <div class="letter-content" id="letter-content">
-          <!-- Conteúdo da carta carregado via JS -->
+    <!-- 2. MENSAGEM DO DIA -->
+    <section class="section reveal" id="section-msg">
+      <div class="container">
+        <div class="daily-msg">
+          <span class="daily-tag">Mensagem de hoje</span>
+          <p class="daily-text" id="daily-text">Carregando...</p>
+          <span class="daily-date" id="daily-date"></span>
         </div>
-        <div class="letter-sign">Com amor, <span id="letter-from">— seu/sua [nome]</span></div>
+      </div>
+    </section>
+
+    <!-- 3. PRÓXIMO DIA DOS NAMORADOS -->
+    <section class="section reveal" id="section-countdown">
+      <div class="container">
+        <div class="countdown-card">
+          <span class="section-eyebrow">♡ 12 de junho ♡</span>
+          <h2 class="section-title">Faltam pro nosso Dia</h2>
+          <div class="countdown-big" id="countdown-valentines">--</div>
+          <p class="countdown-sub" id="countdown-sub">até o Dia dos Namorados</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. NOSSA HISTÓRIA (TIMELINE) -->
+    <section class="section reveal" id="section-historia">
+      <div class="container">
+        <span class="section-eyebrow">Nossa história</span>
+        <h2 class="section-title">Cada marco, um pedacinho de nós 📖</h2>
+        <div class="timeline" id="timeline"></div>
+      </div>
+    </section>
+
+    <!-- 5. GALERIA -->
+    <section class="section reveal" id="section-fotos">
+      <div class="container">
+        <span class="section-eyebrow">Nossos momentos</span>
+        <h2 class="section-title">Toque pra ampliar 📸</h2>
+        <div class="gallery" id="gallery"></div>
+      </div>
+    </section>
+
+    <!-- 6. CARTA -->
+    <section class="section reveal" id="section-carta">
+      <div class="container">
+        <span class="section-eyebrow">Carta aberta</span>
+        <h2 class="section-title">Pra você, com amor 💌</h2>
+        <div class="letter-card">
+          <div class="letter-content" id="letter-content"></div>
+          <div class="letter-sign">Com amor, <span id="letter-from">— Rafael</span></div>
+        </div>
       </div>
     </section>
 
@@ -143,32 +121,25 @@
 
   <!-- Lightbox da galeria -->
   <div class="lightbox" id="lightbox" style="display:none;">
-    <button class="lightbox-close" id="lightbox-close">×</button>
-    <button class="lightbox-prev" id="lightbox-prev">‹</button>
+    <button class="lightbox-close" id="lightbox-close" aria-label="Fechar">×</button>
+    <button class="lightbox-prev" id="lightbox-prev" aria-label="Anterior">‹</button>
     <img id="lightbox-img" src="" alt="" />
-    <button class="lightbox-next" id="lightbox-next">›</button>
+    <button class="lightbox-next" id="lightbox-next" aria-label="Próxima">›</button>
     <p class="lightbox-caption" id="lightbox-caption"></p>
   </div>
 
-  <!-- Player de música ambiente (fica tocando) -->
-  <div class="ambient-player" id="ambient-player">
-    <div class="ap-info">
-      <span class="ap-icon">🎵</span>
-      <span class="ap-title" id="ap-title">Tocando: ...</span>
-    </div>
-    <div class="ap-controls">
-      <button id="ap-prev" title="Anterior">⏮</button>
-      <button id="ap-play" title="Play/Pause">⏸</button>
-      <button id="ap-next" title="Próxima">⏭</button>
-      <button id="ap-vol" title="Mudo">🔊</button>
-    </div>
-    <iframe
-      id="ap-iframe"
-      width="0" height="0"
-      allow="autoplay; encrypted-media"
-      style="border:0; position:absolute; opacity:0; pointer-events:none;"
-    ></iframe>
+  <!-- Player de música (botão flutuante minimalista, fica tocando aleatório) -->
+  <div class="music-fab" id="music-fab" title="Pausar música">
+    <span class="music-fab-icon" id="music-fab-icon">🎵</span>
   </div>
+
+  <!-- Iframe invisível que toca a música (YouTube) -->
+  <iframe
+    id="ap-iframe"
+    width="0" height="0"
+    allow="autoplay; encrypted-media"
+    style="border:0; position:absolute; left:-9999px; top:-9999px; opacity:0; pointer-events:none;"
+  ></iframe>
 
   <!-- Surpresa escondida: digitar "te amo" em qualquer lugar -->
   <div class="secret-overlay" id="secret-overlay" style="display:none;">
