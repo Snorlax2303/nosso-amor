@@ -1,15 +1,17 @@
 // ============================================
-// CARTA — Mensagem aberta pra ela/le ele
-// Edite com suas próprias palavras. Capricha. ♡
+// CARTA — Mensagem aberta pra ela
+// ⭐ EDITE COM SUAS PRÓPRIAS PALAVRAS. Capricha. ♡
+// O template abaixo é só um ponto de partida.
 // ============================================
 
 const CARTA = `
-<p>Meu amor,</p>
-<p>Eu não sei quando exatamente meu coração decidiu que era você, mas foi a melhor decisão que ele já tomou.</p>
-<p>Cada dia ao seu lado é um presente que eu abro com o sorriso mais bobo do mundo. Você me ensinou o que é amor de verdade — não o dos filmes, mas o que fica, o que cresce, o que escolhe todo dia continuar.</p>
-<p>Você me faz querer ser uma pessoa melhor, não porque você pede, mas porque você merece o melhor de mim. E quando eu olho pra você, eu vejo tudo que eu sempre quis e nem sabia que existia.</p>
-<p>Obrigado(a) por cada risada, cada abraço, cada mensagem boba de bom dia, cada momento de silêncio do seu lado que diz mais que mil palavras.</p>
+<p>Fernanda,</p>
+<p>Faz tempo que eu queria te dizer algumas coisas. Coisas que o dia a dia, a correria, o trabalho, a vida — vão deixando pra depois. Mas hoje eu quero parar e colocar pra fora.</p>
+<p>Lembro de cada momento nosso como se fosse ontem. O primeiro beijo, o primeiro "oi" que virou "oi" pra sempre, a primeira vez que entendi que era você. Doze anos depois, e a resposta continua a mesma: é você.</p>
+<p>Você me fez um homem melhor. Não porque você pediu, mas porque você me mostrou o que é amar de verdade — sem frescura, sem barulho, no silêncio e no barulho, no fácil e no difícil, no riso e no choro.</p>
+<p>Obrigado por aguentar meus defeitos, por rir das minhas piadas ruins, por me olhar como se eu fosse a pessoa mais incrível do mundo mesmo quando eu sei que não sou.</p>
 <p>Se eu pudesse voltar no tempo, te escolheria de novo. Se eu pudesse olhar pro futuro, te veria em todos os cenários. Você é meu pra sempre favorito.</p>
-<p>Te amo mais do que palavras podem expressar. E prometo continuar tentando, todo dia, pelo resto da minha vida.</p>
+<p>Esse site é meu presente de Dia dos Namorados. Cada parte dele tem um pedaço de nós. A música, as fotos, a carta, o contador — tudo pra dizer, do meu jeito um pouco torto, o que às vezes eu não consigo colocar em palavras.</p>
+<p>Te amo. Ontem, hoje, amanhã, sempre.</p>
 <p>Feliz Dia dos Namorados, meu amor. Essa data é sua, mas o presente é meu: ter você.</p>
 `;
