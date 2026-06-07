@@ -30,7 +30,7 @@ function criarCoracoes() {
 // 2. Tela de entrada (gate)
 // ============================================
 function initGate() {
-  document.getElementById('perguntaGate') && (document.querySelector('.gate-sub').textContent = CONFIG.perguntaGate);
+  document.querySelector('.gate-sub').textContent = CONFIG.perguntaGate;
   document.querySelector('.gate-hint').textContent = CONFIG.dicaGate;
 
   const input = document.getElementById('gate-input');

@@ -2,7 +2,7 @@
 // CONFIGURAÇÃO — EDITE AQUI COM OS DADOS DE VOCÊS
 // ============================================
 
-const CONFIG = {
+var CONFIG = {
   // Nome do casal (exibido na home e na carta)
   nomeCasal: "Rafael & Fernanda",
   // Seu nome (assinatura da carta)
@@ -11,7 +11,7 @@ const CONFIG = {
   dataInicio: "2013-01-01T20:00:00",  // primeiro beijo = começaram a ficar
   // Senha da tela de entrada (formato DDMMAAAA da data do primeiro beijo)
   // Mude aqui se quiser outra pergunta/senha
-  senhaGate: "01012013"  // data do primeiro beijo,
+  senhaGate: "01012013",  // data do primeiro beijo
   // Pergunta da tela de entrada
   perguntaGate: "Qual a data que começamos a ficar?",
   // Dica da tela de entrada
