@@ -1,8 +1,8 @@
 // ============================================
 // SERVICE WORKER — Nosso Amor PWA
-// Estratégia: cache-first pra assets, network-first pro HTML
+// Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v1';
+const CACHE_NAME = 'nosso-amor-v3';  // bump version pra invalidar cache antigo
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -38,8 +38,9 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   const { request } = event;
   if (request.method !== 'GET') return;
+  const url = new URL(request.url);
 
-  // Pra navegação (HTML): network-first, cai pro cache
+  // Pra navegação (HTML): network-first SEMPRE (pra ver updates)
   if (request.mode === 'navigate') {
     event.respondWith(
       fetch(request)
@@ -53,7 +54,28 @@ self.addEventListener('fetch', event => {
     return;
   }
 
-  // Pra assets: cache-first
+  // Pra JS/CSS/manifest: network-first (updates do código chegam rápido)
+  if (
+    url.pathname.startsWith('/js/') ||
+    url.pathname.startsWith('/css/') ||
+    url.pathname.endsWith('.json') ||
+    url.pathname.endsWith('.webmanifest')
+  ) {
+    event.respondWith(
+      fetch(request)
+        .then(resp => {
+          if (resp && resp.status === 200) {
+            const clone = resp.clone();
+            caches.open(CACHE_NAME).then(c => c.put(request, clone));
+          }
+          return resp;
+        })
+        .catch(() => caches.match(request))
+    );
+    return;
+  }
+
+  // Pra imagens/fonts: cache-first (perf)
   event.respondWith(
     caches.match(request).then(cached => {
       if (cached) return cached;

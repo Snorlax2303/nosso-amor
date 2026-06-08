@@ -270,17 +270,21 @@ function toggleMusica() {
     icon.textContent = '🔇';
     fab.setAttribute('title', 'Tocar música');
   } else {
-    // Tocar de novo: recarrega o iframe com o id atual
-    if (currentMusicId) {
+    // Tocar de novo: valida se o currentMusicId ainda existe na playlist atual
+    // (proteção contra cache antigo do SW)
+    const idValido = currentMusicId && MUSICAS && MUSICAS.some(m => m.youtubeId === currentMusicId);
+    if (idValido) {
       iframe.src = `https://www.youtube.com/embed/${currentMusicId}?autoplay=1&loop=1&playlist=${currentMusicId}&enablejsapi=1`;
+      ambientPlaying = true;
+      fab.classList.remove('paused');
+      icon.textContent = '🎵';
+      const m = MUSICAS.find(x => x.youtubeId === currentMusicId);
+      fab.setAttribute('title', `Pausar música: ${m.titulo} - ${m.artista}`);
     } else {
+      // ID inválido (cache antigo): sorteia uma nova
       tocarMusicaAleatoria();
       return;
     }
-    ambientPlaying = true;
-    fab.classList.remove('paused');
-    icon.textContent = '🎵';
-    fab.setAttribute('title', 'Pausar música');
   }
 }
 
