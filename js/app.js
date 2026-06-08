@@ -123,14 +123,14 @@ function startContador() {
     document.getElementById('c-min').textContent = String(min).padStart(2, '0');
     document.getElementById('c-seg').textContent = String(seg).padStart(2, '0');
 
-    // Countdown dia dos namorados
-    const prox = new Date(agora.getFullYear(), 5, 12); // 12 de junho
-    if (prox < agora) prox.setFullYear(agora.getFullYear() + 1);
+    // Countdown aniversário de casamento (01/01 do próximo ano)
+    const prox = new Date(agora.getFullYear(), 0, 1); // 01 de janeiro
+    if (prox <= agora) prox.setFullYear(agora.getFullYear() + 1);
     const diasRest = Math.ceil((prox - agora) / 86400000);
     const el = document.getElementById('countdown-valentines');
     if (el) el.textContent = diasRest;
     const sub = document.getElementById('countdown-sub');
-    if (sub) sub.textContent = diasRest === 1 ? 'dia pro nosso Dia dos Namorados ♡' : 'dias pro nosso Dia dos Namorados ♡';
+    if (sub) sub.textContent = diasRest === 1 ? 'dia pro nosso aniversário de casamento ♡' : 'dias pro nosso aniversário de casamento ♡';
   };
   atualizar();
   setInterval(atualizar, 1000);
