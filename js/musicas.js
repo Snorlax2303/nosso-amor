@@ -8,8 +8,8 @@ const MUSICAS = [
   {
     titulo: "Um Amor Puro",
     artista: "Djavan",
-    youtubeId: "U8nS--XLqMs",
-    capa: "https://i.ytimg.com/vi/U8nS--XLqMs/hqdefault.jpg",
+    youtubeId: "Af7ieNv0wXY",
+    capa: "https://i.ytimg.com/vi/Af7ieNv0wXY/hqdefault.jpg",
     significado: "Um amor puro, do jeito que é o nosso."
   },
   {
