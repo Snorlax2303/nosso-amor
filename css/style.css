@@ -41,23 +41,25 @@ body {
 body::before {
   content: '';
   position: fixed;
-  top: 10%; left: -10%;
-  width: 500px; height: 500px;
-  background: radial-gradient(circle, rgba(255, 79, 139, 0.15) 0%, transparent 60%);
+  top: -10%; left: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(255, 79, 139, 0.25) 0%, transparent 60%);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
+  filter: blur(40px);
   animation: orbFloat 20s ease-in-out infinite;
 }
 body::after {
   content: '';
   position: fixed;
-  bottom: 5%; right: -10%;
-  width: 600px; height: 600px;
-  background: radial-gradient(circle, rgba(255, 209, 102, 0.1) 0%, transparent 60%);
+  bottom: -10%; right: -15%;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(255, 209, 102, 0.18) 0%, transparent 60%);
   border-radius: 50%;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
+  filter: blur(50px);
   animation: orbFloat 25s ease-in-out infinite reverse;
 }
 @keyframes orbFloat {
@@ -163,7 +165,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 /* ============================================
    App principal
    ============================================ */
-.app { position: relative; z-index: 1; max-width: 100%; margin: 0; padding-bottom: 100px; }
+.app { position: relative; z-index: 2; max-width: 100%; margin: 0; padding-bottom: 100px; }
 
 /* ============================================
    LANDING — Container + Sections + Reveal
