@@ -16,7 +16,7 @@
   --border: rgba(255, 79, 139, 0.25);
   --shadow: 0 8px 30px rgba(255, 79, 139, 0.15);
   --gradient: linear-gradient(135deg, #ff4f8b 0%, #ff8eb4 50%, #ffd166 100%);
-  --gradient-bg: radial-gradient(ellipse at top, #2a0d1f 0%, #0e0810 60%);
+  --gradient-bg: radial-gradient(ellipse 80% 60% at 50% 0%, #3d1530 0%, #1a0a1a 40%, #0a050d 100%);
   --font-script: 'Dancing Script', cursive;
   --font-body: 'Quicksand', sans-serif;
 }
@@ -33,7 +33,38 @@ html, body {
   overflow-x: hidden;
 }
 
-body { line-height: 1.6; }
+body {
+  line-height: 1.6;
+  position: relative;
+}
+/* Glow ambiente — orbs de luz fixos no fundo */
+body::before {
+  content: '';
+  position: fixed;
+  top: 10%; left: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255, 79, 139, 0.15) 0%, transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: orbFloat 20s ease-in-out infinite;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: 5%; right: -10%;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(255, 209, 102, 0.1) 0%, transparent 60%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: orbFloat 25s ease-in-out infinite reverse;
+}
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0); }
+  33%      { transform: translate(40px, -30px); }
+  66%      { transform: translate(-30px, 30px); }
+}
 
 img { max-width: 100%; display: block; }
 
@@ -218,8 +249,14 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   margin-bottom: 12px;
   line-height: 1.05;
   letter-spacing: -0.02em;
+  filter: drop-shadow(0 0 24px rgba(255, 79, 139, 0.4))
+          drop-shadow(0 0 48px rgba(255, 79, 139, 0.2));
   opacity: 0;
-  animation: fade-up 1.2s 0.4s ease-out forwards;
+  animation: fade-up 1.2s 0.4s ease-out forwards, titleGlow 4s 1.5s ease-in-out infinite;
+}
+@keyframes titleGlow {
+  0%, 100% { filter: drop-shadow(0 0 24px rgba(255, 79, 139, 0.4)) drop-shadow(0 0 48px rgba(255, 79, 139, 0.2)); }
+  50%      { filter: drop-shadow(0 0 32px rgba(255, 79, 139, 0.6)) drop-shadow(0 0 64px rgba(255, 79, 139, 0.3)); }
 }
 .hero-subtitle {
   color: var(--text-soft);
@@ -261,16 +298,23 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   text-align: center;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 0 24px rgba(255, 79, 139, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.counter-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 32px rgba(255, 79, 139, 0.2);
 }
 .counter-num {
   display: block;
   font-size: clamp(22px, 6vw, 32px);
-  font-weight: 600;
-  background: var(--gradient);
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffb3d1 0%, #ff4f8b 60%, #ff8eb4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   font-variant-numeric: tabular-nums;
+  filter: drop-shadow(0 0 8px rgba(255, 79, 139, 0.3));
 }
 .counter-label {
   display: block;
