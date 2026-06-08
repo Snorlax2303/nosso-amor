@@ -145,11 +145,11 @@ function renderTimeline() {
     if (container) container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">Em breve, nossos marcos 💕</p>';
     return;
   }
-  // Ordena por data
+  // Ordena por data (campo data é só pra ordenação; usa dataLabel na exibição)
   const ordenados = [...MARCOS].sort((a, b) => new Date(a.data) - new Date(b.data));
   container.innerHTML = ordenados.map(m => `
     <div class="timeline-item">
-      <div class="timeline-date">${formatarData(m.data)}</div>
+      <div class="timeline-date">${m.dataLabel || formatarData(m.data)}</div>
       <h3 class="timeline-title">${m.titulo}</h3>
       <p class="timeline-text">${m.texto}</p>
       ${m.imagem ? `<img class="timeline-img" src="${m.imagem}" alt="${m.titulo}" loading="lazy" />` : ''}
