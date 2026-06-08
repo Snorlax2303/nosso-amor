@@ -2,7 +2,7 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v3';  // bump version pra invalidar cache antigo
+const CACHE_NAME = 'nosso-amor-v4';  // bump version pra invalidar cache antigo
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

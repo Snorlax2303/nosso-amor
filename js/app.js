@@ -97,6 +97,7 @@ function initApp() {
   initPresente();
   startContador();
   criarCoracoes();
+  initBackToTop();
   initLightbox();
   initMusicFab();
   initSecret();
@@ -372,6 +373,26 @@ function initSecret() {
 }
 
 // ============================================
+// Back to top — aparece ao rolar, scroll suave
+// ============================================
+function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+  let visible = false;
+  const toggle = () => {
+    const shouldShow = window.scrollY > 400;
+    if (shouldShow !== visible) {
+      visible = shouldShow;
+      btn.classList.toggle('visible', visible);
+    }
+  };
+  window.addEventListener('scroll', toggle, { passive: true });
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  toggle();
+}
+
 // BOOT
 // ============================================
 window.addEventListener('DOMContentLoaded', () => {
