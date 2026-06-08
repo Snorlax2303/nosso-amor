@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Nosso Amor ♡</title>
   <meta name="description" content="Um cantinho só nosso ♡" />
+  <meta name="theme-color" content="#ff4f8b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Nosso Amor" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="./icons/icon-192.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -61,13 +68,26 @@
       <div class="scroll-cue" aria-hidden="true">↓ desce</div>
     </section>
 
-    <!-- 2. MENSAGEM DO DIA -->
+    <!-- 2. MENSAGEM DO DIA (caixa de presente 3D) -->
     <section class="section reveal" id="section-msg">
       <div class="container">
-        <div class="daily-msg">
-          <span class="daily-tag">Mensagem de hoje</span>
-          <p class="daily-text" id="daily-text">Carregando...</p>
-          <span class="daily-date" id="daily-date"></span>
+        <div class="gift-scene">
+          <div class="gift-box" id="gift-box" role="button" tabindex="0" aria-label="Abrir presente">
+            <span class="gift-sparkle">✨</span>
+            <span class="gift-sparkle">💖</span>
+            <span class="gift-sparkle">✨</span>
+            <span class="gift-sparkle">💕</span>
+            <div class="gift-bow"></div>
+            <div class="gift-lid"></div>
+            <div class="gift-body"></div>
+            <div class="gift-ribbon-v"></div>
+          </div>
+          <p class="gift-hint" id="gift-hint">Toque no presente pra abrir ♡</p>
+          <div class="gift-card" id="gift-card">
+            <span class="daily-tag">Mensagem de hoje</span>
+            <p class="daily-text" id="daily-text"></p>
+            <span class="daily-date" id="daily-date"></span>
+          </div>
         </div>
       </div>
     </section>
@@ -158,5 +178,14 @@
   <script src="./js/mensagens.js"></script>
   <script src="./js/carta.js"></script>
   <script src="./js/app.js"></script>
+
+  <!-- Service Worker (PWA) -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').catch(err => console.warn('SW falhou:', err));
+      });
+    }
+  </script>
 </body>
 </html>

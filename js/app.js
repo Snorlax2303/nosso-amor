@@ -94,6 +94,7 @@ function initApp() {
   renderGaleria();
   renderCarta();
   renderMensagemDoDia();
+  initPresente();
   startContador();
   criarCoracoes();
   initLightbox();
@@ -284,15 +285,58 @@ function toggleMusica() {
 }
 
 // ============================================
-// 9. Mensagem do dia
+// 9. Mensagem do dia — caixa de presente 3D
 // ============================================
+let mensagemDoDiaCache = null;
+let presenteAberto = false;
+
 function renderMensagemDoDia() {
   if (typeof getMensagemDoDia !== 'function') return;
-  const msg = getMensagemDoDia();
-  document.getElementById('daily-text').textContent = msg;
+  mensagemDoDiaCache = getMensagemDoDia();
+  // Guarda a data também
   document.getElementById('daily-date').textContent = new Date().toLocaleDateString('pt-BR', {
     weekday: 'long', day: '2-digit', month: 'long', year: 'numeric'
   });
+}
+
+function initPresente() {
+  const box = document.getElementById('gift-box');
+  const card = document.getElementById('gift-card');
+  const text = document.getElementById('daily-text');
+  const hint = document.getElementById('gift-hint');
+  if (!box) return;
+
+  const abrir = () => {
+    if (presenteAberto) return;
+    presenteAberto = true;
+    box.classList.add('opened');
+    hint.style.display = 'none';
+    // depois da animação, mostra o card
+    setTimeout(() => {
+      card.classList.add('visible');
+      // digita a mensagem letra a letra
+      typeMessage(text, mensagemDoDiaCache || 'Te amo. ♡', 35);
+    }, 900);
+  };
+
+  box.addEventListener('click', abrir);
+  box.addEventListener('keypress', e => { if (e.key === 'Enter' || e.key === ' ') abrir(); });
+}
+
+function typeMessage(el, msg, speed) {
+  el.textContent = '';
+  el.classList.add('typing');
+  let i = 0;
+  const tick = () => {
+    if (i <= msg.length) {
+      el.textContent = msg.slice(0, i);
+      i++;
+      setTimeout(tick, speed);
+    } else {
+      el.classList.remove('typing');
+    }
+  };
+  tick();
 }
 
 // ============================================
