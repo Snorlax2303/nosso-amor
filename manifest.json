@@ -1,12 +1,12 @@
 {
-  "name": "Nosso Amor ♡",
+  "name": "Nosso Amor ✦",
   "short_name": "Nosso Amor",
-  "description": "Pra você, com todo meu amor — Rafael & Fernanda",
+  "description": "Pra você, com todo meu amor — Rafael & Fernanda — escrito nas estrelas",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#0e0810",
-  "theme_color": "#ff4f8b",
+  "background_color": "#06060f",
+  "theme_color": "#06060f",
   "icons": [
     {
       "src": "/icons/icon-192.png",
