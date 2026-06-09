@@ -2,7 +2,7 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v13';  // v13: 📸 18 fotos reais (galeria + floaters + capa do contador)
+const CACHE_NAME = 'nosso-amor-v14';  // v14: 🦊🐛 fix: capa = floater-1 (selfie da Fernanda) em vez de familia-lago (que era só o casal no carro); removeu floater-1 dos FLOATERS pra não duplicar
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

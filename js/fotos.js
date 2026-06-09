@@ -5,11 +5,11 @@
 // ============================================
 
 const FOTOS = [
-  // 1. Capa do contador (família) — vem primeiro
+  // 1. Capa do contador — selfie linda da Fernanda (a primeira que aparece no hero)
   {
-    url: "./assets/fotos/medium/familia-lago.webp",
-    thumb: "./assets/fotos/thumb/familia-lago.webp",
-    legenda: "Família completa ❤️",
+    url: "./assets/fotos/medium/floater-1.webp",
+    thumb: "./assets/fotos/thumb/floater-1.webp",
+    legenda: "Minha princesa 🥹",
     capa: true,  // <-- usada como background do contador
     pos: { top: "4%", left: "6%", rot: -7 },
     size: { w: 220, h: 280 },
@@ -113,22 +113,19 @@ const FOTOS_ESPECIAIS = {};
 // ============================================
 // FLOATERS — Selfies só dela, espalhadas pela página
 // Dr. pediu: 2-3 selfies só dela viram floaters
-// Não abrem lightbox, só decoram o scroll
+// floater-1 virou CAPA do contador (não pode duplicar)
 // ============================================
 const FLOATERS = [
   // Hero / topo — primeira impressão
-  { url: "./assets/fotos/medium/floater-1.webp", rot: -12, top: "8%",   left: "3%",   size: { w: 140, h: 180 }, tape: "tl", op: 0.85 },
-  { url: "./assets/fotos/medium/floater-2.webp", rot: 9,   top: "5%",   right: "4%",  size: { w: 130, h: 170 }, tape: "tr", op: 0.8  },
+  { url: "./assets/fotos/medium/floater-2.webp", rot: -12, top: "8%",   left: "3%",   size: { w: 140, h: 180 }, tape: "tl", op: 0.85 },
+  { url: "./assets/fotos/medium/floater-3.webp", rot: 9,   top: "5%",   right: "4%",  size: { w: 130, h: 170 }, tape: "tr", op: 0.8  },
 
   // Contador / meio do hero
-  { url: "./assets/fotos/medium/floater-3.webp", rot: -7,  top: "22%",  right: "20%", size: { w: 110, h: 150 }, tape: "tr", op: 0.7  },
+  { url: "./assets/fotos/medium/floater-4.webp", rot: -7,  top: "22%",  right: "20%", size: { w: 110, h: 150 }, tape: "tr", op: 0.7  },
 
   // Pacote / presente
-  { url: "./assets/fotos/medium/floater-4.webp", rot: 11,  top: "40%",  left: "6%",   size: { w: 145, h: 185 }, tape: "tl", op: 0.8  },
+  { url: "./assets/fotos/medium/floater-5.webp", rot: 11,  top: "40%",  left: "6%",   size: { w: 145, h: 185 }, tape: "tl", op: 0.8  },
 
   // Timeline início
-  { url: "./assets/fotos/medium/floater-5.webp", rot: -10, top: "55%",  right: "5%",  size: { w: 135, h: 175 }, tape: "tr", op: 0.7  },
-
-  // Galeria / final
-  { url: "./assets/fotos/medium/floater-6.webp", rot: 8,   top: "78%",  left: "2%",   size: { w: 130, h: 170 }, tape: "tl", op: 0.75 }
+  { url: "./assets/fotos/medium/floater-6.webp", rot: -10, top: "55%",  right: "5%",  size: { w: 135, h: 175 }, tape: "tr", op: 0.7  }
 ];
