@@ -76,7 +76,29 @@
       <div class="scroll-cue" aria-hidden="true">↓ desce</div>
     </section>
 
-    <!-- 2. MENSAGEM DO DIA (ícone 3D do pacote — rosa #FF4F64) -->
+    <!-- 2. PLAYER DE MÚSICA (estilo Spotify, card fixo no hero) -->
+    <section class="section reveal" id="section-player">
+      <div class="container">
+        <div class="spotify-player" id="spotify-player">
+          <div class="spotify-cover" id="spotify-cover">
+            <img id="spotify-img" src="" alt="" />
+            <div class="spotify-cover-fallback" id="spotify-fallback">🎵</div>
+          </div>
+          <div class="spotify-info" id="spotify-info" style="flex:1;min-width:0;">
+            <div class="spotify-title" id="spotify-title">Tocando música...</div>
+            <div class="spotify-artist" id="spotify-artist">—</div>
+          </div>
+          <div class="spotify-controls">
+            <button class="spotify-btn" id="spotify-prev" title="Anterior">⏮</button>
+            <button class="spotify-btn spotify-play" id="spotify-play" title="Play/Pause">▶</button>
+            <button class="spotify-btn" id="spotify-next" title="Próxima">⏭</button>
+          </div>
+        </div>
+        <div class="spotify-progress" id="spotify-progress-bar">
+          <div class="spotify-progress-fill" id="spotify-fill"></div>
+        </div>
+      </div>
+    </section>
     <section class="section reveal" id="section-msg">
       <div class="container">
         <div class="gift-scene">

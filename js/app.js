@@ -100,6 +100,7 @@ function initApp() {
   initBackToTop();
   initLightbox();
   initMusicFab();
+  initSpotifyButtons();
   initSecret();
 
   // Música aleatória a cada visita
@@ -241,7 +242,7 @@ function atualizarLightbox() {
 }
 
 // ============================================
-// 8. Música — botão flutuante (FAB) + aleatoriedade
+// 8. Música — Player Spotify (novo) + FAB (compatível)
 // ============================================
 function initMusicFab() {
   const fab = document.getElementById('music-fab');
@@ -251,14 +252,12 @@ function initMusicFab() {
 
 function tocarMusicaAleatoria() {
   if (!MUSICAS || !MUSICAS.length) return;
-  // Sorteia um índice diferente do anterior (se houver mais de 1)
   let novoIdx;
   if (MUSICAS.length === 1) {
     novoIdx = 0;
   } else {
-    do {
-      novoIdx = Math.floor(Math.random() * MUSICAS.length);
-    } while (novoIdx === ambientMusicIdx);
+    do { novoIdx = Math.floor(Math.random() * MUSICAS.length); }
+    while (novoIdx === ambientMusicIdx);
   }
   ambientMusicIdx = novoIdx;
   tocarMusica(novoIdx);
@@ -272,41 +271,99 @@ function tocarMusica(idx) {
   const iframe = document.getElementById('ap-iframe');
   iframe.src = `https://www.youtube.com/embed/${m.youtubeId}?autoplay=1&loop=1&playlist=${m.youtubeId}&enablejsapi=1`;
   ambientPlaying = true;
+  // FAB
   const fab = document.getElementById('music-fab');
   const icon = document.getElementById('music-fab-icon');
   if (fab) fab.classList.remove('paused');
   if (icon) icon.textContent = '🎵';
-  fab.setAttribute('title', `Tocando: ${m.titulo} - ${m.artista}`);
+  if (fab) fab.setAttribute('title', `Tocando: ${m.titulo} - ${m.artista}`);
+  // Spotify player
+  updateSpotifyPlayer(m, true);
 }
 
 function toggleMusica() {
+  const iframe = document.getElementById('ap-iframe');
   const fab = document.getElementById('music-fab');
   const icon = document.getElementById('music-fab-icon');
-  const iframe = document.getElementById('ap-iframe');
   if (ambientPlaying) {
-    // Pausar: esvazia o src (YouTube para de tocar)
     iframe.src = '';
     ambientPlaying = false;
-    fab.classList.add('paused');
-    icon.textContent = '🔇';
-    fab.setAttribute('title', 'Tocar música');
+    if (fab) { fab.classList.add('paused'); fab.setAttribute('title', 'Tocar música'); }
+    if (icon) icon.textContent = '🔇';
+    updateSpotifyPlayer(null, false);
   } else {
-    // Tocar de novo: valida se o currentMusicId ainda existe na playlist atual
-    // (proteção contra cache antigo do SW)
     const idValido = currentMusicId && MUSICAS && MUSICAS.some(m => m.youtubeId === currentMusicId);
     if (idValido) {
       iframe.src = `https://www.youtube.com/embed/${currentMusicId}?autoplay=1&loop=1&playlist=${currentMusicId}&enablejsapi=1`;
       ambientPlaying = true;
-      fab.classList.remove('paused');
-      icon.textContent = '🎵';
+      if (fab) { fab.classList.remove('paused'); }
+      if (icon) icon.textContent = '🎵';
       const m = MUSICAS.find(x => x.youtubeId === currentMusicId);
-      fab.setAttribute('title', `Pausar música: ${m.titulo} - ${m.artista}`);
+      if (fab && m) fab.setAttribute('title', `Pausar música: ${m.titulo} - ${m.artista}`);
+      updateSpotifyPlayer(m, true);
     } else {
-      // ID inválido (cache antigo): sorteia uma nova
       tocarMusicaAleatoria();
       return;
     }
   }
+}
+
+// ===== Spotify Player =====
+function updateSpotifyPlayer(musica, playing) {
+  const cover = document.getElementById('spotify-img');
+  const title = document.getElementById('spotify-title');
+  const artist = document.getElementById('spotify-artist');
+  const playBtn = document.getElementById('spotify-play');
+  const fill = document.getElementById('spotify-fill');
+  if (!title) return;
+
+  if (musica && playing) {
+    if (cover) { cover.src = musica.capa || ''; cover.style.display = 'block'; }
+    title.textContent = musica.titulo;
+    artist.textContent = musica.artista;
+    if (playBtn) playBtn.textContent = '⏸';
+    // Simula barra de progresso (fake, YT não expõe API via iframe simples)
+    iniciarProgressoFake();
+  } else {
+    if (cover) cover.style.display = 'none';
+    title.textContent = playing ? 'Tocando...' : 'Pausado';
+    artist.textContent = '—';
+    if (playBtn) playBtn.textContent = '▶';
+    if (fill) fill.style.width = '0%';
+    pararProgressoFake();
+  }
+}
+
+let progressoInterval = null;
+function iniciarProgressoFake() {
+  pararProgressoFake();
+  const fill = document.getElementById('spotify-fill');
+  if (!fill) return;
+  fill.style.width = '0%';
+  let w = 0;
+  progressoInterval = setInterval(() => {
+    w += 0.15;
+    if (w >= 95) { w = 0; } // reinicia
+    fill.style.width = w + '%';
+  }, 300);
+}
+function pararProgressoFake() {
+  if (progressoInterval) { clearInterval(progressoInterval); progressoInterval = null; }
+}
+
+function initSpotifyButtons() {
+  const prev = document.getElementById('spotify-prev');
+  const play = document.getElementById('spotify-play');
+  const next = document.getElementById('spotify-next');
+  if (prev) prev.addEventListener('click', () => {
+    ambientMusicIdx = (ambientMusicIdx - 1 + MUSICAS.length) % MUSICAS.length;
+    tocarMusica(ambientMusicIdx);
+  });
+  if (play) play.addEventListener('click', toggleMusica);
+  if (next) next.addEventListener('click', () => {
+    ambientMusicIdx = (ambientMusicIdx + 1) % MUSICAS.length;
+    tocarMusica(ambientMusicIdx);
+  });
 }
 
 // ============================================
