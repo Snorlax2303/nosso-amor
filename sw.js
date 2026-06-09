@@ -2,7 +2,7 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v11';  // v11: 📱 página /install.html com QR Code
+const CACHE_NAME = 'nosso-amor-v12';  // v12: 🦊 Maya companheira de página (scroll-track + walker + estados clinging/reading-letter)
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

@@ -992,25 +992,42 @@ body::after {
 }
 
 /* ============================================
-   🦊 MASCOTE RAPOSA MAYA
-   Fica no canto inferior direito, reage à página
+   🦊 MASCOTE RAPOSA MAYA — Companheira de Página
+   Posição controlada por JS (transform: translate3d)
+   Acompanha scroll + anda entre seções
    ============================================ */
 .mascot {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  top: 0;
+  left: 0;
   width: 90px;
   height: 90px;
   z-index: 50;
   cursor: pointer;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* O transform é controlado por JS via requestAnimationFrame */
+  will-change: transform;
   pointer-events: auto;
+  /* Tamanho base do "corpo" — usado pra estados (clinging, reading) */
+  --mascot-scale: 1;
+  transform-origin: center bottom;
+}
+
+.mascot .mascot-svg {
+  transition: filter 0.3s ease;
 }
 
 .mascot:hover {
-  transform: scale(1.08) translateY(-2px);
+  --mascot-scale: 1.08;
+}
+
+/* Lado preferido: ajusta sombra do "chão" pra dar sensação de luz */
+.mascot.side-left .mascot-shadow {
+  background: radial-gradient(ellipse at 70% 50%, rgba(0,0,0,0.22) 0%, transparent 70%);
+}
+.mascot.side-right .mascot-shadow {
+  background: radial-gradient(ellipse at 30% 50%, rgba(0,0,0,0.22) 0%, transparent 70%);
 }
 
 .mascot-svg {
@@ -1195,6 +1212,64 @@ body::after {
   transition: z-index 0s;
 }
 
+/* 🐾 ANDANDO — patinhas se mexendo (movimento lateral) */
+.mascot.walking .mascot-svg {
+  animation: mascot-walk-bob 0.5s ease-in-out infinite;
+}
+@keyframes mascot-walk-bob {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%      { transform: translateY(-6px) rotate(2deg); }
+}
+.mascot.walking .mascot-tail {
+  animation: mascot-tail-crazy 0.4s ease-in-out infinite;
+}
+
+/* 📎 PENDURADA NA POLAROID — vira "tecido" atravessando a foto */
+.mascot.clinging-polaroid .mascot-svg {
+  transform: scale(0.75) rotate(8deg);
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.4));
+}
+.mascot.clinging-polaroid .mascot-head {
+  animation: mascot-cling-peek 0.6s ease-in-out infinite;
+}
+@keyframes mascot-cling-peek {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  50%      { transform: translateX(6px) rotate(-10deg); }
+}
+.mascot.clinging-polaroid .mascot-tail {
+  animation: mascot-tail-crazy 0.5s ease-in-out infinite;
+}
+.mascot.clinging-polaroid .mascot-eyes ellipse {
+  animation: mascot-blink-fast 1.2s infinite;
+}
+
+/* 📜 LENDO CARTA — corpo inclinado, olhos semicerrados seguindo texto */
+.mascot.reading-letter .mascot-svg {
+  transform: scale(0.9) rotate(-12deg);
+}
+.mascot.reading-letter .mascot-head {
+  animation: mascot-reading 2.4s ease-in-out infinite;
+  transform-origin: 55px 45px;
+}
+@keyframes mascot-reading {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25%      { transform: translateY(-1px) rotate(-3deg); }
+  50%      { transform: translateY(0) rotate(0deg); }
+  75%      { transform: translateY(-1px) rotate(2deg); }
+}
+.mascot.reading-letter .mascot-eyes ellipse {
+  transform-origin: center;
+  animation: mascot-blink-slow 5s infinite;
+}
+@keyframes mascot-blink-slow {
+  0%, 95%, 100% { transform: scaleY(1); }
+  97%           { transform: scaleY(0.3); }
+}
+/* Quando tá lendo, olhinhos mais "fofos" — semicerrados o tempo todo */
+.mascot.reading-letter .mascot-eyes ellipse {
+  ry: 2.8;
+}
+
 /* ✨ Corações pulsando (idle longo) */
 .mascot.loving .mascot-svg {
   animation: mascot-love 0.8s ease-in-out 3;
@@ -1205,8 +1280,8 @@ body::after {
 }
 
 /* 📖 Segurando pergaminho (mensagem do dia) */
-.mascot.holding-scroll {
-  transform: translateX(-30px) translateY(10px) scale(0.85);
+.mascot.holding-scroll .mascot-svg {
+  transform: scale(0.85) rotate(-5deg);
 }
 .mascot.holding-scroll .mascot-head {
   animation: mascot-look-up 1.5s ease-in-out infinite;
