@@ -241,6 +241,20 @@ function renderGaleria() {
   container.querySelectorAll('.polaroid').forEach(el => {
     el.addEventListener('click', () => abrirLightbox(parseInt(el.dataset.idx)));
   });
+
+  // 📐 Calcula altura dinâmica da galeria pra todas as polaroides caberem
+  requestAnimationFrame(() => {
+    const galeria = container;
+    let maxBottom = 0;
+    container.querySelectorAll('.polaroid').forEach(el => {
+      const r = el.getBoundingClientRect();
+      const bottomRel = (r.bottom - galeria.getBoundingClientRect().top);
+      if (bottomRel > maxBottom) maxBottom = bottomRel;
+    });
+    if (maxBottom > 0) {
+      galeria.style.minHeight = (maxBottom + 80) + 'px'; // 80px de respiro
+    }
+  });
 }
 
 // ============================================

@@ -752,21 +752,22 @@ body::after {
 
 /* ============================================
    GALERIA — Polaroides espalhadas (scatter)
+   Altura calculada dinamicamente pelo JS
    ============================================ */
 .gallery {
   position: relative;
   width: 100%;
-  height: 720px;     /* altura "solta" pra acomodar polaroids flutuantes */
+  min-height: 1800px;     /* altura base — JS ajusta depois */
   margin: 0 auto;
   background:
     radial-gradient(circle at 20% 20%, rgba(255, 79, 100, 0.04) 0%, transparent 40%),
     radial-gradient(circle at 80% 70%, rgba(170, 130, 255, 0.04) 0%, transparent 40%);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  /* overflow visível pra polaroides grandes não cortarem */
 }
 
 @media (max-width: 768px) {
-  .gallery { height: 1400px; }  /* dobra altura no mobile pra caber */
+  .gallery { min-height: 1400px; }  /* altura base mobile */
 }
 
 /* Polaroid — card branco com sombra, levemente girado */
@@ -2444,4 +2445,314 @@ body::after {
   .wrapped-card { padding: 14px 10px; }
   .wrapped-big { font-size: 44px; }
   .wrapped-num { font-size: 22px; }
+}
+
+/* ============================================
+   🎨 BRINCADEIRAS — Lousa, Dado, Roleta, Baralho
+   ============================================ */
+.brinca-card {
+  background: linear-gradient(135deg, rgba(255, 245, 240, 0.04) 0%, rgba(255, 240, 245, 0.02) 100%);
+  border: 1px solid rgba(255, 107, 53, 0.15);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  margin: 32px 0;
+  backdrop-filter: blur(8px);
+}
+.brinca-titulo {
+  font-family: var(--font-display, serif);
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0 0 8px;
+  color: var(--primary, #FF6B35);
+}
+.brinca-desc {
+  font-size: 15px;
+  color: var(--text-muted, #9a8d80);
+  margin: 0 0 24px;
+}
+
+/* === LOUSA === */
+.lousa-wrap {
+  position: relative;
+  background: #fff5ec;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 4px #2c1810, 0 4px 20px rgba(0,0,0,0.3);
+  margin-bottom: 16px;
+}
+.lousa-canvas {
+  display: block;
+  width: 100%;
+  height: 400px;
+  touch-action: none;        /* desabilita scroll durante desenho no mobile */
+  cursor: crosshair;
+}
+.lousa-controles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+.lousa-cores {
+  display: flex;
+  gap: 6px;
+}
+.lousa-color {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.lousa-color:hover { transform: scale(1.15); }
+.lousa-color.active {
+  border-color: #fff;
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px var(--primary, #FF6B35);
+}
+.lousa-tamanho {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted, #9a8d80);
+}
+.lousa-tamanho input[type=range] {
+  width: 100px;
+  accent-color: var(--primary, #FF6B35);
+}
+.lousa-acoes {
+  display: flex;
+  gap: 6px;
+}
+.lousa-btn {
+  background: rgba(255, 107, 53, 0.15);
+  border: 1px solid rgba(255, 107, 53, 0.3);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.lousa-btn:hover {
+  background: rgba(255, 107, 53, 0.3);
+  transform: translateY(-1px);
+}
+.lousa-btn.active {
+  background: var(--primary, #FF6B35);
+  border-color: var(--primary, #FF6B35);
+}
+.lousa-btn-danger:hover {
+  background: rgba(255, 23, 68, 0.3);
+  border-color: rgba(255, 23, 68, 0.5);
+}
+
+/* === DADO === */
+.dado-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 20px;
+}
+.dado-cube {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #fff 0%, #ffe8d4 100%);
+  border: 3px solid var(--primary, #FF6B35);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56px;
+  box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.dado-cube.rolling {
+  animation: dado-shake 0.1s linear infinite;
+}
+@keyframes dado-shake {
+  0%   { transform: rotate(0deg) scale(1); }
+  25%  { transform: rotate(15deg) scale(1.1); }
+  50%  { transform: rotate(-15deg) scale(0.95); }
+  75%  { transform: rotate(10deg) scale(1.05); }
+  100% { transform: rotate(0deg) scale(1); }
+}
+.dado-btn, .roleta-btn, .baralho-btn {
+  background: linear-gradient(135deg, var(--primary, #FF6B35), #FF1744);
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 14px 32px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 4px 16px rgba(255, 107, 53, 0.4);
+  font-family: inherit;
+}
+.dado-btn:hover, .roleta-btn:hover, .baralho-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.5);
+}
+.dado-result, .roleta-result {
+  font-family: var(--font-display, serif);
+  font-size: 22px;
+  color: var(--primary, #FF6B35);
+  min-height: 32px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+.dado-result.show, .roleta-result.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* === ROLETA === */
+.roleta-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+.roleta-canvas {
+  max-width: 100%;
+  height: auto;
+  filter: drop-shadow(0 8px 24px rgba(0,0,0,0.4));
+}
+
+/* === BARALHO === */
+.baralho-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: 30px 20px;
+}
+.baralho-cena {
+  position: relative;
+  width: 220px;
+  height: 320px;
+  perspective: 1000px;
+}
+.baralho-carta {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform-origin: center;
+  width: 180px;
+  height: 260px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #fff 0%, #fff5ec 100%);
+  border: 2px solid var(--primary, #FF6B35);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  font-family: inherit;
+}
+.baralho-carta.verso {
+  background: linear-gradient(135deg, #2c1810 0%, #4a2c1a 100%);
+  color: #fff;
+  border-color: #b8865f;
+}
+.baralho-pilha .baralho-carta.verso {
+  z-index: 1;
+}
+.baralho-carta.frente {
+  transform: translateX(-50%) rotateY(0deg);
+  z-index: 10;
+}
+.baralho-carta.virada {
+  transform: translateX(-50%) rotateY(180deg);
+  z-index: 10;
+}
+.baralho-verso {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font-family: var(--font-display, serif);
+}
+.baralho-pattern {
+  font-size: 36px;
+  letter-spacing: 4px;
+  color: rgba(255, 215, 170, 0.9);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+.baralho-coracao {
+  font-size: 32px;
+  animation: baralho-heart 1.5s ease-in-out infinite;
+}
+@keyframes baralho-heart {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+.baralho-frente {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #fff 0%, #fff8f3 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+  transform: rotateY(180deg);
+  backface-visibility: hidden;
+}
+.baralho-carta.virada .baralho-frente {
+  transform: rotateY(0deg);
+  animation: baralho-flip 0.6s ease-out;
+}
+.baralho-carta.virada .baralho-verso {
+  display: none;
+}
+.baralho-tipo {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+.tipo-pergunta   { background: #e3f2fd; color: #1976d2; }
+.tipo-acao       { background: #fff3e0; color: #f57c00; }
+.tipo-declaracao { background: #fce4ec; color: #c2185b; }
+.baralho-msg {
+  font-family: var(--font-display, serif);
+  font-size: 18px;
+  line-height: 1.4;
+  color: #2c1810;
+  margin: 0 0 16px;
+}
+.baralho-dica {
+  font-size: 10px;
+  color: rgba(44, 24, 16, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+@keyframes baralho-flip {
+  0%   { transform: rotateY(180deg) scale(0.9); }
+  50%  { transform: rotateY(90deg)  scale(1.05); }
+  100% { transform: rotateY(0deg)   scale(1); }
+}
+
+/* Mobile ajustes pras brincadeiras */
+@media (max-width: 768px) {
+  .brinca-card { padding: 24px 18px; margin: 24px 0; }
+  .brinca-titulo { font-size: 22px; }
+  .lousa-canvas { height: 280px; }
+  .lousa-controles { flex-direction: column; align-items: stretch; }
+  .lousa-tamanho input[type=range] { width: 100%; }
+  .roleta-canvas { width: 280px; height: 280px; }
 }

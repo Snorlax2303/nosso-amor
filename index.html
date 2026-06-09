@@ -239,6 +239,80 @@
       </div>
     </section>
 
+    <!-- ============================================ -->
+    <!-- 🎨 BRINCADEIRAS — Lousa + Dados + Roleta + Baralho -->
+    <!-- ============================================ -->
+    <section class="section reveal reveal-on-scroll" id="section-brincadeiras">
+      <div class="container">
+        <span class="section-eyebrow">🎨 Pra brincar juntos</span>
+        <h2 class="section-title">Aqui tem espaço pra gente se divertir</h2>
+        <p class="section-sub">Desenha, rola um dado, gira a roleta, puxa uma carta — eu fiz pra gente se conectar mais 💕</p>
+
+        <!-- 1. LOUSA -->
+        <div class="brinca-card" id="brinca-lousa">
+          <h3 class="brinca-titulo">✏️ Lousa nossa</h3>
+          <p class="brinca-desc">Desenha, escreve um bilhetinho, rabisca um coração. Fica salvo pra gente ver depois.</p>
+          <div class="lousa-wrap">
+            <canvas id="lousa-canvas" class="lousa-canvas" width="600" height="400"></canvas>
+          </div>
+          <div class="lousa-controles">
+            <div class="lousa-cores">
+              <button class="lousa-color active" data-color="#FF6B35" style="background:#FF6B35" title="Laranja"></button>
+              <button class="lousa-color" data-color="#FF1744" style="background:#FF1744" title="Vermelho"></button>
+              <button class="lousa-color" data-color="#E91E63" style="background:#E91E63" title="Rosa"></button>
+              <button class="lousa-color" data-color="#9C27B0" style="background:#9C27B0" title="Roxo"></button>
+              <button class="lousa-color" data-color="#2196F3" style="background:#2196F3" title="Azul"></button>
+              <button class="lousa-color" data-color="#4CAF50" style="background:#4CAF50" title="Verde"></button>
+              <button class="lousa-color" data-color="#000000" style="background:#000000" title="Preto"></button>
+              <button class="lousa-color" data-color="#795548" style="background:#795548" title="Marrom"></button>
+            </div>
+            <div class="lousa-tamanho">
+              <label>Pincel: <span id="lousa-size-val">4px</span></label>
+              <input type="range" id="lousa-size" min="1" max="20" value="4" />
+            </div>
+            <div class="lousa-acoes">
+              <button class="lousa-btn" id="lousa-eraser" title="Borracha">🧽</button>
+              <button class="lousa-btn" id="lousa-save" title="Salvar como PNG">💾</button>
+              <button class="lousa-btn lousa-btn-danger" id="lousa-clear" title="Apagar tudo">🗑️</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. DADO -->
+        <div class="brinca-card" id="brinca-dado">
+          <h3 class="brinca-titulo">🎲 Dado do casal</h3>
+          <p class="brinca-desc">Rola o dado e vê o que a sorte manda fazer agora.</p>
+          <div class="dado-wrap">
+            <div class="dado-cube" id="dado-face">🎲</div>
+            <button class="dado-btn" id="dado-btn">Rolar dado</button>
+            <div class="dado-result" id="dado-result"></div>
+          </div>
+        </div>
+
+        <!-- 3. ROLETA -->
+        <div class="brinca-card" id="brinca-roleta">
+          <h3 class="brinca-titulo">🎡 Roleta romântica</h3>
+          <p class="brinca-desc">Gira e deixa o destino escolher o que a gente faz.</p>
+          <div class="roleta-wrap">
+            <canvas id="roleta-canvas" class="roleta-canvas" width="320" height="320"></canvas>
+            <button class="roleta-btn" id="roleta-btn">Girar roleta</button>
+            <div class="roleta-result" id="roleta-result"></div>
+          </div>
+        </div>
+
+        <!-- 4. BARALHO -->
+        <div class="brinca-card" id="brinca-baralho">
+          <h3 class="brinca-titulo">🃏 Baralho de perguntas</h3>
+          <p class="brinca-desc">Puxa uma carta e responde (ou faz o que tá escrito). Restaantes: <span id="baralho-restantes">12</span></p>
+          <div class="baralho-wrap">
+            <div class="baralho-cena" id="baralho"></div>
+            <button class="baralho-btn" id="baralho-puxar">Puxar carta</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
     <footer class="app-footer">
       <p>Feito com ♡ pra você · <span id="year"></span></p>
       <p class="footer-links">
@@ -299,6 +373,7 @@
   <script src="./js/mensagens.js"></script>
   <script src="./js/carta.js"></script>
   <script src="./js/app.js"></script>
+  <script src="./js/brincadeiras.js"></script>
 
   <!-- Service Worker (PWA) -->
   <script>
