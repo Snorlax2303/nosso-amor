@@ -992,6 +992,265 @@ body::after {
 }
 
 /* ============================================
+   🦊 MASCOTE RAPOSA MAYA
+   Fica no canto inferior direito, reage à página
+   ============================================ */
+.mascot {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 90px;
+  height: 90px;
+  z-index: 50;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: auto;
+}
+
+.mascot:hover {
+  transform: scale(1.08) translateY(-2px);
+}
+
+.mascot-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+/* Cabeça: leve movimento de "respirar" (idle) */
+.mascot-head {
+  transform-origin: 55px 45px;
+  animation: mascot-breathe 3s ease-in-out infinite;
+}
+
+@keyframes mascot-breathe {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50%      { transform: translateY(-1.5px) scale(1.02); }
+}
+
+/* Rabo: balança suavemente */
+.mascot-tail {
+  transform-origin: 95px 75px;
+  animation: mascot-tail 2.5s ease-in-out infinite;
+}
+
+@keyframes mascot-tail {
+  0%, 100% { transform: rotate(-5deg); }
+  50%      { transform: rotate(8deg); }
+}
+
+/* Olhos: piscam a cada ~4s */
+.mascot-eyes ellipse {
+  transform-origin: center;
+  animation: mascot-blink 4s infinite;
+}
+.mascot-eyes ellipse:nth-child(2) {
+  animation-delay: 0.05s;
+}
+@keyframes mascot-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95%, 97%      { transform: scaleY(0.1); }
+}
+
+/* Tooltip */
+.mascot-tooltip {
+  position: absolute;
+  bottom: 100%;
+  right: 0;
+  margin-bottom: 10px;
+  background: rgba(15, 17, 23, 0.95);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-family: var(--font-body);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(8px) scale(0.9);
+  transition: opacity 0.3s, transform 0.3s;
+  border: 1px solid rgba(255, 107, 53, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+.mascot-tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  right: 18px;
+  width: 12px;
+  height: 12px;
+  background: rgba(15, 17, 23, 0.95);
+  border-right: 1px solid rgba(255, 107, 53, 0.4);
+  border-bottom: 1px solid rgba(255, 107, 53, 0.4);
+  transform: rotate(45deg);
+}
+.mascot:hover .mascot-tooltip,
+.mascot.show-tooltip .mascot-tooltip {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Corações saindo ao clicar */
+.mascot-hearts {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.mascot-heart {
+  position: absolute;
+  font-size: 18px;
+  pointer-events: none;
+  animation: mascot-heart-fly 1.4s ease-out forwards;
+}
+@keyframes mascot-heart-fly {
+  0%   { opacity: 1; transform: translate(0, 0) scale(0.5) rotate(0deg); }
+  50%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx, 0), -60px) scale(1.2) rotate(var(--dr, 20deg)); }
+}
+
+/* ============== ESTADOS (classes que o JS adiciona) ============== */
+
+/* 🦘 Pulo de surpresa (pacote abre) */
+.mascot.surprised {
+  animation: mascot-surprise 0.7s ease-out;
+}
+@keyframes mascot-surprise {
+  0%   { transform: translateY(0) scale(1); }
+  30%  { transform: translateY(-30px) scale(1.1, 0.9); }
+  60%  { transform: translateY(0) scale(0.95, 1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+.mascot.surprised .mascot-eyebrows { display: block !important; }
+
+/* 💃 Dançando (música tocando) */
+.mascot.dancing .mascot-svg {
+  animation: mascot-dance 0.6s ease-in-out infinite;
+}
+@keyframes mascot-dance {
+  0%, 100% { transform: rotate(-8deg) translateY(0); }
+  25%      { transform: rotate(8deg) translateY(-8px); }
+  50%      { transform: rotate(-8deg) translateY(0); }
+  75%      { transform: rotate(8deg) translateY(-8px); }
+}
+.mascot.dancing .mascot-tail {
+  animation: mascot-tail-crazy 0.4s ease-in-out infinite;
+}
+@keyframes mascot-tail-crazy {
+  0%, 100% { transform: rotate(-20deg); }
+  50%      { transform: rotate(25deg); }
+}
+.mascot.dancing .mascot-eyes ellipse {
+  animation: mascot-blink-fast 0.8s infinite;
+}
+@keyframes mascot-blink-fast {
+  0%, 100% { transform: scaleY(1); }
+  90%      { transform: scaleY(0.1); }
+}
+
+/* 😴 Dormindo */
+.mascot.sleeping .mascot-eyes ellipse { display: none; }
+.mascot.sleeping .mascot-eyes::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 8px;
+  /* fallback simples - usar text via SVG seria melhor, mas mantém a vibe */
+}
+.mascot.sleeping .mascot-mouth {
+  d: path("M 50 55 Q 55 56 60 55");
+}
+.mascot.sleeping {
+  opacity: 0.85;
+}
+.mascot.sleeping .mascot-svg {
+  animation: mascot-sleep 4s ease-in-out infinite;
+}
+@keyframes mascot-sleep {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(2px) rotate(-1deg); }
+}
+.mascot.sleeping::before {
+  content: '💤';
+  position: absolute;
+  top: -8px;
+  right: 4px;
+  font-size: 18px;
+  animation: mascot-zzz 2s ease-in-out infinite;
+}
+@keyframes mascot-zzz {
+  0%   { opacity: 0; transform: translate(0, 0) scale(0.8); }
+  50%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(10px, -20px) scale(1.2); }
+}
+
+/* 👀 Escondido atrás de polaroid (z-index game) */
+.mascot.behind-polaroid {
+  z-index: 0;
+  transition: z-index 0s;
+}
+
+/* ✨ Corações pulsando (idle longo) */
+.mascot.loving .mascot-svg {
+  animation: mascot-love 0.8s ease-in-out 3;
+}
+@keyframes mascot-love {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.15); }
+}
+
+/* 📖 Segurando pergaminho (mensagem do dia) */
+.mascot.holding-scroll {
+  transform: translateX(-30px) translateY(10px) scale(0.85);
+}
+.mascot.holding-scroll .mascot-head {
+  animation: mascot-look-up 1.5s ease-in-out infinite;
+}
+@keyframes mascot-look-up {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(-15deg) translateY(-2px); }
+}
+
+/* 🔍 Cutucando foto (hover em polaroid) */
+.mascot.peeking {
+  transform: translateX(-40px) scale(0.7);
+  opacity: 0.95;
+}
+.mascot.peeking .mascot-head {
+  animation: mascot-peek 0.8s ease-in-out infinite;
+}
+@keyframes mascot-peek {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(10px); }
+}
+
+/* Mobile: mascote menor e mais embaixo */
+@media (max-width: 768px) {
+  .mascot {
+    width: 64px;
+    height: 64px;
+    bottom: 16px;
+    right: 16px;
+  }
+  .mascot-tooltip {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
+}
+
+/* Acessibilidade: prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .mascot, .mascot-svg, .mascot-head, .mascot-tail, .mascot-eyes ellipse {
+    animation: none !important;
+  }
+}
+
+/* ============================================
    LIGHTBOX
    ============================================ */
 .lightbox {

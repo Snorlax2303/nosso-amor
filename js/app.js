@@ -320,10 +320,14 @@ function abrirStories(idx) {
   setTimeout(() => document.getElementById('stories-hint').style.opacity = '0', 2000);
   // Barra de progresso
   iniciarStoriesProgresso();
+  // 🦊 Avisa o mascote
+  document.dispatchEvent(new CustomEvent('stories:aberto', { detail: { idx } }));
 }
 function fecharStories() {
   document.getElementById('stories-overlay').style.display = 'none';
   pararStoriesProgresso();
+  // 🦊 Avisa o mascote
+  document.dispatchEvent(new CustomEvent('stories:fechado'));
 }
 function navegarStories(delta) {
   storiesIdx = (storiesIdx + delta + FOTOS.length) % FOTOS.length;
@@ -430,6 +434,11 @@ function updateSpotifyPlayer(musica, playing) {
   const fill = document.getElementById('spotify-fill');
   if (!title) return;
 
+  // 🦊 Avisa o mascote que a música mudou de estado
+  document.dispatchEvent(new CustomEvent(playing ? 'musica:tocando' : 'musica:pausada', {
+    detail: { musica }
+  }));
+
   if (musica && playing) {
     if (cover) { cover.src = musica.capa || ''; cover.style.display = 'block'; }
     title.textContent = musica.titulo;
@@ -507,11 +516,17 @@ function initPresente() {
     // Efeito: pacote "explode" pra cima com partículas (estilo unboxing)
     box.classList.add('opened');
     hint.style.display = 'none';
+    // 🦊 Avisa o mascote que presente abriu
+    document.dispatchEvent(new CustomEvent('presente:aberto'));
     // depois da animação, mostra o card
     setTimeout(() => {
       card.classList.add('visible');
       // digita a mensagem letra a letra
       typeMessage(text, mensagemDoDiaCache || 'Te amo. ♡', 35);
+      // 🦊 Avisa que mensagem está aberta (mascote segura o pergaminho)
+      setTimeout(() => {
+        document.dispatchEvent(new CustomEvent('mensagem:aberta'));
+      }, 500);
     }, 1100);
   };
 
