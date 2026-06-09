@@ -1234,6 +1234,36 @@ body::after {
   pointer-events: auto;
 }
 
+/* === Reveal on scroll (timeline + gallery + sections) === */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal-on-scroll.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* Stagger: cada item consecutivo revela um pouco depois */
+.timeline-item:nth-child(1) { transition-delay: 0.05s; }
+.timeline-item:nth-child(2) { transition-delay: 0.15s; }
+.timeline-item:nth-child(3) { transition-delay: 0.25s; }
+.timeline-item:nth-child(4) { transition-delay: 0.35s; }
+.timeline-item:nth-child(5) { transition-delay: 0.45s; }
+.timeline-item:nth-child(6) { transition-delay: 0.55s; }
+.timeline-item:nth-child(7) { transition-delay: 0.65s; }
+.timeline-item:nth-child(8) { transition-delay: 0.75s; }
+.timeline-item:nth-child(9) { transition-delay: 0.85s; }
+.gallery-item:nth-child(1) { transition-delay: 0.05s; }
+.gallery-item:nth-child(2) { transition-delay: 0.12s; }
+.gallery-item:nth-child(3) { transition-delay: 0.19s; }
+.gallery-item:nth-child(4) { transition-delay: 0.26s; }
+.gallery-item:nth-child(5) { transition-delay: 0.33s; }
+.gallery-item:nth-child(6) { transition-delay: 0.40s; }
+
+
+
 .daily-tag {
   display: inline-block;
   background: var(--gradient);

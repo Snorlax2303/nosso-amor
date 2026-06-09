@@ -102,6 +102,7 @@ function initApp() {
   initMusicFab();
   initSpotifyButtons();
   initSecret();
+  initRevealOnScroll();
 
   // Música aleatória a cada visita
   setTimeout(() => tocarMusicaAleatoria(), 1500);
@@ -168,16 +169,17 @@ function renderTimeline() {
     if (container) container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">Em breve, nossos marcos 💕</p>';
     return;
   }
-  // Ordena por data (campo data é só pra ordenação; usa dataLabel na exibição)
   const ordenados = [...MARCOS].sort((a, b) => new Date(a.data) - new Date(b.data));
-  container.innerHTML = ordenados.map(m => `
-    <div class="timeline-item">
+  container.innerHTML = ordenados.map((m, i) => `
+    <div class="timeline-item reveal-on-scroll" style="animation-delay: ${i * 0.1}s">
       <div class="timeline-date">${m.dataLabel || formatarData(m.data)}</div>
       <h3 class="timeline-title">${m.titulo}</h3>
       <p class="timeline-text">${m.texto}</p>
       ${m.imagem ? `<img class="timeline-img" src="${m.imagem}" alt="${m.titulo}" loading="lazy" />` : ''}
     </div>
   `).join('');
+  // Inicializa reveal no scroll
+  setTimeout(initRevealOnScroll, 200);
 }
 
 function formatarData(iso) {
@@ -196,7 +198,7 @@ function renderGaleria() {
     return;
   }
   container.innerHTML = FOTOS.map((f, i) => `
-    <div class="gallery-item" data-idx="${i}">
+    <div class="gallery-item reveal-on-scroll" data-idx="${i}">
       <img src="${f.url}" alt="${f.legenda}" loading="lazy" />
       <div class="gallery-caption">${f.legenda}</div>
     </div>
@@ -470,6 +472,25 @@ function initBackToTop() {
   });
   toggle();
 }
+
+
+// ============================================
+// 13. Reveal on scroll (IntersectionObserver)
+// ============================================
+function initRevealOnScroll() {
+  const items = document.querySelectorAll('.reveal-on-scroll');
+  if (!items.length) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+  items.forEach(el => observer.observe(el));
+}
+
 
 // BOOT
 // ============================================
