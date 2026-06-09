@@ -188,7 +188,7 @@ function formatarData(iso) {
 }
 
 // ============================================
-// 6. Galeria
+// 6. Galeria — Polaroides espalhadas (scatter style)
 // ============================================
 function renderGaleria() {
   const container = document.getElementById('gallery');
@@ -197,13 +197,38 @@ function renderGaleria() {
     container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">Em breve, nossas fotos 📸</p>';
     return;
   }
-  container.innerHTML = FOTOS.map((f, i) => `
-    <div class="gallery-item reveal-on-scroll" data-idx="${i}">
-      <img src="${f.url}" alt="${f.legenda}" loading="lazy" />
-      <div class="gallery-caption">${f.legenda}</div>
-    </div>
-  `).join('');
-  container.querySelectorAll('.gallery-item').forEach(el => {
+  container.innerHTML = FOTOS.map((f, i) => {
+    const p = f.pos || {};
+    const s = f.size || { w: 200, h: 260 };
+    const tape = f.tape || 'tl';
+    const cor = f.cor || 'rose';
+    // Constrói o position style a partir do objeto pos
+    const posStyle = [
+      p.top ? `top: ${p.top};` : '',
+      p.left ? `left: ${p.left};` : '',
+      p.right ? `right: ${p.right};` : '',
+      p.bottom ? `bottom: ${p.bottom};` : ''
+    ].filter(Boolean).join(' ');
+    return `
+      <div class="polaroid reveal-on-scroll cor-${cor} tape-${tape}"
+           data-idx="${i}"
+           style="${posStyle}
+                  --rot: ${p.rot || 0}deg;
+                  --w: ${s.w}px;
+                  --h: ${s.h}px;
+                  animation-delay: ${i * 0.18}s;">
+        <div class="polaroid-tape"></div>
+        <div class="polaroid-img">
+          <img src="${f.url}" alt="${f.legenda}" loading="lazy" />
+        </div>
+        <div class="polaroid-caption">
+          <span class="polaroid-legenda">${f.legenda}</span>
+          <span class="polaroid-data">${f.data || ''}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+  container.querySelectorAll('.polaroid').forEach(el => {
     el.addEventListener('click', () => abrirLightbox(parseInt(el.dataset.idx)));
   });
 }
@@ -216,7 +241,7 @@ let storiesStartX = 0;
 let storiesStartY = 0;
 
 function initStories() {
-  document.querySelectorAll('.gallery-item').forEach(el => {
+  document.querySelectorAll('.polaroid').forEach(el => {
     el.addEventListener('click', () => abrirStories(parseInt(el.dataset.idx)));
   });
   document.getElementById('stories-close').addEventListener('click', fecharStories);

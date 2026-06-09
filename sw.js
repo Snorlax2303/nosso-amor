@@ -2,7 +2,7 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v6';  // v6: contador 3x2 + pacote rosa SVG (gifft.me)
+const CACHE_NAME = 'nosso-amor-v7';  // v7: galeria polaroides scatter + Caveat font
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

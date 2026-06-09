@@ -391,6 +391,16 @@ body::after {
   letter-spacing: -0.01em;
 }
 
+.section-sub {
+  font-family: var(--font-display);
+  font-size: 17px;
+  color: var(--text-soft);
+  font-style: italic;
+  margin: -16px 0 36px;
+  letter-spacing: 0.01em;
+  opacity: 0.85;
+}
+
 /* Scroll reveal */
 .reveal {
   animation: fade-up linear both;
@@ -705,89 +715,197 @@ body::after {
 }
 
 /* ============================================
-   GALLERY — mosaico de fotos
+   GALERIA — Polaroides espalhadas (scatter)
    ============================================ */
 .gallery {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-}
-
-.gallery-item {
   position: relative;
-  border-radius: var(--radius-md);
+  width: 100%;
+  height: 720px;     /* altura "solta" pra acomodar polaroids flutuantes */
+  margin: 0 auto;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 79, 100, 0.04) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(170, 130, 255, 0.04) 0%, transparent 40%);
+  border-radius: var(--radius-lg);
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .gallery { height: 1400px; }  /* dobra altura no mobile pra caber */
+}
+
+/* Polaroid — card branco com sombra, levemente girado */
+.polaroid {
+  position: absolute;
+  width: var(--w);
+  height: var(--h);
+  background: #fdfbf6;
+  padding: 12px 12px 38px;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.25),
+    0 12px 30px rgba(0, 0, 0, 0.35),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+  border-radius: 3px;
   cursor: pointer;
-  border: 1px solid var(--border);
-  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
-              border-color 0.4s ease,
-              box-shadow 0.4s ease;
-  aspect-ratio: 1;
+  transform: rotate(var(--rot, 0deg));
+  transform-origin: center;
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.4s ease,
+    z-index 0s linear 0.4s;
+  z-index: 1;
+  animation: polaroid-drop 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  will-change: transform;
 }
 
-/* Varying aspect ratios for mosaic feel */
-.gallery-item:nth-child(3n+1) { aspect-ratio: 3/4; }
-.gallery-item:nth-child(3n+2) { aspect-ratio: 1/1; }
-.gallery-item:nth-child(3n+3) { aspect-ratio: 4/3; }
-
-.gallery-item:hover {
-  transform: scale(1.04);
-  border-color: var(--border-strong);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-  z-index: 2;
+@keyframes polaroid-drop {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--rot, 0deg)) translateY(-60px) scale(0.7);
+  }
+  60% {
+    opacity: 1;
+    transform: rotate(calc(var(--rot, 0deg) + 6deg)) translateY(0) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(var(--rot, 0deg)) translateY(0) scale(1);
+  }
 }
 
-.gallery-item img {
+.polaroid:hover {
+  z-index: 10;
+  transform: rotate(0deg) scale(1.12) translateY(-6px);
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.3),
+    0 25px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition:
+    transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.4s ease,
+    z-index 0s linear;
+}
+
+.polaroid:hover .polaroid-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.polaroid-img {
+  width: 100%;
+  height: calc(100% - 50px);
+  overflow: hidden;
+  border-radius: 1px;
+  background: #e8e3d8;
+  position: relative;
+}
+
+.polaroid-img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.5s ease;
+  display: block;
+  transition: filter 0.5s ease, transform 0.6s ease;
+  filter: saturate(0.92) contrast(1.02);
 }
 
-.gallery-item:hover img {
-  transform: scale(1.08);
+.polaroid:hover .polaroid-img img {
+  transform: scale(1.06);
+  filter: saturate(1.15) contrast(1.05);
 }
 
-.gallery-item .gallery-caption {
+/* Caption embaixo (estilo caneta na polaroid) */
+.polaroid-caption {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 28px 12px 10px;
-  background: linear-gradient(to top, rgba(6, 6, 15, 0.95) 0%, transparent 100%);
-  font-size: 12px;
-  color: var(--text-soft);
-  font-weight: 400;
+  bottom: 8px;
+  left: 12px;
+  right: 12px;
+  text-align: center;
+  font-family: 'Caveat', 'Comic Sans MS', cursive;
+  color: #4a3826;
+  line-height: 1.1;
+  pointer-events: none;
+}
+
+.polaroid-legenda {
+  display: block;
+  font-size: 17px;
+  font-weight: 600;
   letter-spacing: 0.01em;
-  transform: translateY(8px);
-  opacity: 0;
-  transition: transform 0.35s ease, opacity 0.35s ease;
 }
 
-.gallery-item:hover .gallery-caption {
-  transform: translateY(0);
-  opacity: 1;
+.polaroid-data {
+  display: block;
+  font-size: 12px;
+  color: #8a7560;
+  margin-top: 1px;
+  font-family: var(--font-body);
+  font-weight: 500;
 }
 
-.gallery-item.placeholder {
-  background: linear-gradient(135deg, var(--accent), #1a1a40);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--text);
-  font-family: var(--font-display);
-  font-size: 28px;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
-
-.gallery-item.placeholder::after {
-  content: '✦';
+/* Fita adesiva (washi tape) — canto superior */
+.polaroid-tape {
   position: absolute;
-  font-size: 50px;
-  opacity: 0.15;
-  bottom: -8px;
-  right: -8px;
-  color: var(--primary);
+  width: 70px;
+  height: 22px;
+  background: rgba(255, 235, 180, 0.65);
+  backdrop-filter: blur(1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+  border-left: 1px dashed rgba(0, 0, 0, 0.08);
+  border-right: 1px dashed rgba(0, 0, 0, 0.08);
+}
+
+.polaroid.tape-tl .polaroid-tape {
+  top: -10px;
+  left: -22px;
+  transform: rotate(-32deg);
+}
+
+.polaroid.tape-tr .polaroid-tape {
+  top: -10px;
+  right: -22px;
+  transform: rotate(28deg);
+}
+
+.polaroid.tape-tl .polaroid-tape::before,
+.polaroid.tape-tr .polaroid-tape::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent 0,
+    transparent 4px,
+    rgba(255, 255, 255, 0.2) 4px,
+    rgba(255, 255, 255, 0.2) 6px
+  );
+}
+
+/* Variações de cor da fita */
+.polaroid.cor-rose .polaroid-tape { background: rgba(255, 180, 200, 0.6); }
+.polaroid.cor-blue .polaroid-tape { background: rgba(180, 220, 255, 0.6); }
+.polaroid.cor-green .polaroid-tape { background: rgba(180, 230, 200, 0.6); }
+.polaroid.cor-warm .polaroid-tape { background: rgba(255, 200, 150, 0.65); }
+.polaroid.cor-lavender .polaroid-tape { background: rgba(210, 190, 255, 0.6); }
+
+/* Variação de moldura interna (efeito foto antiga) */
+.polaroid.cor-warm .polaroid-img img { filter: sepia(0.15) saturate(0.9); }
+.polaroid.cor-blue .polaroid-img img { filter: hue-rotate(-10deg) saturate(0.95); }
+.polaroid.cor-green .polaroid-img img { filter: saturate(0.85) brightness(1.04); }
+.polaroid.cor-lavender .polaroid-img img { filter: hue-rotate(15deg) saturate(0.95); }
+.polaroid.cor-rose .polaroid-img img { filter: saturate(1.1) contrast(1.02); }
+
+/* Mobile: ajusta o scatter pra caber melhor */
+@media (max-width: 768px) {
+  .polaroid {
+    transform: scale(0.7) rotate(var(--rot, 0deg));
+    transform-origin: center;
+  }
+  .polaroid:hover {
+    transform: scale(0.8) rotate(0deg);
+  }
+  .polaroid.tape-tl .polaroid-tape { left: -10px; }
+  .polaroid.tape-tr .polaroid-tape { right: -10px; }
 }
 
 /* ============================================
@@ -1237,14 +1355,16 @@ body::after {
 /* === Reveal on scroll (timeline + gallery + sections) === */
 .reveal-on-scroll {
   opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .reveal-on-scroll.revealed {
   opacity: 1;
   transform: translateY(0);
 }
+/* Polaroides têm seu próprio transform (rotate + scale) — sobrepõe */
+.polaroid.reveal-on-scroll { transform: rotate(var(--rot, 0deg)) translateY(40px); }
+.polaroid.reveal-on-scroll.revealed { transform: rotate(var(--rot, 0deg)) translateY(0); }
 /* Stagger: cada item consecutivo revela um pouco depois */
 .timeline-item:nth-child(1) { transition-delay: 0.05s; }
 .timeline-item:nth-child(2) { transition-delay: 0.15s; }
@@ -1255,12 +1375,12 @@ body::after {
 .timeline-item:nth-child(7) { transition-delay: 0.65s; }
 .timeline-item:nth-child(8) { transition-delay: 0.75s; }
 .timeline-item:nth-child(9) { transition-delay: 0.85s; }
-.gallery-item:nth-child(1) { transition-delay: 0.05s; }
-.gallery-item:nth-child(2) { transition-delay: 0.12s; }
-.gallery-item:nth-child(3) { transition-delay: 0.19s; }
-.gallery-item:nth-child(4) { transition-delay: 0.26s; }
-.gallery-item:nth-child(5) { transition-delay: 0.33s; }
-.gallery-item:nth-child(6) { transition-delay: 0.40s; }
+.polaroid:nth-child(1) { transition-delay: 0.05s; }
+.polaroid:nth-child(2) { transition-delay: 0.12s; }
+.polaroid:nth-child(3) { transition-delay: 0.19s; }
+.polaroid:nth-child(4) { transition-delay: 0.26s; }
+.polaroid:nth-child(5) { transition-delay: 0.33s; }
+.polaroid:nth-child(6) { transition-delay: 0.40s; }
 
 
 
@@ -1604,10 +1724,12 @@ body::after {
     gap: 8px;
   }
 
-  .gallery-item:nth-child(3n+1),
-  .gallery-item:nth-child(3n+2),
-  .gallery-item:nth-child(3n+3) {
-    aspect-ratio: 1/1;
+  /* polaroids no mobile já estão com scale(0.7) no media query dedicado */
+  .polaroid:nth-child(3n+1),
+  .polaroid:nth-child(3n+2),
+  .polaroid:nth-child(3n+3) {
+    /* no mobile mantém as posições absolutas definidas inline */
+    transform: scale(0.7) rotate(var(--rot, 0deg));
   }
 
   .letter-card {
