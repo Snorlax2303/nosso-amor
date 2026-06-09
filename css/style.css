@@ -1773,3 +1773,73 @@ body::after {
   .stories-caption { font-size: 13px; }
   .stories-close { top: 8px; right: 8px; width: 32px; height: 32px; }
 }
+
+
+/* === Wrapped do casal (estatísticas estilo Spotify) === */
+.wrapped-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  max-width: 500px;
+  margin: 28px auto 0;
+}
+.wrapped-card {
+  background: rgba(20, 18, 35, 0.5);
+  border: 1px solid rgba(255, 79, 139, 0.15);
+  border-radius: 14px;
+  padding: 20px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(8px);
+  transition: transform 200ms ease, border-color 200ms ease;
+}
+.wrapped-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 79, 139, 0.35);
+}
+.wrapped-main {
+  grid-column: span 2;
+  padding: 28px 14px;
+  border-color: rgba(255, 79, 139, 0.3);
+  background: rgba(30, 25, 50, 0.6);
+}
+.wrapped-big {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1;
+  background: linear-gradient(135deg, #ff8eb4 0%, #ff4f8b 60%, #ffb3d1 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: var(--serif);
+}
+.wrapped-num {
+  font-size: 28px;
+  font-weight: 600;
+  color: #f7f5ef;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.wrapped-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(232, 234, 237, 0.5);
+  font-weight: 500;
+}
+.wrapped-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 17px;
+  color: rgba(232, 234, 237, 0.6);
+}
+@media (max-width: 420px) {
+  .wrapped-grid { gap: 8px; }
+  .wrapped-card { padding: 14px 10px; }
+  .wrapped-big { font-size: 44px; }
+  .wrapped-num { font-size: 22px; }
+}
