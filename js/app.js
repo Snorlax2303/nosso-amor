@@ -107,23 +107,43 @@ function initApp() {
 }
 
 // ============================================
-// 4. Contador ao vivo + Countdown dia dos namorados
+// 4. Contador ao vivo (grid 3x2) + Countdown 01/01
 // ============================================
 function startContador() {
   const dataInicio = new Date(CONFIG.dataInicio);
+  const elAnos = document.getElementById('c-anos');
+  const elMeses = document.getElementById('c-meses');
+  const elDias = document.getElementById('c-dias');
+  const elHoras = document.getElementById('c-horas');
+  const elMin = document.getElementById('c-min');
+  const elSeg = document.getElementById('c-seg');
+
   const atualizar = () => {
     const agora = new Date();
-    let diff = Math.floor((agora - dataInicio) / 1000);
-    const dias = Math.floor(diff / 86400);
-    diff -= dias * 86400;
-    const horas = Math.floor(diff / 3600);
-    diff -= horas * 3600;
-    const min = Math.floor(diff / 60);
-    const seg = diff - min * 60;
-    document.getElementById('c-dias').textContent = dias.toLocaleString('pt-BR');
-    document.getElementById('c-horas').textContent = String(horas).padStart(2, '0');
-    document.getElementById('c-min').textContent = String(min).padStart(2, '0');
-    document.getElementById('c-seg').textContent = String(seg).padStart(2, '0');
+    // Calcula anos/meses/dias "reais" (calendário)
+    let anos = agora.getFullYear() - dataInicio.getFullYear();
+    let meses = agora.getMonth() - dataInicio.getMonth();
+    let dias = agora.getDate() - dataInicio.getDate();
+    if (dias < 0) {
+      meses -= 1;
+      // Dias no mês anterior
+      const mesAnterior = new Date(agora.getFullYear(), agora.getMonth(), 0);
+      dias += mesAnterior.getDate();
+    }
+    if (meses < 0) {
+      anos -= 1;
+      meses += 12;
+    }
+    // Calcula horas/min/seg do dia de hoje
+    const horas = agora.getHours();
+    const min = agora.getMinutes();
+    const seg = agora.getSeconds();
+    if (elAnos) elAnos.textContent = anos.toLocaleString('pt-BR');
+    if (elMeses) elMeses.textContent = meses;
+    if (elDias) elDias.textContent = dias;
+    if (elHoras) elHoras.textContent = String(horas).padStart(2, '0');
+    if (elMin) elMin.textContent = String(min).padStart(2, '0');
+    if (elSeg) elSeg.textContent = String(seg).padStart(2, '0');
 
     // Countdown aniversário de casamento (01/01 do próximo ano)
     const prox = new Date(agora.getFullYear(), 0, 1); // 01 de janeiro
@@ -314,6 +334,7 @@ function initPresente() {
   const abrir = () => {
     if (presenteAberto) return;
     presenteAberto = true;
+    // Efeito: pacote "explode" pra cima com partículas (estilo unboxing)
     box.classList.add('opened');
     hint.style.display = 'none';
     // depois da animação, mostra o card
@@ -321,7 +342,7 @@ function initPresente() {
       card.classList.add('visible');
       // digita a mensagem letra a letra
       typeMessage(text, mensagemDoDiaCache || 'Te amo. ♡', 35);
-    }, 900);
+    }, 1100);
   };
 
   box.addEventListener('click', abrir);
