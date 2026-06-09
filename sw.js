@@ -2,12 +2,14 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v10';  // v10: 🦊 mascote Raposa Maya com reações
+const CACHE_NAME = 'nosso-amor-v11';  // v11: 📱 página /install.html com QR Code
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
+  '/install.html',
   '/manifest.json',
   '/css/style.css',
+  '/css/install.css',
   '/js/app.js',
   '/js/config.js',
   '/js/marcos.js',
@@ -15,6 +17,8 @@ const ASSETS_TO_CACHE = [
   '/js/fotos.js',
   '/js/mensagens.js',
   '/js/carta.js',
+  '/js/install.js',
+  '/js/mascot.js',
   '/icons/icon-192.png',
   '/icons/icon-512.png'
 ];

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nosso Amor — Instale o app ♡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/install.css" />
+  <link rel="icon" type="image/png" href="./icons/icon-192.png" />
+</head>
+<body>
+  <main class="install-page">
+    <div class="container">
+      <!-- Header romântico -->
+      <header class="header">
+        <span class="heartbeat">💕</span>
+        <h1 class="title">Nosso Amor</h1>
+        <p class="subtitle">Escaneie, instale, leve com você ♡</p>
+      </header>
+
+      <!-- Card principal com QR -->
+      <div class="qr-card">
+        <div class="qr-wrapper">
+          <div id="qrcode"></div>
+          <div class="qr-corner tl"></div>
+          <div class="qr-corner tr"></div>
+          <div class="qr-corner bl"></div>
+          <div class="qr-corner br"></div>
+        </div>
+        <p class="url-display" id="url-display">nosso-amor-bice.vercel.app</p>
+        <button class="copy-btn" id="copy-btn">📋 Copiar link</button>
+      </div>
+
+      <!-- Instruções por dispositivo -->
+      <div class="instructions">
+        <h2 class="section-title">Como instalar 📲</h2>
+
+        <!-- Tabs -->
+        <div class="tabs">
+          <button class="tab active" data-tab="android">🤖 Android</button>
+          <button class="tab" data-tab="ios">🍎 iPhone</button>
+          <button class="tab" data-tab="pc">💻 Computador</button>
+        </div>
+
+        <!-- Android -->
+        <div class="tab-content active" data-content="android">
+          <ol class="steps">
+            <li>
+              <span class="step-num">1</span>
+              <span>Abra a câmera do celular e <strong>aponte pro QR Code</strong></span>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <span>Toque na notificação que aparece com o link</span>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <span>No Chrome, toque nos <strong>3 pontinhos (⋮)</strong> no canto superior direito</span>
+            </li>
+            <li>
+              <span class="step-num">4</span>
+              <span>Selecione <strong>"Instalar app"</strong> ou <strong>"Adicionar à tela inicial"</strong></span>
+            </li>
+            <li>
+              <span class="step-num">5</span>
+              <span>Pronto! Agora você tem um ❤️ na sua tela inicial ❤️</span>
+            </li>
+          </ol>
+          <div class="tip">
+            <span class="tip-icon">💡</span>
+            <span><strong>Dica:</strong> Depois de instalar, o app abre em tela cheia, sem barra do navegador. Parece um app de verdade!</span>
+          </div>
+        </div>
+
+        <!-- iOS -->
+        <div class="tab-content" data-content="ios">
+          <ol class="steps">
+            <li>
+              <span class="step-num">1</span>
+              <span>Abra o <strong>Safari</strong> (tem que ser ele, não Chrome)</span>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <span>Aponte a câmera pro QR Code OU abra o link manualmente</span>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <span>Toque no botão de <strong>compartilhar</strong> (□↑) embaixo</span>
+            </li>
+            <li>
+              <span class="step-num">4</span>
+              <span>Role pra baixo e escolha <strong>"Adicionar à Tela de Início"</strong></span>
+            </li>
+            <li>
+              <span class="step-num">5</span>
+              <span>Confirme o nome e toque em <strong>"Adicionar"</strong> ❤️</span>
+            </li>
+          </ol>
+          <div class="tip">
+            <span class="tip-icon">⚠️</span>
+            <span><strong>Atenção:</strong> No iPhone, só funciona pelo Safari. Se abrir em outro navegador, copie o link e abra no Safari.</span>
+          </div>
+        </div>
+
+        <!-- PC -->
+        <div class="tab-content" data-content="pc">
+          <ol class="steps">
+            <li>
+              <span class="step-num">1</span>
+              <span>Abra o link no <strong>Google Chrome</strong> ou <strong>Edge</strong></span>
+            </li>
+            <li>
+              <span class="step-num">2</span>
+              <span>Procure o ícone de <strong>instalar (⤓)</strong> na barra de endereço (canto direito)</span>
+            </li>
+            <li>
+              <span class="step-num">3</span>
+              <span>Clique em <strong>"Instalar"</strong> quando aparecer a notificação</span>
+            </li>
+            <li>
+              <span class="step-num">4</span>
+              <span>Pronto! Vai aparecer um app no seu Menu Iniciar com um ❤️</span>
+            </li>
+          </ol>
+          <div class="tip">
+            <span class="tip-icon">💡</span>
+            <span><strong>Dica:</strong> Depois de instalar, ele funciona offline também! Perfeito pra ver as memórias mesmo sem internet.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer romântico -->
+      <footer class="footer">
+        <p>Feito com ♡ pra você</p>
+        <a href="./" class="back-link">← Voltar pro site</a>
+      </footer>
+    </div>
+
+    <!-- Floating hearts background -->
+    <div class="hearts-bg" aria-hidden="true">
+      <span>💕</span><span>💖</span><span>💗</span><span>💝</span>
+      <span>💕</span><span>💖</span><span>💗</span><span>💝</span>
+    </div>
+  </main>
+
+  <!-- QR Code generator (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="./js/install.js"></script>
+</body>
+</html>
