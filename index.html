@@ -199,13 +199,19 @@
     </footer>
   </main>
 
-  <!-- Lightbox da galeria -->
-  <div class="lightbox" id="lightbox" style="display:none;">
-    <button class="lightbox-close" id="lightbox-close" aria-label="Fechar">×</button>
-    <button class="lightbox-prev" id="lightbox-prev" aria-label="Anterior">‹</button>
-    <img id="lightbox-img" src="" alt="" />
-    <button class="lightbox-next" id="lightbox-next" aria-label="Próxima">›</button>
-    <p class="lightbox-caption" id="lightbox-caption"></p>
+  <!-- Stories carrossel (fullscreen swipe) -->
+  <div class="stories-overlay" id="stories-overlay" style="display:none;">
+    <div class="stories-progress" id="stories-progress"></div>
+    <button class="stories-close" id="stories-close">✕</button>
+    <div class="stories-container" id="stories-container">
+      <button class="stories-nav stories-nav-prev" id="stories-prev">‹</button>
+      <div class="stories-slide" id="stories-slide">
+        <img id="stories-img" src="" alt="" />
+        <p class="stories-caption" id="stories-caption"></p>
+      </div>
+      <button class="stories-nav stories-nav-next" id="stories-next">›</button>
+    </div>
+    <div class="stories-hint" id="stories-hint">deslize para os lados</div>
   </div>
 
   <!-- Player de música (botão flutuante minimalista, fica tocando aleatório) -->

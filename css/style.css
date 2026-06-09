@@ -1673,3 +1673,103 @@ body::after {
     font-size: 48px;
   }
 }
+
+/* === Stories Carrossel (fullscreen swipe) — estilo Instagram === */
+.stories-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.97);
+  z-index: 1000;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.stories-overlay[style*="flex"] { display: flex !important; }
+.stories-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent-pink, #ff4f8b), #ffb3d1);
+  z-index: 1010;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+.stories-close {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 1010;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+}
+.stories-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 100%;
+  max-width: 600px;
+  padding: 0;
+}
+.stories-slide {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 90vh;
+  padding: 8px;
+}
+.stories-slide img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+.stories-caption {
+  color: rgba(255,255,255,0.85);
+  font-size: 15px;
+  margin-top: 14px;
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+}
+.stories-nav {
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: #fff;
+  font-size: 32px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+  backdrop-filter: blur(4px);
+  transition: background 150ms;
+}
+.stories-nav:hover { background: rgba(255,255,255,0.15); }
+.stories-hint {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255,255,255,0.4);
+  font-size: 12px;
+  z-index: 1010;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+@media (max-width: 480px) {
+  .stories-nav { width: 32px; height: 32px; font-size: 24px; }
+  .stories-caption { font-size: 13px; }
+  .stories-close { top: 8px; right: 8px; width: 32px; height: 32px; }
+}

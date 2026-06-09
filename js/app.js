@@ -98,7 +98,7 @@ function initApp() {
   startContador();
   criarCoracoes();
   initBackToTop();
-  initLightbox();
+  initStories();
   initMusicFab();
   initSpotifyButtons();
   initSecret();
@@ -209,38 +209,83 @@ function renderGaleria() {
 }
 
 // ============================================
-// 7. Lightbox
+// 7. Stories — carrossel fullscreen estilo Instagram
 // ============================================
-function initLightbox() {
-  const close = document.getElementById('lightbox-close');
-  const prev = document.getElementById('lightbox-prev');
-  const next = document.getElementById('lightbox-next');
-  if (!close) return;
-  close.addEventListener('click', fecharLightbox);
-  prev.addEventListener('click', () => navegarLightbox(-1));
-  next.addEventListener('click', () => navegarLightbox(1));
+let storiesIdx = 0;
+let storiesStartX = 0;
+let storiesStartY = 0;
+
+function initStories() {
+  document.querySelectorAll('.gallery-item').forEach(el => {
+    el.addEventListener('click', () => abrirStories(parseInt(el.dataset.idx)));
+  });
+  document.getElementById('stories-close').addEventListener('click', fecharStories);
+  document.getElementById('stories-prev').addEventListener('click', () => navegarStories(-1));
+  document.getElementById('stories-next').addEventListener('click', () => navegarStories(1));
   document.addEventListener('keydown', e => {
-    if (document.getElementById('lightbox').style.display === 'flex') {
-      if (e.key === 'Escape') fecharLightbox();
-      if (e.key === 'ArrowLeft') navegarLightbox(-1);
-      if (e.key === 'ArrowRight') navegarLightbox(1);
+    if (document.getElementById('stories-overlay').style.display === 'flex') {
+      if (e.key === 'Escape') fecharStories();
+      if (e.key === 'ArrowLeft') navegarStories(-1);
+      if (e.key === 'ArrowRight') navegarStories(1);
+    }
+  });
+  // Touch/swipe
+  const slide = document.getElementById('stories-slide');
+  slide.addEventListener('touchstart', e => {
+    storiesStartX = e.touches[0].clientX;
+    storiesStartY = e.touches[0].clientY;
+  });
+  slide.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - storiesStartX;
+    const dy = e.changedTouches[0].clientY - storiesStartY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 50) {
+      navegarStories(dx < 0 ? 1 : -1);
+    } else if (dy > 80 && Math.abs(dx) < 50) {
+      fecharStories();
     }
   });
 }
-function abrirLightbox(idx) {
-  currentLightboxIdx = idx;
-  atualizarLightbox();
-  document.getElementById('lightbox').style.display = 'flex';
+
+function abrirStories(idx) {
+  storiesIdx = idx;
+  atualizarStoriesSlide();
+  document.getElementById('stories-overlay').style.display = 'flex';
+  document.getElementById('stories-hint').style.opacity = '1';
+  setTimeout(() => document.getElementById('stories-hint').style.opacity = '0', 2000);
+  // Barra de progresso
+  iniciarStoriesProgresso();
 }
-function fecharLightbox() { document.getElementById('lightbox').style.display = 'none'; }
-function navegarLightbox(delta) {
-  currentLightboxIdx = (currentLightboxIdx + delta + FOTOS.length) % FOTOS.length;
-  atualizarLightbox();
+function fecharStories() {
+  document.getElementById('stories-overlay').style.display = 'none';
+  pararStoriesProgresso();
 }
-function atualizarLightbox() {
-  const f = FOTOS[currentLightboxIdx];
-  document.getElementById('lightbox-img').src = f.url;
-  document.getElementById('lightbox-caption').textContent = `${f.legenda} · ${formatarData(f.data)}`;
+function navegarStories(delta) {
+  storiesIdx = (storiesIdx + delta + FOTOS.length) % FOTOS.length;
+  atualizarStoriesSlide();
+  iniciarStoriesProgresso();
+}
+function atualizarStoriesSlide() {
+  const f = FOTOS[storiesIdx];
+  document.getElementById('stories-img').src = f.url;
+  document.getElementById('stories-caption').textContent = f.legenda;
+}
+let storiesTimer = null;
+function iniciarStoriesProgresso() {
+  pararStoriesProgresso();
+  const bar = document.getElementById('stories-progress');
+  const total = 5; // 5s de duração
+  let elapsed = 0;
+  bar.style.width = '0%';
+  storiesTimer = setInterval(() => {
+    elapsed += 0.1;
+    bar.style.width = (elapsed / total * 100) + '%';
+    if (elapsed >= total) {
+      navegarStories(1);
+    }
+  }, 100);
+}
+function pararStoriesProgresso() {
+  if (storiesTimer) { clearInterval(storiesTimer); storiesTimer = null; }
 }
 
 // ============================================
