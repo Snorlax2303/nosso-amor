@@ -90,6 +90,13 @@ function initApp() {
   document.getElementById('letter-from').textContent = `— ${CONFIG.seuNome}`;
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // 📸 Hero cover — foto da família como capa do contador
+  const heroCover = document.getElementById('hero-cover');
+  if (heroCover && FOTOS && FOTOS.length) {
+    const capa = FOTOS.find(f => f.capa) || FOTOS[0];
+    heroCover.style.backgroundImage = `url('${capa.url}')`;
+  }
+
   renderTimeline();
   renderGaleria();
   renderFloaters();
@@ -194,11 +201,13 @@ function formatarData(iso) {
 function renderGaleria() {
   const container = document.getElementById('gallery');
   if (!container) return;
-  if (!FOTOS || !FOTOS.length) {
+  // Filtra a foto marcada como capa (já usada no hero)
+  const galeria = FOTOS.filter(f => !f.capa);
+  if (!galeria || !galeria.length) {
     container.innerHTML = '<p style="color: var(--text-muted); text-align: center; padding: 20px;">Em breve, nossas fotos 📸</p>';
     return;
   }
-  container.innerHTML = FOTOS.map((f, i) => {
+  container.innerHTML = galeria.map((f, i) => {
     const p = f.pos || {};
     const s = f.size || { w: 200, h: 260 };
     const tape = f.tape || 'tl';
