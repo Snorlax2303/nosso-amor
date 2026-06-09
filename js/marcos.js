@@ -23,45 +23,45 @@ const MARCOS = [
     imagem: ""
   },
   {
-    data: "2013-01-01",
-    dataLabel: "01 de janeiro de 2013",
+    data: "2014-01-01",
+    dataLabel: "01 de janeiro de 2014",
     titulo: "Nosso primeiro beijo 💋",
-    texto: "01 de janeiro de 2013, por volta das 23h. O virar do ano mais marcante da minha vida. O instante exato em que o tempo parou e o mundo inteiro coube em um único gesto. O começo de tudo. 💕",
+    texto: "01 de janeiro de 2014, por volta das 23h. O virar do ano mais marcante da minha vida. O instante exato em que o tempo parou e o mundo inteiro coube em um único gesto. O começo de tudo. 💕",
     imagem: ""
   },
   {
-    data: "2013-01-15",
-    dataLabel: "Janeiro de 2013",
+    data: "2014-01-15",
+    dataLabel: "Janeiro de 2014",
     titulo: "O primeiro 'eu te amo'",
     texto: "Antes mesmo de completar um mês de namoro, as três palavras mais importantes saíram naturalmente. E mudaram tudo. Desde então, não passam um dia sem fazerem sentido. 💖",
     imagem: ""
   },
   {
-    data: "2013-03-23",
-    dataLabel: "23 de março de 2013",
+    data: "2014-03-23",
+    dataLabel: "23 de março de 2014",
     titulo: "O pedido de namoro",
-    texto: "No dia do meu aniversário, 23 de março de 2013, você me pediu em namoro. O melhor presente que eu poderia ganhar. Foi ali que eu soube, com toda a certeza, que era você pra vida toda. 💍",
+    texto: "No dia do meu aniversário, 23 de março de 2014, você me pediu em namoro. O melhor presente que eu poderia ganhar. Foi ali que eu soube, com toda a certeza, que era você pra vida toda. 💍",
     imagem: ""
   },
   {
-    data: "2013-06-12",
-    dataLabel: "12 de junho de 2013",
+    data: "2014-06-12",
+    dataLabel: "12 de junho de 2014",
     titulo: "Nosso primeiro Dia dos Namorados",
-    texto: "12 de junho de 2013. A data que a gente transformou em 'a nossa data'. O primeiro de muitos, mas nenhum tão especial quanto o inaugural. 🌹",
+    texto: "12 de junho de 2014. A data que a gente transformou em 'a nossa data'. O primeiro de muitos, mas nenhum tão especial quanto o inaugural. 🌹",
     imagem: ""
   },
   {
-    data: "2013-12-25",
-    dataLabel: "Natal de 2013",
+    data: "2014-12-25",
+    dataLabel: "Natal de 2014",
     titulo: "Nosso primeiro Natal juntos",
-    texto: "Fim de ano de 2013. Você virou meu presente em todas as datas. A partir dali, cada dezembro tinha um motivo a mais pra ser feliz: ter você do meu lado. 🎄",
+    texto: "Fim de ano de 2014. Você virou meu presente em todas as datas. A partir dali, cada dezembro tinha um motivo a mais pra ser feliz: ter você do meu lado. 🎄",
     imagem: ""
   },
   {
-    data: "2013-12-31",
-    dataLabel: "31 de dezembro de 2013",
+    data: "2014-12-31",
+    dataLabel: "31 de dezembro de 2014",
     titulo: "Nosso primeiro Réveillon",
-    texto: "31 de dezembro de 2013. Começar mais um ano do seu lado, de mãos dadas, olhando pros fogos e fazendo pedidos. Você virou minha tradição favorita, meu pra sempre recomeço. 🥂",
+    texto: "31 de dezembro de 2014. Começar mais um ano do seu lado, de mãos dadas, olhando pros fogos e fazendo pedidos. Você virou minha tradição favorita, meu pra sempre recomeço. 🥂",
     imagem: ""
   }
 ];

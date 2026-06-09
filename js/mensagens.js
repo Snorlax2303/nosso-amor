@@ -6,17 +6,17 @@
 
 const MENSAGENS = [
   // ============== JANEIRO (31 msgs) — beijo, ano novo, recomeço ==============
-  "Faz 13 anos que o ano virou diferente. Continua sendo o melhor presente da minha vida. Te amo, minha pequena. ♡",
+  "Faz 12 anos que o ano virou diferente. Continua sendo o melhor presente da minha vida. Te amo, minha pequena. ♡",
   "01 de janeiro. A data que eu não esqueço nunca. Obrigado por esse beijo que mudou tudo. 💋",
   "Cada réveillon depois daquele, eu só penso: obrigado por ter ficado.",
-  "Se eu pudesse escolher um momento pra repetir pra sempre, seria aquele 23h de 01/01/2013.",
+  "Se eu pudesse escolher um momento pra repetir pra sempre, seria aquele 23h de 01/01/2014.",
   "Fernanda, você é o único motivo de eu não reclamar do ano que começa cedo. 😅",
   "Obrigado por mais um ano do seu lado. E pelos próximos que virão.",
-  "Janeiro de 2013 foi o mês que minha vida virou do avesso. Do avesso bom. Do avesso certo.",
+  "Janeiro de 2014 foi o mês que minha vida virou do avesso. Do avesso bom. Do avesso certo.",
   "Dizem que começo de ano é pra mudar. Eu só quero continuar do seu lado.",
   "Meu primeiro pensamento hoje foi você. De novo. E amanhã igual. 💕",
   "Você é meu réveillon favorito. Todo dia começa quando acordo e lembro de você.",
-  "Treze anos depois, eu ainda fico nervoso perto de você. Do bom jeito.",
+  "Doze anos depois, eu ainda fico nervoso perto de você. Do bom jeito.",
   "Se depender de mim, ano que vem é igual: eu, você, e a gente.",
   "Prometo te amar mais esse ano do que no ano passado. (Topa o desafio?)",
   "Você é o tipo de pessoa que faz janeiro valer a pena.",
@@ -72,7 +72,7 @@ const MENSAGENS = [
   "23 de março é o dia do meu aniversário. Mas o melhor presente eu ganhei quando você me pediu em namoro. 💍",
   "Você me pediu em namoro. Melhor presente. Melhor decisão. Melhor você. 💖",
   "Março, pra mim, é o mês que começou tudo. Oficialmente.",
-  "Fernanda, naquele 23 de março, minha resposta foi sim. Continua sendo sim, 13 anos depois. 💍",
+  "Fernanda, naquele 23 de março, minha resposta foi sim. Continua sendo sim, 12 anos depois. 💍",
   "Aniversário, pra mim, é só mais um motivo pra agradecer por ter você.",
   "Amo como você me faz rir no meu aniversário. Amo como me faz rir o resto do ano todo.",
   "Você é o tipo de presente que não se compra, não se embrulha, não se troca.",
@@ -99,7 +99,7 @@ const MENSAGENS = [
   "Você me pediu em namoro, e eu te peço todo dia: fica. Pra sempre. 💍",
   "Aniversário meu, namoro nosso. Melhor assim. 😊",
   "Março, o mês que começou a aventura. E que aventura boa. ♡",
-  "Fernanda, 13 anos de 'sim'. E contando.",
+  "Fernanda, 12 anos de 'sim'. E contando.",
 
   // ============== ABRIL (30 msgs) — amor cotidiano, piadas, cumplicidade ==============
   "Amor, hoje eu acordei pensando em uma coisa: como você é incrível. E como eu tenho sorte.",
@@ -169,7 +169,7 @@ const MENSAGENS = [
   // ============== JUNHO (30 msgs) — dia dos namorados, a data principal ==============
   "12 de junho. O dia mais bonito do calendário. O nosso dia. ♡",
   "Feliz Dia dos Namorados, meu amor. Você é a melhor escolha da minha vida. 💖",
-  "12 de junho de 2013. A data que mudou tudo. E continua mudando. Pra melhor.",
+  "12 de junho de 2014. A data que mudou tudo. E continua mudando. Pra melhor.",
   "Fernanda, hoje é o nosso dia. Mas te amo em todos os outros 364. 💕",
   "Você é o amor da minha vida. Hoje, amanhã, e depois. (Em maiúsculo: SEMPRE.) ✨",
   "Feliz Dia dos Namorados pra mulher mais incrível que eu conheço. Você. 💘",
@@ -177,7 +177,7 @@ const MENSAGENS = [
   "Fernanda, te amo do jeito que só a gente entende. E isso é o suficiente. ♡",
   "Obrigado por 12 de junhos com você. E pelos próximos que virão. 💖",
   "Você é meu Valentine de janeiro a dezembro. Mas em 12 de junho eu lembro mais ainda. 💕",
-  "Fernanda, se eu pudesse voltar naquele 12 de junho de 2013, faria tudo igual. E melhor. ✨",
+  "Fernanda, se eu pudesse voltar naquele 12 de junho de 2014, faria tudo igual. E melhor. ✨",
   "Feliz Dia dos Namorados, meu amor. Você é o melhor presente que a vida me deu. 🎁",
   "12/06, a data que eu celebro a mulher que me fez acreditar em amor. 💖",
   "Fernanda, hoje e sempre, você é minha. E eu sou seu. Pra sempre. 💍",
@@ -211,7 +211,7 @@ const MENSAGENS = [
   "Fernanda, te amo do jeito que eu te amo o ano todo: torto, mas verdadeiro. ♡",
   "Obrigado por me fazer o homem que eu sou. Você é a melhor parte. ✨",
   "Você é o tipo de mulher que faz o mês valer a pena. Mas é a vida toda que vale. 💖",
-  "Fernanda, a gente é a prova de que amor de verdade funciona. 13 anos depois. 💍",
+  "Fernanda, a gente é a prova de que amor de verdade funciona. 12 anos depois. 💍",
   "Cada dia com você é a confirmação de que eu escolhi certo. (E escolheria de novo.)",
   "Amo a forma como a gente se conhece. Até os defeitos. (Principalmente os defeitos. 😄)",
   "Fernanda, te amo do jeito que dá. Mas dá muito. 💕",
@@ -234,7 +234,7 @@ const MENSAGENS = [
 
   // ============== AGOSTO (31 msgs) — meio de segundo semestre, amor cotidiano ==============
   "Agosto chegou, e eu te amo mais ainda. (Se é que tem limite. Não tem.)",
-  "Fernanda, a gente tá junto há 13 anos. E cada vez mais bonito. 💕",
+  "Fernanda, a gente tá junto há 12 anos. E cada vez mais bonito. 💕",
   "Obrigado por ser a mulher que faz agosto valer a pena. (E todos os meses.) ✨",
   "Você é meu amor de agosto, de janeiro, de sempre. ♡",
   "Amo a forma como a gente continua, firme, forte, junto. 💪",
@@ -244,7 +244,7 @@ const MENSAGENS = [
   "Fernanda, te amo do jeito que eu te amo o ano todo: muito. ✨",
   "Obrigado por me fazer o homem que eu sou. Você é a melhor parte. ♡",
   "Você é o tipo de mulher que faz o mês valer a pena. Mas é a vida toda que vale. 💖",
-  "Fernanda, a gente é a prova de que amor de verdade funciona. 13 anos depois. 💍",
+  "Fernanda, a gente é a prova de que amor de verdade funciona. 12 anos depois. 💍",
   "Cada dia com você é a confirmação de que eu escolhi certo. (E escolheria de novo.)",
   "Amo a forma como a gente se conhece. Até os defeitos. (Principalmente os defeitos. 😄)",
   "Fernanda, te amo do jeito que dá. Mas dá muito. 💕",
@@ -277,7 +277,7 @@ const MENSAGENS = [
   "Fernanda, te amo do jeito que eu te amo o ano todo: muito. ✨",
   "Obrigado por me fazer o homem que eu sou. Você é a melhor parte. ♡",
   "Você é o tipo de mulher que faz o mês valer a pena. Mas é a vida toda que vale. 💖",
-  "Fernanda, a gente é a prova de que amor de verdade funciona. 13 anos depois. 💍",
+  "Fernanda, a gente é a prova de que amor de verdade funciona. 12 anos depois. 💍",
   "Cada dia com você é a confirmação de que eu escolhi certo. (E escolheria de novo.)",
   "Amo a forma como a gente se conhece. Até os defeitos. (Principalmente os defeitos. 😄)",
   "Fernanda, te amo do jeito que dá. Mas dá muito. 💕",
@@ -310,7 +310,7 @@ const MENSAGENS = [
   "Fernanda, te amo do jeito que eu te amo o ano todo: muito. ✨",
   "Obrigado por me fazer o homem que eu sou. Você é a melhor parte. ♡",
   "Você é o tipo de mulher que faz o mês valer a pena. Mas é a vida toda que vale. 💖",
-  "Fernanda, a gente é a prova de que amor de verdade funciona. 13 anos depois. 💍",
+  "Fernanda, a gente é a prova de que amor de verdade funciona. 12 anos depois. 💍",
   "Cada dia com você é a confirmação de que eu escolhi certo. (E escolheria de novo.)",
   "Amo a forma como a gente se conhece. Até os defeitos. (Principalmente os defeitos. 😄)",
   "Fernanda, te amo do jeito que dá. Mas dá muito. 💕",
@@ -343,7 +343,7 @@ const MENSAGENS = [
   "Fernanda, te amo do jeito que eu te amo o ano todo: muito. ✨",
   "Obrigado por me fazer o homem que eu sou. Você é a melhor parte. ♡",
   "Você é o tipo de mulher que faz o mês valer a pena. Mas é a vida toda que vale. 💖",
-  "Fernanda, a gente é a prova de que amor de verdade funciona. 13 anos depois. 💍",
+  "Fernanda, a gente é a prova de que amor de verdade funciona. 12 anos depois. 💍",
   "Cada dia com você é a confirmação de que eu escolhi certo. (E escolheria de novo.)",
   "Amo a forma como a gente se conhece. Até os defeitos. (Principalmente os defeitos. 😄)",
   "Fernanda, te amo do jeito que dá. Mas dá muito. 💕",
@@ -376,7 +376,7 @@ const MENSAGENS = [
   "Fernanda, te amo do jeito que eu te amo o ano todo: muito. ✨",
   "Obrigado por me fazer o homem que eu sou. Você é a melhor parte. 🎄",
   "Você é o tipo de mulher que faz o mês valer a pena. Mas é a vida toda que vale. 💖",
-  "Fernanda, a gente é a prova de que amor de verdade funciona. 13 anos depois. 💍",
+  "Fernanda, a gente é a prova de que amor de verdade funciona. 12 anos depois. 💍",
   "Cada dia com você é a confirmação de que eu escolhi certo. (E escolheria de novo.)",
   "Amo a forma como a gente se conhece. Até os defeitos. (Principalmente os defeitos. 😄)",
   "Fernanda, te amo do jeito que dá. Mas dá muito. 💕",
@@ -392,7 +392,7 @@ const MENSAGENS = [
   "Você é meu pra sempre favorito. (Até quando? Pra sempre.) 💍",
   "Amo a forma como a gente cuida um do outro. Mesmo no silêncio. 🤫",
   "Fernanda, a gente é a prova de que opostos se atraem. (Porque eu sou legal. 😄)",
-  "Feliz Ano Novo, meu amor. Que 2027 seja tão lindo quanto 2013 foi. 🥂"
+  "Feliz Ano Novo, meu amor. Que 2027 seja tão lindo quanto 2014 foi. 🥂"
 ];
 
 

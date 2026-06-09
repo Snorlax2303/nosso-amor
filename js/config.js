@@ -10,10 +10,10 @@ var CONFIG = {
   // Subtítulo do hero (frase exibida abaixo do nome do casal)
   subtitle: "Cada dia ao seu lado é o melhor dia ♡",
   // Data que começaram a namorar (formato ISO: AAAA-MM-DDTHH:MM:SS)
-  dataInicio: "2013-01-01T20:00:00",  // 01/01/2013 = dia que se conheceram / começaram
-  // Senha da tela de entrada (formato DDMMAAAA de 01/01/2013)
+  dataInicio: "2014-01-01T20:00:00",  // 01/01/2014 = dia que se conheceram / começaram
+  // Senha da tela de entrada (formato DDMMAAAA de 01/01/2014)
   // Mude aqui se quiser outra pergunta/senha
-  senhaGate: "01012013",  // 01/01/2013
+  senhaGate: "01012014",  // 01/01/2014
   // Pergunta da tela de entrada
   perguntaGate: "Qual a data que nos conhecemos?",
   // Dica da tela de entrada
