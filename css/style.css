@@ -909,6 +909,89 @@ body::after {
 }
 
 /* ============================================
+   FLOATERS — Polaroides decorativas (position: fixed)
+   Espalhadas em toda a página, opacidade reduzida
+   pra não competir com o conteúdo
+   ============================================ */
+.floaters-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;        /* deixa clicar através */
+  z-index: 0;                  /* atrás de tudo */
+  overflow: hidden;
+}
+
+.polaroid-floater {
+  position: absolute;
+  width: var(--w);
+  height: var(--h);
+  background: #fdfbf6;
+  padding: 8px 8px 26px;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.3),
+    0 12px 30px rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  transform: rotate(var(--rot, 0deg));
+  transform-origin: center;
+  opacity: var(--op, 0.7);
+  transition: opacity 0.4s ease, transform 0.5s ease;
+  pointer-events: auto;        /* mas as polaroids em si recebem hover */
+  animation: floater-float 6s ease-in-out infinite;
+}
+
+.polaroid-floater:nth-child(odd)  { animation-duration: 7s; animation-delay: 0s; }
+.polaroid-floater:nth-child(even) { animation-duration: 5.5s; animation-delay: 1s; }
+.polaroid-floater:nth-child(3n)   { animation-duration: 8s; }
+
+@keyframes floater-float {
+  0%, 100% { translate: 0 0; }
+  50%      { translate: 0 -10px; }
+}
+
+.polaroid-floater:hover {
+  opacity: 1;
+  transform: rotate(0deg) scale(1.15);
+  z-index: 100;
+}
+
+.polaroid-floater .polaroid-img {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 1px;
+  background: #e8e3d8;
+}
+.polaroid-floater .polaroid-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.9) contrast(1.02);
+}
+
+.polaroid-floater .polaroid-tape {
+  position: absolute;
+  width: 50px;
+  height: 16px;
+  background: rgba(255, 235, 180, 0.65);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+.polaroid-floater.tape-tl .polaroid-tape {
+  top: -7px; left: -16px; transform: rotate(-32deg);
+  background: rgba(255, 180, 200, 0.6);
+}
+.polaroid-floater.tape-tr .polaroid-tape {
+  top: -7px; right: -16px; transform: rotate(28deg);
+  background: rgba(180, 220, 255, 0.6);
+}
+
+/* Em telas pequenas some com os floaters pra não poluir */
+@media (max-width: 768px) {
+  .floaters-layer { display: none; }
+}
+
+/* ============================================
    LIGHTBOX
    ============================================ */
 .lightbox {

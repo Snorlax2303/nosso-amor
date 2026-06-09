@@ -2,7 +2,7 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v7';  // v7: galeria polaroides scatter + Caveat font
+const CACHE_NAME = 'nosso-amor-v8';  // v8: polaroides floater espalhadas pela página toda
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

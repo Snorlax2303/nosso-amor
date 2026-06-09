@@ -92,6 +92,7 @@ function initApp() {
 
   renderTimeline();
   renderGaleria();
+  renderFloaters();
   renderCarta();
   renderMensagemDoDia();
   initPresente();
@@ -231,6 +232,46 @@ function renderGaleria() {
   container.querySelectorAll('.polaroid').forEach(el => {
     el.addEventListener('click', () => abrirLightbox(parseInt(el.dataset.idx)));
   });
+}
+
+// ============================================
+// 6b. Floaters — polaroides decorativas espalhadas em toda a página
+// position: fixed com opacidade reduzida, só enfeita o scroll
+// ============================================
+function renderFloaters() {
+  if (typeof FLOATERS === 'undefined' || !FLOATERS.length) return;
+  let layer = document.getElementById('floaters-layer');
+  if (!layer) {
+    layer = document.createElement('div');
+    layer.id = 'floaters-layer';
+    layer.className = 'floaters-layer';
+    document.body.appendChild(layer);
+  }
+  layer.innerHTML = FLOATERS.map((f, i) => {
+    const s = f.size || { w: 130, h: 170 };
+    const tape = f.tape || 'tl';
+    const op = f.op != null ? f.op : 0.7;
+    const posStyle = [
+      f.top ? `top: ${f.top};` : '',
+      f.left ? `left: ${f.left};` : '',
+      f.right ? `right: ${f.right};` : '',
+      f.bottom ? `bottom: ${f.bottom};` : ''
+    ].filter(Boolean).join(' ');
+    return `
+      <div class="polaroid-floater reveal-on-scroll tape-${tape}"
+           style="${posStyle}
+                  --rot: ${f.rot || 0}deg;
+                  --w: ${s.w}px;
+                  --h: ${s.h}px;
+                  --op: ${op};
+                  animation-delay: ${i * 0.12}s;">
+        <div class="polaroid-tape"></div>
+        <div class="polaroid-img">
+          <img src="${f.url}" alt="" loading="lazy" />
+        </div>
+      </div>
+    `;
+  }).join('');
 }
 
 // ============================================
