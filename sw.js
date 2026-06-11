@@ -2,7 +2,7 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v18';  // v18: 🔥 modo 18+ + 350 cartas + 80 18+ + notif Zap + filtro categoria
+const CACHE_NAME = 'nosso-amor-v19';  // v19: 🔐 senha 784978 + 📤 envio Zap automático via relay (zap.velhaturbo.cloud)
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

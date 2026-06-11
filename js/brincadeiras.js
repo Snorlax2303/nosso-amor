@@ -12,7 +12,7 @@
   // ============================================
   const STATE = {
     modo18: false,
-    senha18: 'fernanda13',  // senha do modo 18+ (você pode mudar)
+    senha18: '784978',  // senha do modo 18+ (você pode mudar)
     ultimos: { dado: null, roleta: null, baralho: null }  // resultados recentes pra notif
   };
 
@@ -711,36 +711,29 @@
       btnEnviar.textContent = '⏳ Enviando...';
 
       try {
-        // Chama o endpoint do Hermes (Evolution API) — Vercel serve como proxy?
-        // Como o site é estático, vamos chamar direto a Evolution API local do host
-        // O user precisa hospedar isso, ou usar a função Vercel serverless.
-        // Solução simples: chamada a um endpoint serverless que configura o usuário.
-        // POR ENQUANTO: tenta via webhook do Vercel (a configurar depois)
-        // OU: abre wa.me com texto pré-preenchido (funciona SEM backend, mas precisa do user clicar enviar)
-        const waUrl = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
-        window.open(waUrl, '_blank');
-
-        // Tentativa de envio automático (se backend estiver disponível)
-        try {
-          const resp = await fetch('/api/send-whatsapp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ numero, texto, de: remetente })
-          });
-          if (resp.ok) {
-            btnEnviar.textContent = '✅ Enviado!';
-            setTimeout(fecharModal, 1200);
-          } else {
-            btnEnviar.textContent = '📤 Abrir zap (clica em enviar)';
-            btnEnviar.disabled = false;
-          }
-        } catch (e) {
-          btnEnviar.textContent = '📤 Abrir zap (clica em enviar)';
+        // Chama o relay no VPS via Cloudflare Tunnel
+        const resp = await fetch('https://zap.velhaturbo.cloud/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ numero, texto, de: remetente })
+        });
+        const data = await resp.json();
+        if (data.ok) {
+          btnEnviar.textContent = '✅ Enviado pro zap!';
+          // Mostra confirmação com IDs
+          setTimeout(() => {
+            alert(`✅ Mensagem enviada!\n\n• Destinatário: ${numero}\n• Cópia também foi enviada pra você.\n\nEla/Ele vai receber no WhatsApp.`);
+            fecharModal();
+          }, 800);
+        } else {
+          btnEnviar.textContent = '❌ Erro no envio';
           btnEnviar.disabled = false;
+          alert('❌ Erro: ' + (data.error || 'desconhecido') + '\n\n' + (data.detail || ''));
         }
       } catch (e) {
-        btnEnviar.textContent = '❌ Erro';
+        btnEnviar.textContent = '❌ Falha de conexão';
         btnEnviar.disabled = false;
+        alert('❌ Não consegui falar com o relay. Verifica tua internet.\n\nDetalhe: ' + e.message);
       }
     });
   }
