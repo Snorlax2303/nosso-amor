@@ -644,10 +644,13 @@ function initRevealOnScroll() {
 // BOOT
 // ============================================
 window.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem('gate-ok') === '1') {
+  // Se veio via tag NFC (nfc.html setou a flag), pula o gate
+  const viaNFC = sessionStorage.getItem('nosso-amor-via-nfc') === '1';
+  if (viaNFC || sessionStorage.getItem('gate-ok') === '1') {
     document.getElementById('gate').style.display = 'none';
     document.getElementById('app').style.display = 'block';
-    initApp();
+    sessionStorage.setItem('gate-ok', '1');
+    if (typeof initApp === 'function') initApp();
   } else {
     initGate();
   }

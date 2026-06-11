@@ -2,14 +2,17 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v21';  // v21: 🐛 fix cadastro carta (data-tipo 'pergunta' → 'carta' no HTML)
+const CACHE_NAME = 'nosso-amor-v22';  // v22: 📲 página /nfc.html pra tag NFC (corações caindo, vibra, bypass do gate)
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
+  '/nfc.html',
   '/install.html',
   '/manifest.json',
+  '/manifest-nfc.json',
   '/css/style.css',
   '/css/install.css',
+  '/css/nfc.css',
   '/js/app.js',
   '/js/config.js',
   '/js/marcos.js',
@@ -21,6 +24,7 @@ const ASSETS_TO_CACHE = [
   '/js/brincadeiras.js',
   '/js/install.js',
   '/js/mascot.js',
+  '/js/nfc.js',
   '/icons/icon-192.png',
   '/icons/icon-512.png'
 ];
