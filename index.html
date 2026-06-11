@@ -243,40 +243,67 @@
     <!-- 🎨 BRINCADEIRAS — Lousa + Dados + Roleta + Baralho -->
     <!-- ============================================ -->
     <section class="section reveal reveal-on-scroll" id="section-brincadeiras">
-      <div class="container">
-        <span class="section-eyebrow">🎨 Pra brincar juntos</span>
-        <h2 class="section-title">Aqui tem espaço pra gente se divertir</h2>
-        <p class="section-sub">Desenha, rola um dado, gira a roleta, puxa uma carta — eu fiz pra gente se conectar mais 💕</p>
+      <span class="section-eyebrow">🎨 Pra brincar juntos</span>
+      <h2 class="section-title">Aqui tem espaço pra gente se divertir</h2>
+      <p class="section-sub">Desenha, rola um dado, gira a roleta, puxa uma carta — eu fiz pra gente se conectar mais 💕</p>
 
-        <!-- 1. LOUSA -->
-        <div class="brinca-card" id="brinca-lousa">
-          <h3 class="brinca-titulo">✏️ Lousa nossa</h3>
-          <p class="brinca-desc">Desenha, escreve um bilhetinho, rabisca um coração. Fica salvo pra gente ver depois.</p>
-          <div class="lousa-wrap">
-            <canvas id="lousa-canvas" class="lousa-canvas"></canvas>
-          </div>
-          <div class="lousa-controles">
-            <div class="lousa-cores">
-              <button class="lousa-color active" data-color="#FF6B35" style="background:#FF6B35" title="Laranja"></button>
-              <button class="lousa-color" data-color="#FF1744" style="background:#FF1744" title="Vermelho"></button>
-              <button class="lousa-color" data-color="#E91E63" style="background:#E91E63" title="Rosa"></button>
-              <button class="lousa-color" data-color="#9C27B0" style="background:#9C27B0" title="Roxo"></button>
-              <button class="lousa-color" data-color="#2196F3" style="background:#2196F3" title="Azul"></button>
-              <button class="lousa-color" data-color="#4CAF50" style="background:#4CAF50" title="Verde"></button>
-              <button class="lousa-color" data-color="#000000" style="background:#000000" title="Preto"></button>
-              <button class="lousa-color" data-color="#795548" style="background:#795548" title="Marrom"></button>
-            </div>
-            <div class="lousa-tamanho">
-              <label>Pincel: <span id="lousa-size-val">4px</span></label>
-              <input type="range" id="lousa-size" min="1" max="20" value="4" />
-            </div>
-            <div class="lousa-acoes">
-              <button class="lousa-btn" id="lousa-eraser" title="Borracha">🧽</button>
-              <button class="lousa-btn" id="lousa-save" title="Salvar como PNG">💾</button>
-              <button class="lousa-btn lousa-btn-danger" id="lousa-clear" title="Apagar tudo">🗑️</button>
-            </div>
+      <!-- MODO 18+ TOGGLE -->
+      <div class="modo-18-wrap" id="modo-18-wrap">
+        <div class="modo-18-banner" id="modo-18-banner">
+          <span class="modo-18-fire">🔥🔥🔥</span>
+          <span class="modo-18-text">Modo 18+ <small>(off)</small></span>
+          <button class="modo-18-btn" id="modo-18-btn" type="button">Ativar</button>
+        </div>
+        <div class="modo-18-info" id="modo-18-info" style="display:none;">
+          <span>🔥 Modo apimentado ativo — dado, roleta e baralho com conteúdo +18</span>
+          <button class="modo-18-off" id="modo-18-off" type="button">Desativar</button>
+        </div>
+      </div>
+
+      <!-- GATE 18+ -->
+      <div class="gate-18" id="gate-18" style="display:none;">
+        <div class="gate-18-card">
+          <div class="gate-18-flame">🔥</div>
+          <h3>Modo 18+</h3>
+          <p>Digita a senha pra liberar o conteúdo apimentado</p>
+          <input type="password" inputmode="numeric" id="gate-18-input" placeholder="Senha" maxlength="20" autocomplete="off" />
+          <div class="gate-18-erro" id="gate-18-erro"></div>
+          <div class="gate-18-btns">
+            <button class="gate-18-confirm" id="gate-18-confirm" type="button">Liberar 🔓</button>
+            <button class="gate-18-cancel" id="gate-18-cancel" type="button">Cancelar</button>
           </div>
         </div>
+      </div>
+
+      <!-- 1. LOUSA -->
+      <div class="brinca-card" id="brinca-lousa">
+        <h3 class="brinca-titulo">✏️ Lousa nossa</h3>
+        <p class="brinca-desc">Desenha, escreve um bilhetinho, rabisca um coração. Fica salvo pra gente ver depois.</p>
+        <div class="lousa-wrap">
+          <canvas id="lousa-canvas" class="lousa-canvas"></canvas>
+        </div>
+        <div class="lousa-controles">
+          <div class="lousa-cores">
+            <button class="lousa-color active" data-color="#FF6B35" style="background:#FF6B35" title="Laranja"></button>
+            <button class="lousa-color" data-color="#FF1744" style="background:#FF1744" title="Vermelho"></button>
+            <button class="lousa-color" data-color="#E91E63" style="background:#E91E63" title="Rosa"></button>
+            <button class="lousa-color" data-color="#9C27B0" style="background:#9C27B0" title="Roxo"></button>
+            <button class="lousa-color" data-color="#2196F3" style="background:#2196F3" title="Azul"></button>
+            <button class="lousa-color" data-color="#4CAF50" style="background:#4CAF50" title="Verde"></button>
+            <button class="lousa-color" data-color="#000000" style="background:#000000" title="Preto"></button>
+            <button class="lousa-color" data-color="#795548" style="background:#795548" title="Marrom"></button>
+          </div>
+          <div class="lousa-tamanho">
+            <label>Pincel: <span id="lousa-size-val">4px</span></label>
+            <input type="range" id="lousa-size" min="1" max="20" value="4" />
+          </div>
+          <div class="lousa-acoes">
+            <button class="lousa-btn" id="lousa-eraser" title="Borracha">🧽</button>
+            <button class="lousa-btn" id="lousa-save" title="Salvar como PNG">💾</button>
+            <button class="lousa-btn lousa-btn-danger" id="lousa-clear" title="Apagar tudo">🗑️</button>
+          </div>
+        </div>
+      </div>
 
         <!-- 2. DADO -->
         <div class="brinca-card" id="brinca-dado">
@@ -302,15 +329,55 @@
 
         <!-- 4. BARALHO -->
         <div class="brinca-card" id="brinca-baralho">
-          <h3 class="brinca-titulo">🃏 Baralho de perguntas</h3>
-          <p class="brinca-desc">Puxa uma carta e responde (ou faz o que tá escrito). Restaantes: <span id="baralho-restantes">12</span></p>
+          <h3 class="brinca-titulo">🃏 Baralho do casal</h3>
+          <p class="brinca-desc">Puxa uma carta e responde (ou faz o que tá escrito). Restantes: <span id="baralho-restantes">—</span></p>
+          <div class="baralho-filtros" id="baralho-filtros">
+            <button class="baralho-chip active" data-filtro="todas">🎴 Todas</button>
+            <button class="baralho-chip" data-filtro="pergunta">❓ Pergunta</button>
+            <button class="baralho-chip" data-filtro="acao">⚡ Ação</button>
+            <button class="baralho-chip" data-filtro="declaracao">💖 Declaração</button>
+            <button class="baralho-chip" data-filtro="desafio">🔥 Desafio</button>
+          </div>
           <div class="baralho-wrap">
             <div class="baralho-cena" id="baralho"></div>
             <button class="baralho-btn" id="baralho-puxar">Puxar carta</button>
           </div>
         </div>
 
-      </div>
+        <!-- 5. NOTIFICAÇÃO WHATSAPP -->
+        <div class="brinca-card brinca-notif" id="brinca-notif">
+          <h3 class="brinca-titulo">💬 Manda o status no WhatsApp</h3>
+          <p class="brinca-desc">Roda os jogos, aperta o botão do seu lado e o outro recebe no zap o que você tirou + uma msg sua 💌</p>
+          <div class="notif-btns">
+            <button class="notif-btn notif-ele" id="notif-ele" type="button">
+              <span class="notif-avatar">♂</span>
+              <span class="notif-text">
+                <strong>Rafael</strong>
+                <small>Manda no zap da Fernanda</small>
+              </span>
+            </button>
+            <button class="notif-btn notif-ela" id="notif-ela" type="button">
+              <span class="notif-avatar">♀</span>
+              <span class="notif-text">
+                <strong>Fernanda</strong>
+                <small>Manda no zap do Rafael</small>
+              </span>
+            </button>
+          </div>
+          <div class="notif-resumo" id="notif-resumo"></div>
+          <div class="notif-modal" id="notif-modal" style="display:none;">
+            <div class="notif-modal-card">
+              <h4 id="notif-modal-titulo">Mandar pro zap</h4>
+              <textarea id="notif-msg" placeholder="Escreve algo (opcional)..." maxlength="500"></textarea>
+              <div class="notif-preview" id="notif-preview"></div>
+              <div class="notif-modal-btns">
+                <button class="notif-enviar" id="notif-enviar" type="button">📤 Enviar</button>
+                <button class="notif-cancelar" id="notif-cancelar" type="button">Cancelar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
     </section>
 
     <footer class="app-footer">
@@ -372,6 +439,7 @@
   <script src="./js/fotos.js"></script>
   <script src="./js/mensagens.js"></script>
   <script src="./js/carta.js"></script>
+  <script src="./js/baralho.js"></script>
   <script src="./js/app.js"></script>
   <script src="./js/brincadeiras.js"></script>
 

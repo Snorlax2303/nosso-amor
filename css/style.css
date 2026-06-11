@@ -2756,6 +2756,368 @@ body::after {
   100% { transform: rotateY(0deg)   scale(1); }
 }
 
+/* ============================================ */
+/* MODO 18+ — Toggle + Gate + Visual            */
+/* ============================================ */
+.modo-18-wrap {
+  max-width: 720px;
+  margin: 0 auto 24px;
+  padding: 0 20px;
+}
+.modo-18-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, rgba(255,23,68,0.12), rgba(255,107,53,0.08));
+  border: 2px dashed rgba(255,107,53,0.4);
+  border-radius: 14px;
+  font-size: 16px;
+  color: #f0e0d0;
+}
+.modo-18-fire {
+  font-size: 20px;
+  filter: drop-shadow(0 0 6px rgba(255,107,53,0.6));
+}
+.modo-18-text small { opacity: 0.6; font-size: 12px; }
+.modo-18-btn {
+  padding: 8px 18px;
+  background: linear-gradient(135deg, #FF1744, #FF6B35);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.modo-18-btn:hover { transform: scale(1.05); }
+.modo-18-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #D63031, #FF6B35);
+  border-radius: 14px;
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 6px 20px rgba(255,23,68,0.4);
+  animation: pulse-fire 2s ease-in-out infinite;
+}
+.modo-18-off {
+  padding: 6px 14px;
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 16px;
+  font-size: 12px;
+  cursor: pointer;
+}
+.modo-18-off:hover { background: rgba(255,255,255,0.3); }
+@keyframes pulse-fire {
+  0%,100% { box-shadow: 0 6px 20px rgba(255,23,68,0.4); }
+  50%     { box-shadow: 0 6px 30px rgba(255,23,68,0.7); }
+}
+
+/* GATE 18+ — modal centralizado */
+.gate-18 {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+}
+.gate-18-card {
+  background: linear-gradient(135deg, #2a0d10, #4a1a1f);
+  border: 2px solid #FF1744;
+  border-radius: 18px;
+  padding: 30px 24px;
+  text-align: center;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 0 60px rgba(255,23,68,0.5);
+  animation: gate-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes gate-pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1);   opacity: 1; }
+}
+.gate-18-flame {
+  font-size: 64px;
+  margin-bottom: 12px;
+  animation: flame-shake 1s ease-in-out infinite;
+  filter: drop-shadow(0 0 12px rgba(255,107,53,0.8));
+}
+@keyframes flame-shake {
+  0%,100% { transform: rotate(-3deg) scale(1); }
+  50%     { transform: rotate(3deg)  scale(1.05); }
+}
+.gate-18-card h3 {
+  color: #FF6B9D;
+  font-size: 24px;
+  margin-bottom: 8px;
+  font-family: var(--font-display, serif);
+}
+.gate-18-card p {
+  color: #f0d0d0;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.gate-18-card input {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 18px;
+  text-align: center;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,107,53,0.4);
+  border-radius: 10px;
+  color: #fff;
+  letter-spacing: 4px;
+  margin-bottom: 8px;
+  font-family: inherit;
+}
+.gate-18-card input:focus {
+  outline: none;
+  border-color: #FF1744;
+  box-shadow: 0 0 0 3px rgba(255,23,68,0.2);
+}
+.gate-18-erro {
+  color: #FF5252;
+  font-size: 13px;
+  min-height: 18px;
+  margin-bottom: 12px;
+}
+.gate-18-btns {
+  display: flex;
+  gap: 8px;
+}
+.gate-18-confirm, .gate-18-cancel {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.gate-18-confirm {
+  background: linear-gradient(135deg, #FF1744, #FF6B35);
+  color: #fff;
+}
+.gate-18-cancel {
+  background: rgba(255,255,255,0.1);
+  color: #f0d0d0;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* MODO 18+ ATIVO — anel de fogo em volta da seção de brincadeiras */
+body.modo-18-ativo #section-brincadeiras {
+  position: relative;
+}
+body.modo-18-ativo #section-brincadeiras::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #FF1744, #FF6B35, #FFD700, #FF1744);
+  background-size: 300% 300%;
+  z-index: -1;
+  animation: fire-gradient 3s linear infinite;
+  filter: blur(8px);
+  opacity: 0.5;
+}
+@keyframes fire-gradient {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* FILTROS BARALHO */
+.baralho-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.baralho-chip {
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,107,53,0.3);
+  color: #f0e0d0;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.baralho-chip:hover {
+  background: rgba(255,107,53,0.15);
+  transform: translateY(-1px);
+}
+.baralho-chip.active {
+  background: linear-gradient(135deg, #FF6B35, #FF1744);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 2px 10px rgba(255,107,53,0.4);
+}
+
+/* NOTIFICAÇÃO WHATSAPP */
+.brinca-notif {
+  background: linear-gradient(135deg, rgba(37,211,102,0.08), rgba(18,140,126,0.05));
+  border: 1px solid rgba(37,211,102,0.2);
+}
+.notif-btns {
+  display: flex;
+  gap: 12px;
+  margin: 16px 0;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.notif-btn {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  color: #f0e0d0;
+  cursor: pointer;
+  transition: all 0.25s;
+  font-family: inherit;
+  text-align: left;
+}
+.notif-btn:hover {
+  transform: translateY(-2px);
+  border-color: #25D366;
+  box-shadow: 0 6px 20px rgba(37,211,102,0.3);
+}
+.notif-ele:hover { border-color: #4A90E2; box-shadow: 0 6px 20px rgba(74,144,226,0.3); }
+.notif-ela:hover { border-color: #E91E63; box-shadow: 0 6px 20px rgba(233,30,99,0.3); }
+.notif-avatar {
+  font-size: 28px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 700;
+}
+.notif-ele .notif-avatar { background: linear-gradient(135deg, #4A90E2, #357ABD); }
+.notif-ela .notif-avatar { background: linear-gradient(135deg, #E91E63, #AD1457); }
+.notif-text { display: flex; flex-direction: column; gap: 2px; }
+.notif-text strong { font-size: 15px; }
+.notif-text small { font-size: 11px; opacity: 0.7; }
+
+.notif-resumo {
+  margin-top: 12px;
+  padding: 12px 16px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 10px;
+  font-size: 13px;
+  color: #d0c0b0;
+  min-height: 20px;
+  text-align: left;
+  display: none;
+}
+.notif-resumo.show { display: block; }
+.notif-resumo .res-item { padding: 4px 0; }
+.notif-resumo .res-emoji { font-size: 16px; margin-right: 6px; }
+
+/* Modal notificação */
+.notif-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  backdrop-filter: blur(8px);
+}
+.notif-modal-card {
+  background: linear-gradient(135deg, #1a0a1a, #2a0d20);
+  border: 1px solid rgba(37,211,102,0.4);
+  border-radius: 16px;
+  padding: 24px 20px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 0 40px rgba(37,211,102,0.3);
+  animation: gate-pop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.notif-modal-card h4 {
+  color: #25D366;
+  font-size: 18px;
+  margin-bottom: 14px;
+  text-align: center;
+  font-family: var(--font-display, serif);
+}
+.notif-modal-card textarea {
+  width: 100%;
+  min-height: 70px;
+  padding: 10px 12px;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  resize: vertical;
+}
+.notif-modal-card textarea:focus {
+  outline: none;
+  border-color: #25D366;
+}
+.notif-preview {
+  margin: 12px 0;
+  padding: 12px;
+  background: rgba(37,211,102,0.08);
+  border-left: 3px solid #25D366;
+  border-radius: 6px;
+  font-size: 13px;
+  color: #d0e8d8;
+  white-space: pre-wrap;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.notif-modal-btns {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+.notif-enviar, .notif-cancelar {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.notif-enviar {
+  background: linear-gradient(135deg, #25D366, #128C7E);
+  color: #fff;
+}
+.notif-cancelar {
+  background: rgba(255,255,255,0.08);
+  color: #f0d0d0;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
 /* Mobile ajustes pras brincadeiras */
 @media (max-width: 768px) {
   .brinca-card { padding: 24px 18px; margin: 24px 0; }
