@@ -2,7 +2,7 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v20';  // v20: 📝 cadastro CRUD + 🎯 random anti-repetição + 🔞 chip toggle 18+ baralho + 🐛 fix travamento 18+
+const CACHE_NAME = 'nosso-amor-v21';  // v21: 🐛 fix cadastro carta (data-tipo 'pergunta' → 'carta' no HTML)
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
