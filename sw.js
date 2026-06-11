@@ -2,7 +2,7 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v15';  // v15: 🐛 fix galeria (altura dinâmica + removeu screenshot Cloudflare) + 🎨 4 brincadeiras (lousa+dado+roleta+baralho)
+const CACHE_NAME = 'nosso-amor-v16';  // v16: 🐛 fix cartas espelhadas + lousa não escreve + roleta 20 opções spicy com wobble
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
@@ -17,6 +17,7 @@ const ASSETS_TO_CACHE = [
   '/js/fotos.js',
   '/js/mensagens.js',
   '/js/carta.js',
+  '/js/brincadeiras.js',
   '/js/install.js',
   '/js/mascot.js',
   '/icons/icon-192.png',

@@ -2681,6 +2681,8 @@ body::after {
   gap: 12px;
   color: #fff;
   font-family: var(--font-display, serif);
+  transform: rotateY(180deg);   /* verso fica ESPELHADO pra compensar o flip do container */
+  backface-visibility: hidden;   /* some quando vira pra mostrar a frente */
 }
 .baralho-pattern {
   font-size: 36px;
@@ -2706,15 +2708,15 @@ body::after {
   justify-content: center;
   padding: 20px;
   text-align: center;
-  transform: rotateY(180deg);
-  backface-visibility: hidden;
+  /* FRENTE: sempre 0° — o container que gira. Sem backface pra não sumir. */
+  backface-visibility: visible;
 }
 .baralho-carta.virada .baralho-frente {
-  transform: rotateY(0deg);
   animation: baralho-flip 0.6s ease-out;
 }
+/* quando virada, esconde o verso ESPELHADO */
 .baralho-carta.virada .baralho-verso {
-  display: none;
+  visibility: hidden;
 }
 .baralho-tipo {
   font-size: 10px;

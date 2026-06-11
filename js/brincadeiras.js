@@ -16,16 +16,26 @@
     const ctx = canvas.getContext('2d');
     const STORAGE_KEY = 'nosso-amor-lousa-v1';
 
-    // Ajusta resolução do canvas (HiDPI)
+    // Ajusta resolução do canvas (HiDPI) — CSS governa o tamanho visível
     function resizeCanvas() {
       const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) return;  // ainda não visível
       const dpr = window.devicePixelRatio || 1;
-      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      canvas.width = rect.width * dpr;
-      canvas.height = rect.height * dpr;
+      // Salva o que tem antes de mexer
+      let saved = null;
+      try { saved = canvas.toDataURL('image/png'); } catch (e) {}
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+      ctx.setTransform(1, 0, 0, 1, 0, 0);  // reseta transformações anteriores
       ctx.scale(dpr, dpr);
-      // Restaura desenho se houver
-      loadFromStorage();
+      // Restaura desenho anterior (na escala CSS, não no canvas real)
+      if (saved && saved.length > 100) {
+        const img = new Image();
+        img.onload = () => {
+          ctx.drawImage(img, 0, 0, rect.width, rect.height);
+        };
+        img.src = saved;
+      }
     }
 
     // Estado
@@ -153,13 +163,16 @@
       img.src = data;
     }
 
-    // Inicializa
-    resizeCanvas();
-    loadFromStorage();
-    window.addEventListener('resize', () => {
-      // Salva antes de redimensionar
-      saveToStorage();
+    // Inicializa — espera layout assentar
+    setTimeout(() => {
       resizeCanvas();
+      loadFromStorage();
+    }, 50);
+    // Reajusta em resize de janela, com debounce
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resizeCanvas, 150);
     });
   }
 
@@ -222,7 +235,7 @@
   }
 
   // ============================================
-  // 3. 🎡 ROLETA — Setinha + opções românticas
+  // 3. 🎡 ROLETA — 20 opções spicy + wobble + intensidade
   // ============================================
   function initRoleta() {
     const canvas = document.getElementById('roleta-canvas');
@@ -231,15 +244,30 @@
     if (!canvas || !btn) return;
 
     const ctx = canvas.getContext('2d');
+
+    // 20 opções em 3 níveis de intensidade 🔥
+    // emoji + label + cor + nível (1=romântico, 2=apimentado, 3=ousado)
     const opcoes = [
-      { label: 'Beijinho', color: '#FF6B9D' },
-      { label: 'Noite especial', color: '#C44569' },
-      { label: 'Desejo seu', color: '#FF8E72' },
-      { label: 'Mimo fofo', color: '#F8B500' },
-      { label: 'Falar eu te amo', color: '#6C5CE7' },
-      { label: 'Cinema juntos', color: '#00B894' },
-      { label: 'Jantar a dois', color: '#E17055' },
-      { label: 'Passeio romântico', color: '#74B9FF' }
+      { label: 'Beijinho demorado', emoji: '💋', color: '#FF6B9D', nivel: 1 },
+      { label: 'Noite especial',     emoji: '🌙', color: '#C44569', nivel: 1 },
+      { label: 'Mimo fofo',          emoji: '🧸', color: '#F8B500', nivel: 1 },
+      { label: 'Falar eu te amo',    emoji: '💌', color: '#6C5CE7', nivel: 1 },
+      { label: 'Cinema juntos',      emoji: '🎬', color: '#00B894', nivel: 1 },
+      { label: 'Jantar a dois',      emoji: '🍷', color: '#E17055', nivel: 1 },
+      { label: 'Passeio romântico',  emoji: '🌅', color: '#74B9FF', nivel: 1 },
+      { label: 'Dançar juntinhos',   emoji: '💃', color: '#FD79A8', nivel: 1 },
+      { label: 'Massagem relaxante', emoji: '💆', color: '#A29BFE', nivel: 2 },
+      { label: 'Banho junto',        emoji: '🛁', color: '#00CEC9', nivel: 2 },
+      { label: 'Dormir agarradão',   emoji: '😴', color: '#FDCB6E', nivel: 2 },
+      { label: 'Café na cama',       emoji: '☕', color: '#8B5A2B', nivel: 2 },
+      { label: 'Sussurrar no ouvido',emoji: '👂', color: '#FF7675', nivel: 2 },
+      { label: 'Carícias no cabelo', emoji: '💇', color: '#FAB1A0', nivel: 2 },
+      { label: 'Pisada na fenda 🔥', emoji: '🔥', color: '#D63031', nivel: 3 },
+      { label: 'Strip casual',       emoji: '👙', color: '#E84393', nivel: 3 },
+      { label: 'Aventura no carro',  emoji: '🚗', color: '#2D3436', nivel: 3 },
+      { label: 'Foto provocante',    emoji: '📸', color: '#6C5CE7', nivel: 3 },
+      { label: 'Brincar de médico',  emoji: '🩺', color: '#00B894', nivel: 3 },
+      { label: 'Fantasia do dia',    emoji: '🎭', color: '#FDCB6E', nivel: 3 }
     ];
 
     // Tamanho do canvas
@@ -248,14 +276,36 @@
     canvas.height = size;
     const cx = size / 2;
     const cy = size / 2;
-    const r = size / 2 - 10;
+    const r = size / 2 - 6;
     const sliceAngle = (Math.PI * 2) / opcoes.length;
 
     let currentRotation = 0;
     let spinning = false;
+    let lastWinnerNivel = 1;
+
+    function corPorNivel(nivel) {
+      // anel muda com a intensidade (morno → quente → 🔥)
+      if (nivel === 1) return '#FFD3DD';
+      if (nivel === 2) return '#FF7675';
+      return '#FF1744';
+    }
 
     function draw() {
       ctx.clearRect(0, 0, size, size);
+
+      // Anel externo decorativo (muda de cor conforme a intensidade do último resultado)
+      ctx.beginPath();
+      ctx.arc(cx, cy, r + 4, 0, Math.PI * 2);
+      ctx.strokeStyle = corPorNivel(lastWinnerNivel);
+      ctx.lineWidth = 8;
+      ctx.stroke();
+      // Glow no anel quando a roleta não tá girando
+      if (!spinning) {
+        ctx.shadowColor = corPorNivel(lastWinnerNivel);
+        ctx.shadowBlur = 20;
+        ctx.stroke();
+        ctx.shadowBlur = 0;
+      }
 
       // Desenha as fatias
       opcoes.forEach((op, i) => {
@@ -269,78 +319,128 @@
         ctx.closePath();
         ctx.fillStyle = op.color;
         ctx.fill();
-        ctx.strokeStyle = '#fff';
-        ctx.lineWidth = 2;
+        // Sombra interna sutil — sem linha branca entre fatias
+        ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+        ctx.lineWidth = 1;
         ctx.stroke();
 
-        // Texto
+        // Texto (rotacionado pra ler de dentro pra fora)
         ctx.save();
         ctx.translate(cx, cy);
         ctx.rotate(start + sliceAngle / 2);
         ctx.textAlign = 'right';
         ctx.fillStyle = '#fff';
-        ctx.font = 'bold 13px Inter, sans-serif';
-        ctx.shadowColor = 'rgba(0,0,0,0.4)';
-        ctx.shadowBlur = 3;
-        ctx.fillText(op.label, r - 15, 5);
+        ctx.font = 'bold 11px Inter, sans-serif';
+        ctx.shadowColor = 'rgba(0,0,0,0.5)';
+        ctx.shadowBlur = 2;
+        ctx.fillText(op.label, r - 12, 4);
+        // Emoji no centro
+        ctx.font = '16px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(op.emoji, r - 35, 5);
         ctx.restore();
       });
 
-      // Centro
+      // Bolinha central
       ctx.beginPath();
-      ctx.arc(cx, cy, 20, 0, Math.PI * 2);
+      ctx.arc(cx, cy, 22, 0, Math.PI * 2);
       ctx.fillStyle = '#fff';
       ctx.fill();
       ctx.strokeStyle = '#FF6B9D';
       ctx.lineWidth = 3;
       ctx.stroke();
+      ctx.font = '22px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('💕', cx, cy + 1);
 
-      // Setinha no topo
+      // Setinha (triângulo mais gordinho, caindo no TOPO apontando pra BAIXO)
       ctx.fillStyle = '#FF1744';
+      ctx.strokeStyle = '#7a0a1a';
+      ctx.lineWidth = 2;
       ctx.beginPath();
-      ctx.moveTo(cx, 10);
-      ctx.lineTo(cx - 12, 35);
-      ctx.lineTo(cx + 12, 35);
+      ctx.moveTo(cx, 4);
+      ctx.lineTo(cx - 14, 32);
+      ctx.lineTo(cx + 14, 32);
       ctx.closePath();
       ctx.fill();
+      ctx.stroke();
     }
 
     btn.addEventListener('click', () => {
       if (spinning) return;
       spinning = true;
+      wobble = 0;
       resultEl.classList.remove('show');
       resultEl.textContent = '';
 
-      // Sorteia ângulo (mínimo 5 voltas + random)
+      // Sorteia uma fatia
       const winner = Math.floor(Math.random() * opcoes.length);
-      const finalAngle = (Math.PI * 2 * 5) + (Math.PI * 2 - (winner * sliceAngle + sliceAngle / 2));
+      // Centro da fatia vencedora (no referencial da roda)
+      const targetCenterOnWheel = (winner * sliceAngle + sliceAngle / 2);
+      // A seta fica no topo, que é o ângulo -π/2 (ou 3π/2). Pra alinhar o targetCenterOnWheel com -π/2:
+      //   currentRotation + targetCenterOnWheel = -π/2  (mod 2π)
+      //   currentRotation = -π/2 - targetCenterOnWheel
+      // Mas queremos parar DEPOIS de várias voltas, e o currentRotation sempre cresce.
+      // Truque: somar 2π*N - (currentRotation + targetCenterOnWheel - (-π/2)) simplificado:
+      const turns = 5 + Math.floor(Math.random() * 3);  // 5-7 voltas
+      const baseDelta = turns * Math.PI * 2;
+      // Ajusta pra que a posição final tenha targetCenterOnWheel no topo
+      const currentAtTop = ((currentRotation + (-Math.PI / 2)) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+      const need = (targetCenterOnWheel - currentAtTop + Math.PI * 2) % (Math.PI * 2);
+      const finalAngle = baseDelta + need;
       const startRot = currentRotation;
       const endRot = startRot + finalAngle;
-      const duration = 4000;
+      const duration = 4500;
       const startTime = performance.now();
 
       function animate(now) {
         const elapsed = now - startTime;
         const t = Math.min(elapsed / duration, 1);
-        // Ease-out cubic
-        const eased = 1 - Math.pow(1 - t, 3);
+        // Ease-out quartic (mais "pesado" no final)
+        const eased = 1 - Math.pow(1 - t, 4);
         currentRotation = startRot + (endRot - startRot) * eased;
         draw();
         if (t < 1) {
           requestAnimationFrame(animate);
         } else {
-          spinning = false;
-          // Mostra resultado
-          const winnerOp = opcoes[winner];
-          resultEl.textContent = `🎉 ${winnerOp.label}!`;
-          resultEl.classList.add('show');
-          speakMascot('Saiu: ' + winnerOp.label + '!');
-          // Maya pula
-          if (window.Mascot) window.Mascot.surprised();
+          // Wobble final: 3 oscilações pequenas pra dar "tchan"
+          wobbleEnd(winner);
         }
       }
       requestAnimationFrame(animate);
     });
+
+    function wobbleEnd(winner) {
+      const wobbleDur = 600;
+      const wobbleStart = performance.now();
+      const baseRot = currentRotation;
+      function tick(now) {
+        const t = Math.min((now - wobbleStart) / wobbleDur, 1);
+        // 3 oscilações, decai
+        const decay = 1 - t;
+        const angle = Math.sin(t * Math.PI * 3) * 0.08 * decay;  // até 0.08 rad (~4.5°)
+        currentRotation = baseRot + angle;
+        draw();
+        if (t < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          currentRotation = baseRot;
+          draw();
+          spinning = false;
+          const winnerOp = opcoes[winner];
+          lastWinnerNivel = winnerOp.nivel;
+          draw();  // re-renderiza com o anel da cor do nível
+          const prefix = winnerOp.nivel === 3 ? '🔥 ' : winnerOp.nivel === 2 ? '🌶️ ' : '💖 ';
+          resultEl.textContent = `${prefix}${winnerOp.emoji} ${winnerOp.label}!`;
+          resultEl.classList.add('show');
+          resultEl.style.color = winnerOp.color;
+          speakMascot('Saiu: ' + winnerOp.label + '!');
+          if (window.Mascot) window.Mascot.surprised();
+        }
+      }
+      requestAnimationFrame(tick);
+    }
 
     draw();
   }
