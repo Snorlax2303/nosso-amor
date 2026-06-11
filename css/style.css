@@ -2667,12 +2667,14 @@ body::after {
   z-index: 1;
 }
 .baralho-carta.frente {
-  transform: translateX(-50%) rotateY(0deg);
+  transform: translateX(-50%) scale(1);
   z-index: 10;
 }
 .baralho-carta.virada {
-  transform: translateX(-50%) rotateY(180deg);
+  /* Sem rotate 3D — só um leve lift pra dar feedback de "carta ativa" */
+  transform: translateX(-50%) scale(1.02);
   z-index: 10;
+  box-shadow: 0 12px 32px rgba(255, 107, 53, 0.4);
 }
 .baralho-verso {
   display: flex;
@@ -2681,8 +2683,7 @@ body::after {
   gap: 12px;
   color: #fff;
   font-family: var(--font-display, serif);
-  transform: rotateY(180deg);   /* verso fica ESPELHADO pra compensar o flip do container */
-  backface-visibility: hidden;   /* some quando vira pra mostrar a frente */
+  /* Sem flip 3D — fade simples. Verso some quando a carta "vira". */
 }
 .baralho-pattern {
   font-size: 36px;
@@ -2708,15 +2709,21 @@ body::after {
   justify-content: center;
   padding: 20px;
   text-align: center;
-  /* FRENTE: sempre 0° — o container que gira. Sem backface pra não sumir. */
-  backface-visibility: visible;
+  /* Sem flip 3D — fade in quando aparece. */
+  opacity: 0;
+  transform: scale(0.85);
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  pointer-events: none;
 }
 .baralho-carta.virada .baralho-frente {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
   animation: baralho-flip 0.6s ease-out;
 }
-/* quando virada, esconde o verso ESPELHADO */
 .baralho-carta.virada .baralho-verso {
-  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 .baralho-tipo {
   font-size: 10px;

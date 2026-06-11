@@ -370,77 +370,70 @@
     btn.addEventListener('click', () => {
       if (spinning) return;
       spinning = true;
-      wobble = 0;
       resultEl.classList.remove('show');
       resultEl.textContent = '';
 
       // Sorteia uma fatia
       const winner = Math.floor(Math.random() * opcoes.length);
-      // Centro da fatia vencedora (no referencial da roda)
-      const targetCenterOnWheel = (winner * sliceAngle + sliceAngle / 2);
-      // A seta fica no topo, que é o ângulo -π/2 (ou 3π/2). Pra alinhar o targetCenterOnWheel com -π/2:
-      //   currentRotation + targetCenterOnWheel = -π/2  (mod 2π)
-      //   currentRotation = -π/2 - targetCenterOnWheel
-      // Mas queremos parar DEPOIS de várias voltas, e o currentRotation sempre cresce.
-      // Truque: somar 2π*N - (currentRotation + targetCenterOnWheel - (-π/2)) simplificado:
+      // Centro da fatia vencedora
+      const targetAngle = winner * sliceAngle + sliceAngle / 2;
+      // Ângulo extra (em radianos) pra rodar várias voltas antes de parar
       const turns = 5 + Math.floor(Math.random() * 3);  // 5-7 voltas
       const baseDelta = turns * Math.PI * 2;
-      // Ajusta pra que a posição final tenha targetCenterOnWheel no topo
-      const currentAtTop = ((currentRotation + (-Math.PI / 2)) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
-      const need = (targetCenterOnWheel - currentAtTop + Math.PI * 2) % (Math.PI * 2);
-      const finalAngle = baseDelta + need;
+      // Sorteia um pequeno offset dentro da fatia (±30% da fatia) pra não ficar robótico
+      const jitter = (Math.random() - 0.5) * sliceAngle * 0.6;
+      // A seta aponta pra baixo, no ângulo -Math.PI/2 (topo do canvas)
+      // Posição alvo no mundo: currentRotation + targetAngle = -Math.PI/2 (mod 2π)
+      // delta necessário: -Math.PI/2 - (currentRotation + targetAngle) (mod 2π)
+      const currentWorldTop = ((currentRotation + targetAngle + Math.PI / 2) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+      const correction = (Math.PI * 2 - currentWorldTop) + jitter;
+      const finalAngle = baseDelta + correction;
       const startRot = currentRotation;
       const endRot = startRot + finalAngle;
-      const duration = 4500;
+      const duration = 4000;
       const startTime = performance.now();
 
       function animate(now) {
         const elapsed = now - startTime;
         const t = Math.min(elapsed / duration, 1);
-        // Ease-out quartic (mais "pesado" no final)
-        const eased = 1 - Math.pow(1 - t, 4);
+        // Ease-out cubic
+        const eased = 1 - Math.pow(1 - t, 3);
         currentRotation = startRot + (endRot - startRot) * eased;
         draw();
         if (t < 1) {
           requestAnimationFrame(animate);
         } else {
-          // Wobble final: 3 oscilações pequenas pra dar "tchan"
-          wobbleEnd(winner);
+          // Wobble final leve: 2 oscilações decai
+          const wobbleDur = 500;
+          const wobbleStart = performance.now();
+          const baseRot = currentRotation;
+          function tick(w) {
+            const wt = Math.min((w - wobbleStart) / wobbleDur, 1);
+            const decay = 1 - wt;
+            currentRotation = baseRot + Math.sin(wt * Math.PI * 2) * 0.05 * decay;
+            draw();
+            if (wt < 1) {
+              requestAnimationFrame(tick);
+            } else {
+              currentRotation = baseRot;
+              draw();
+              spinning = false;
+              const winnerOp = opcoes[winner];
+              lastWinnerNivel = winnerOp.nivel;
+              draw();
+              const prefix = winnerOp.nivel === 3 ? '🔥 ' : winnerOp.nivel === 2 ? '🌶️ ' : '💖 ';
+              resultEl.textContent = prefix + winnerOp.emoji + ' ' + winnerOp.label + '!';
+              resultEl.classList.add('show');
+              resultEl.style.color = winnerOp.color;
+              speakMascot('Saiu: ' + winnerOp.label + '!');
+              if (window.Mascot) window.Mascot.surprised();
+            }
+          }
+          requestAnimationFrame(tick);
         }
       }
       requestAnimationFrame(animate);
     });
-
-    function wobbleEnd(winner) {
-      const wobbleDur = 600;
-      const wobbleStart = performance.now();
-      const baseRot = currentRotation;
-      function tick(now) {
-        const t = Math.min((now - wobbleStart) / wobbleDur, 1);
-        // 3 oscilações, decai
-        const decay = 1 - t;
-        const angle = Math.sin(t * Math.PI * 3) * 0.08 * decay;  // até 0.08 rad (~4.5°)
-        currentRotation = baseRot + angle;
-        draw();
-        if (t < 1) {
-          requestAnimationFrame(tick);
-        } else {
-          currentRotation = baseRot;
-          draw();
-          spinning = false;
-          const winnerOp = opcoes[winner];
-          lastWinnerNivel = winnerOp.nivel;
-          draw();  // re-renderiza com o anel da cor do nível
-          const prefix = winnerOp.nivel === 3 ? '🔥 ' : winnerOp.nivel === 2 ? '🌶️ ' : '💖 ';
-          resultEl.textContent = `${prefix}${winnerOp.emoji} ${winnerOp.label}!`;
-          resultEl.classList.add('show');
-          resultEl.style.color = winnerOp.color;
-          speakMascot('Saiu: ' + winnerOp.label + '!');
-          if (window.Mascot) window.Mascot.surprised();
-        }
-      }
-      requestAnimationFrame(tick);
-    }
 
     draw();
   }
