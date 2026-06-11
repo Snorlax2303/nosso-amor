@@ -2946,6 +2946,18 @@ body.modo-18-ativo #section-brincadeiras::before {
   justify-content: center;
   margin-bottom: 20px;
 }
+/* No modo 18+, esconde os chips de tipo (já que o baralho inteiro é safado) */
+body.modo-18-ativo .baralho-filtros .baralho-chip:not([data-filtro="todas"]) {
+  display: none;
+}
+body.modo-18-ativo .baralho-filtros::after {
+  content: ' 🔥 18+ — todas picantes misturadas';
+  color: #FF6B9D;
+  font-size: 12px;
+  font-style: italic;
+  align-self: center;
+  margin-left: 8px;
+}
 .baralho-chip {
   padding: 8px 16px;
   background: rgba(255,255,255,0.05);
@@ -2967,6 +2979,113 @@ body.modo-18-ativo #section-brincadeiras::before {
   border-color: transparent;
   box-shadow: 0 2px 10px rgba(255,107,53,0.4);
 }
+
+/* CADASTRO DE CONTEÚDO */
+.brinca-cadastro {
+  background: linear-gradient(135deg, rgba(76,175,80,0.06), rgba(33,150,243,0.04));
+  border: 1px solid rgba(76,175,80,0.2);
+}
+.cad-tabs { display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; justify-content: center; }
+.cad-tab {
+  padding: 8px 16px; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(76,175,80,0.3); color: #f0e0d0;
+  border-radius: 20px; font-size: 13px; cursor: pointer;
+  transition: all 0.2s; font-family: inherit;
+}
+.cad-tab:hover { background: rgba(76,175,80,0.15); transform: translateY(-1px); }
+.cad-tab.active {
+  background: linear-gradient(135deg, #4CAF50, #2196F3);
+  color: #fff; border-color: transparent;
+  box-shadow: 0 2px 10px rgba(76,175,80,0.4);
+}
+.cad-form { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.cad-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cad-label { font-size: 13px; color: var(--text-soft); min-width: 60px; }
+.cad-carta-tipos .cad-tipo {
+  padding: 6px 12px; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15); color: #f0e0d0;
+  border-radius: 16px; font-size: 12px; cursor: pointer;
+  transition: all 0.2s; font-family: inherit;
+}
+.cad-carta-tipos .cad-tipo:hover { background: rgba(255,255,255,0.12); }
+.cad-carta-tipos .cad-tipo.active {
+  background: linear-gradient(135deg, #FF6B35, #FF1744);
+  color: #fff; border-color: transparent;
+}
+.cad-emoji-input {
+  width: 80px; padding: 6px 10px; font-size: 18px; text-align: center;
+  background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px; color: #fff; font-family: inherit;
+}
+#cad-texto {
+  flex: 1; width: 100%; padding: 12px; font-size: 15px;
+  background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 10px; color: #fff; font-family: inherit;
+  resize: vertical; min-height: 60px;
+}
+#cad-texto:focus { outline: 2px solid #FF6B35; }
+.cad-check {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 14px; color: #f0e0d0; cursor: pointer;
+  padding: 8px 12px; background: rgba(255,23,68,0.08);
+  border: 1px solid rgba(255,23,68,0.25); border-radius: 8px;
+}
+.cad-check input { accent-color: #FF1744; }
+.cad-actions { gap: 8px; justify-content: center; }
+.cad-salvar, .cad-ver, .cad-limpar {
+  padding: 10px 18px; font-size: 14px; font-weight: 600;
+  border-radius: 10px; cursor: pointer; transition: all 0.2s;
+  font-family: inherit; border: 1px solid transparent;
+}
+.cad-salvar {
+  background: linear-gradient(135deg, #4CAF50, #2E7D32);
+  color: #fff; box-shadow: 0 2px 8px rgba(76,175,80,0.3);
+}
+.cad-salvar:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(76,175,80,0.4); }
+.cad-ver {
+  background: rgba(33,150,243,0.15); color: #BBDEFB;
+  border-color: rgba(33,150,243,0.3);
+}
+.cad-ver:hover { background: rgba(33,150,243,0.25); }
+.cad-limpar {
+  background: rgba(244,67,54,0.1); color: #FFCDD2;
+  border-color: rgba(244,67,54,0.25);
+}
+.cad-limpar:hover { background: rgba(244,67,54,0.2); }
+.cad-feedback {
+  text-align: center; font-size: 13px; min-height: 20px;
+  padding: 6px; border-radius: 8px;
+}
+.cad-feedback.ok { background: rgba(76,175,80,0.15); color: #A5D6A7; }
+.cad-feedback.err { background: rgba(244,67,54,0.15); color: #FFCDD2; }
+.cad-lista {
+  max-height: 240px; overflow-y: auto;
+  background: rgba(0,0,0,0.3); border-radius: 10px;
+  padding: 10px; border: 1px solid rgba(255,255,255,0.1);
+}
+.cad-lista-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 8px 10px; margin-bottom: 6px;
+  background: rgba(255,255,255,0.04); border-radius: 6px;
+  font-size: 13px; border-left: 3px solid;
+}
+.cad-lista-item.carta { border-color: #FF6B35; }
+.cad-lista-item.dado  { border-color: #2196F3; }
+.cad-lista-item.roleta{ border-color: #9C27B0; }
+.cad-lista-item .cad-tag {
+  font-size: 10px; padding: 2px 6px; border-radius: 4px;
+  background: rgba(255,255,255,0.1); color: #b8c4d8;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.cad-lista-item .cad-tag.eh18 { background: #FF1744; color: #fff; }
+.cad-lista-item .cad-texto { flex: 1; }
+.cad-lista-item .cad-del {
+  background: rgba(244,67,54,0.2); border: none;
+  color: #FFCDD2; width: 26px; height: 26px;
+  border-radius: 50%; cursor: pointer; font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.cad-lista-item .cad-del:hover { background: rgba(244,67,54,0.4); }
 
 /* NOTIFICAÇÃO WHATSAPP */
 .brinca-notif {

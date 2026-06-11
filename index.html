@@ -344,6 +344,54 @@
           </div>
         </div>
 
+        <!-- 4b. CADASTRO DE CARTAS / DADOS / ROLETA -->
+        <div class="brinca-card brinca-cadastro" id="brinca-cadastro">
+          <h3 class="brinca-titulo">📝 Cadastrar conteúdo novo</h3>
+          <p class="brinca-desc">Adiciona suas próprias cartas, faces do dado e opções da roleta. Tudo salvo no celular (não some a menos que limpe).</p>
+
+          <div class="cad-tabs" id="cad-tabs">
+            <button class="cad-tab active" data-tipo="pergunta">🃏 Carta</button>
+            <button class="cad-tab" data-tipo="dado">🎲 Face do dado</button>
+            <button class="cad-tab" data-tipo="roleta">🎡 Opção da roleta</button>
+          </div>
+
+          <div class="cad-form">
+            <!-- Carta: tipo -->
+            <div class="cad-row cad-carta-tipos" id="cad-carta-tipos">
+              <span class="cad-label">Tipo:</span>
+              <button class="cad-tipo active" data-cat="pergunta">❓ Pergunta</button>
+              <button class="cad-tipo" data-cat="acao">⚡ Ação</button>
+              <button class="cad-tipo" data-cat="declaracao">💖 Declaração</button>
+              <button class="cad-tipo" data-cat="desafio">🔥 Desafio</button>
+            </div>
+            <!-- Dado/roleta: ícone (roleta usa emoji+label, dado usa só texto) -->
+            <div class="cad-row cad-dado-roleta" id="cad-dado-roleta" style="display:none;">
+              <span class="cad-label">Emoji (roleta):</span>
+              <input type="text" id="cad-emoji" placeholder="🔥" maxlength="4" class="cad-emoji-input" />
+            </div>
+
+            <div class="cad-row">
+              <textarea id="cad-texto" placeholder="Digita o texto (carta / face do dado / opção da roleta)..." maxlength="200" rows="3"></textarea>
+            </div>
+
+            <div class="cad-row cad-modo18-row">
+              <label class="cad-check">
+                <input type="checkbox" id="cad-18" />
+                <span>🔞 Conteúdo +18 (só aparece com modo 18+ ativo)</span>
+              </label>
+            </div>
+
+            <div class="cad-row cad-actions">
+              <button id="cad-salvar" type="button" class="cad-salvar">➕ Adicionar</button>
+              <button id="cad-ver" type="button" class="cad-ver">📋 Ver cadastrados (<span id="cad-count">0</span>)</button>
+              <button id="cad-limpar" type="button" class="cad-limpar">🗑️ Limpar tudo</button>
+            </div>
+
+            <div class="cad-feedback" id="cad-feedback"></div>
+            <div class="cad-lista" id="cad-lista" style="display:none;"></div>
+          </div>
+        </div>
+
         <!-- 5. NOTIFICAÇÃO WHATSAPP -->
         <div class="brinca-card brinca-notif" id="brinca-notif">
           <h3 class="brinca-titulo">💬 Manda o status no WhatsApp</h3>

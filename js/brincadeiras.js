@@ -1,6 +1,6 @@
 // ============================================
-// 🎨 BRINCADEIRAS DO CASAL — v18 (Modo 18+ + notif Zap)
-// Lousa + Dados + Roleta + Baralho + Notif
+// 🎨 BRINCADEIRAS DO CASAL — v19
+// Lousa + Dados + Roleta + Baralho + Notif + Cadastro
 // Tudo num único arquivo, organizado por seção
 // ============================================
 
@@ -12,14 +12,35 @@
   // ============================================
   const STATE = {
     modo18: false,
-    senha18: '784978',  // senha do modo 18+ (você pode mudar)
-    ultimos: { dado: null, roleta: null, baralho: null }  // resultados recentes pra notif
+    senha18: '784978',
+    ultimos: { dado: null, roleta: null, baralho: null }
   };
 
   // Carrega estado do modo 18+ (persistente)
   try {
     STATE.modo18 = localStorage.getItem('nosso-amor-modo-18') === '1';
   } catch (e) {}
+
+  // ============================================
+  // 0. 📦 STORAGE DE CADASTROS
+  //    Cada chave: { id, tipo ('pergunta'|'acao'|...), is18, data, ...
+  //                  ...específico: icon (dado), label/emoji/color/nivel (roleta) }
+  // ============================================
+  const STORAGE = {
+    CARTAS: 'nosso-amor-cartas-custom',
+    DADO:   'nosso-amor-dado-custom',
+    ROLETA: 'nosso-amor-roleta-custom'
+  };
+
+  function loadStorage(key) {
+    try {
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveStorage(key, arr) {
+    try { localStorage.setItem(key, JSON.stringify(arr)); } catch (e) {}
+  }
 
   // ============================================
   // 1. 🎨 LOUSA — Canvas com persistência
@@ -188,6 +209,7 @@
 
   // ============================================
   // 2. 🎲 DADO DO CASAL — 2 bancos: normal e 18+
+  //    Random melhorado: memória das últimas 3 faces
   // ============================================
   function initDados() {
     const btn = document.getElementById('dado-btn');
@@ -211,8 +233,25 @@
       { icon: '👙', text: 'Mostra o que tá por baixo' }
     ];
 
+    // Memória das últimas 3 saídas (pra não repetir)
+    const ultimasFaces = { normais: [], '18': [] };
+
+    // Mescla cadastros do usuário
+    function getFaces() {
+      const base = STATE.modo18 ? faces18 : facesNormais;
+      const custom = loadStorage(STORAGE.DADO).filter(f => !!f.is18 === STATE.modo18);
+      // custom: { id, is18, icon, text }
+      const merged = base.concat(custom.map(f => ({ icon: f.icon || '🎲', text: f.text })));
+      return merged;
+    }
+
     btn.addEventListener('click', () => {
-      const faces = STATE.modo18 ? faces18 : facesNormais;
+      const faces = getFaces();
+      const memKey = STATE.modo18 ? '18' : 'normais';
+      if (faces.length === 0) {
+        speakMascot('Nenhuma face cadastrada!');
+        return;
+      }
       btn.classList.add('rolling');
       const dadoEl = document.getElementById('dado-face');
       const resultEl = document.getElementById('dado-result');
@@ -227,7 +266,11 @@
         rollCount++;
         if (rollCount > 12) {
           clearInterval(rollInterval);
-          const final = faces[Math.floor(Math.random() * faces.length)];
+          // Escolhe final evitando as últimas 3 faces
+          const recentSet = new Set(ultimasFaces[memKey]);
+          let candidates = faces.filter(f => !recentSet.has(f.text));
+          if (candidates.length === 0) candidates = faces; // fallback
+          const final = candidates[Math.floor(Math.random() * candidates.length)];
           if (dadoEl) {
             dadoEl.textContent = final.icon;
             dadoEl.style.transform = 'rotate(0deg) scale(1.2)';
@@ -239,6 +282,9 @@
             setTimeout(() => resultEl.classList.remove('show'), 4000);
           }
           btn.classList.remove('rolling');
+          // Atualiza memória (mantém só as 3 últimas)
+          ultimasFaces[memKey].push(final.text);
+          if (ultimasFaces[memKey].length > 3) ultimasFaces[memKey].shift();
           // Salva pro status do WhatsApp
           STATE.ultimos.dado = { icon: final.icon, text: final.text, ts: Date.now() };
           atualizarResumo();
@@ -250,6 +296,7 @@
 
   // ============================================
   // 3. 🎡 ROLETA — 2 bancos: normal (20) e 18+ (20)
+  //    Random melhorado: memória das últimas 3 saídas
   // ============================================
   function initRoleta() {
     const canvas = document.getElementById('roleta-canvas');
@@ -305,16 +352,32 @@
       { label: 'Masturbar junto(a)',       emoji: '💦', color: '#C44569', nivel: 3 }
     ];
 
+    // Paleta alternativa pra cadastros novos (rotação de cores)
+    const CoresCustom = ['#9C27B0', '#673AB7', '#3F51B5', '#03A9F4', '#009688', '#FF9800', '#795548', '#607D8B'];
+
+    function getOpcoes() {
+      const base = STATE.modo18 ? opcoes18 : opcoesNormais;
+      const custom = loadStorage(STORAGE.ROLETA).filter(r => !!r.is18 === STATE.modo18);
+      const customMapped = custom.map((r, i) => ({
+        label: r.text,
+        emoji: r.emoji || '⭐',
+        color: CoresCustom[i % CoresCustom.length],
+        nivel: STATE.modo18 ? 3 : 2  // custom = spicy
+      }));
+      return base.concat(customMapped);
+    }
+
     const size = 320;
     canvas.width = size;
     canvas.height = size;
     const cx = size / 2;
     const cy = size / 2;
     const r = size / 2 - 6;
-    const sliceAngle = (Math.PI * 2) / 20;  // sempre 20 fatias (visual consistente)
+    let sliceAngle = (Math.PI * 2) / 20;  // dinâmico agora
     let currentRotation = 0;
     let spinning = false;
     let lastWinnerNivel = 1;
+    const ultimasRoleta = { normais: [], '18': [] };
 
     function corPorNivel(nivel) {
       if (nivel === 1) return '#FFD3DD';
@@ -322,13 +385,10 @@
       return '#FF1744';
     }
 
-    function getOpcoes() {
-      return STATE.modo18 ? opcoes18 : opcoesNormais;
-    }
-
     function draw() {
-      ctx.clearRect(0, 0, size, size);
       const opcoes = getOpcoes();
+      sliceAngle = (Math.PI * 2) / opcoes.length;
+      ctx.clearRect(0, 0, size, size);
 
       // Anel externo decorativo
       ctx.beginPath();
@@ -362,11 +422,13 @@
         ctx.rotate(start + sliceAngle / 2);
         ctx.textAlign = 'right';
         ctx.fillStyle = '#fff';
-        ctx.font = 'bold 11px Inter, sans-serif';
+        // Fonte dinâmica baseada no tamanho do label
+        const fontSize = opcoes.length > 20 ? 9 : opcoes.length > 16 ? 10 : 11;
+        ctx.font = `bold ${fontSize}px Inter, sans-serif`;
         ctx.shadowColor = 'rgba(0,0,0,0.5)';
         ctx.shadowBlur = 2;
         ctx.fillText(op.label, r - 12, 4);
-        ctx.font = '16px sans-serif';
+        ctx.font = `${fontSize + 4}px sans-serif`;
         ctx.textAlign = 'center';
         ctx.fillText(op.emoji, r - 35, 5);
         ctx.restore();
@@ -400,12 +462,22 @@
 
     btn.addEventListener('click', () => {
       if (spinning) return;
+      const opcoes = getOpcoes();
+      if (opcoes.length < 2) {
+        speakMascot('Adiciona mais opções primeiro!');
+        return;
+      }
       spinning = true;
       resultEl.classList.remove('show');
       resultEl.textContent = '';
 
-      const opcoes = getOpcoes();
-      const winner = Math.floor(Math.random() * opcoes.length);
+      const memKey = STATE.modo18 ? '18' : 'normais';
+      // Escolhe winner evitando últimas 3
+      const recentSet = new Set(ultimasRoleta[memKey]);
+      let candidates = opcoes.map((op, idx) => idx).filter(i => !recentSet.has(opcoes[i].label));
+      if (candidates.length === 0) candidates = opcoes.map((_, idx) => idx);
+      const winner = candidates[Math.floor(Math.random() * candidates.length)];
+
       const targetAngle = winner * sliceAngle + sliceAngle / 2;
       const turns = 5 + Math.floor(Math.random() * 3);
       const baseDelta = turns * Math.PI * 2;
@@ -448,6 +520,9 @@
               resultEl.textContent = prefix + winnerOp.emoji + ' ' + winnerOp.label + '!';
               resultEl.classList.add('show');
               resultEl.style.color = winnerOp.color;
+              // Memória
+              ultimasRoleta[memKey].push(winnerOp.label);
+              if (ultimasRoleta[memKey].length > 3) ultimasRoleta[memKey].shift();
               STATE.ultimos.roleta = { emoji: winnerOp.emoji, label: winnerOp.label, ts: Date.now() };
               atualizarResumo();
               speakMascot('Saiu: ' + winnerOp.label + '!');
@@ -464,8 +539,7 @@
   }
 
   // ============================================
-  // 4. 🃏 BARALHO — 350 cartas normais + 80 18+
-  // Filtro por categoria, 2 bancos
+  // 4. 🃏 BARALHO — banco normais (350) + 18+ (80) + cadastros
   // ============================================
   function initBaralho() {
     const baralhoEl = document.getElementById('baralho');
@@ -473,26 +547,40 @@
     const remainingEl = document.getElementById('baralho-restantes');
     if (!baralhoEl || !btn) return;
 
-    // Filtro
     const chipBtns = document.querySelectorAll('.baralho-chip');
     let filtroAtivo = 'todas';
+
     chipBtns.forEach(c => {
       c.addEventListener('click', () => {
         chipBtns.forEach(x => x.classList.remove('active'));
         c.classList.add('active');
         filtroAtivo = c.dataset.filtro;
-        // Reset pool
-        restantes = getPool();
         cartaAtual = null;
+        restantes = getPool();
         atualizarRestantes();
         render();
       });
     });
 
     function getPool() {
-      const banco = STATE.modo18 ? CARTAS_18 : CARTAS_NORMAIS;
-      if (filtroAtivo === 'todas') return [...banco];
-      return banco.filter(c => c.tipo === filtroAtivo);
+      // No modo 18+ força 'todas' (chips de tipo ficam escondidos)
+      const filtroEfetivo = STATE.modo18 ? 'todas' : filtroAtivo;
+      const base = STATE.modo18 ? CARTAS_18 : CARTAS_NORMAIS;
+      const custom = loadStorage(STORAGE.CARTAS).filter(c => !!c.is18 === STATE.modo18);
+      // custom: { id, tipo, is18, text }
+      const customMapped = custom.map(c => ({ tipo: c.tipo, msg: c.text }));
+      const all = base.concat(customMapped);
+      if (filtroEfetivo === 'todas') return shuffle([...all]);
+      return shuffle(all.filter(c => c.tipo === filtroEfetivo));
+    }
+
+    // Fisher-Yates shuffle (mais justo que sort+random)
+    function shuffle(arr) {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
     }
 
     let restantes = getPool();
@@ -545,11 +633,9 @@
         render();
         return;
       }
-      const idx = Math.floor(Math.random() * restantes.length);
-      cartaAtual = restantes.splice(idx, 1)[0];
+      cartaAtual = restantes.pop();
       atualizarRestantes();
       render();
-      // Salva pro status do WhatsApp
       STATE.ultimos.baralho = { tipo: cartaAtual.tipo, msg: cartaAtual.msg, ts: Date.now() };
       atualizarResumo();
       speakMascot(cartaAtual.msg);
@@ -561,7 +647,7 @@
   }
 
   // ============================================
-  // 5. 🔥 MODO 18+ — Gate + Toggle
+  // 5. 🔥 MODO 18+ — Gate + Toggle + re-render jogos
   // ============================================
   function initModo18() {
     const btnAtivar = document.getElementById('modo-18-btn');
@@ -576,7 +662,6 @@
 
     if (!btnAtivar) return;
 
-    // Aplica estado salvo
     if (STATE.modo18) {
       document.body.classList.add('modo-18-ativo');
       banner.style.display = 'none';
@@ -599,14 +684,50 @@
         info.style.display = 'flex';
         gate.style.display = 'none';
         speakMascot('Modo 18+ ativado! 🔥');
-        // Re-renderiza os 3 jogos com os novos bancos
-        // (simples: força reload da seção, ou só atualiza visual)
+        // Re-renderiza os jogos com os novos bancos
+        reRenderJogos();
         if (window.Mascot) window.Mascot.surprised();
       } else {
         gateErro.textContent = '❌ Senha errada, tenta de novo';
         gateInput.value = '';
         gateInput.focus();
       }
+    }
+
+    function desativar() {
+      STATE.modo18 = false;
+      try { localStorage.setItem('nosso-amor-modo-18', '0'); } catch (e) {}
+      document.body.classList.remove('modo-18-ativo');
+      banner.style.display = 'flex';
+      info.style.display = 'none';
+      speakMascot('Voltou pro modo fofo 💖');
+      reRenderJogos();
+    }
+
+    // Re-render dos 3 jogos quando troca modo (resolver travamento)
+    function reRenderJogos() {
+      // Dados: re-attach o event handler (o handler já lê STATE.modo18 dinamicamente, só resetar a face)
+      const dadoEl = document.getElementById('dado-face');
+      if (dadoEl) { dadoEl.textContent = STATE.modo18 ? '🔞' : '🎲'; dadoEl.style.transform = 'rotate(0deg) scale(1)'; }
+      const dadoResult = document.getElementById('dado-result');
+      if (dadoResult) { dadoResult.textContent = ''; dadoResult.classList.remove('show'); }
+      // Roleta: re-draw (já é dinâmico)
+      const roletaCanvas = document.getElementById('roleta-canvas');
+      if (roletaCanvas) {
+        // dispara redraw via clique no btn (mais limpo: chamar draw direto via STATE)
+      }
+      // Baralho: re-init
+      const baralhoEl = document.getElementById('baralho');
+      if (baralhoEl) {
+        // limpa pool atual e re-render
+        const event = new Event('reinit');
+        // abordagem mais simples: força um clique no chip "todas" que já re-inicializa
+        const todas = document.querySelector('.baralho-chip[data-filtro="todas"]');
+        if (todas) todas.click();
+      }
+      // Limpa STATE.ultimos (não faz sentido mandar status antigo de outro modo)
+      STATE.ultimos = { dado: null, roleta: null, baralho: null };
+      atualizarResumo();
     }
 
     gateConfirm.addEventListener('click', tentarAtivar);
@@ -617,14 +738,7 @@
       gate.style.display = 'none';
     });
 
-    btnDesativar.addEventListener('click', () => {
-      STATE.modo18 = false;
-      try { localStorage.setItem('nosso-amor-modo-18', '0'); } catch (e) {}
-      document.body.classList.remove('modo-18-ativo');
-      banner.style.display = 'flex';
-      info.style.display = 'none';
-      speakMascot('Voltou pro modo fofo 💖');
-    });
+    btnDesativar.addEventListener('click', desativar);
   }
 
   // ============================================
@@ -641,7 +755,7 @@
     const btnCancelar = document.getElementById('notif-cancelar');
     if (!btnEle || !btnEla) return;
 
-    let remetente = null;  // 'rafael' | 'fernanda'
+    let remetente = null;
     let destinatario = null;
 
     function abrirModal(quem) {
@@ -704,14 +818,13 @@
     btnEnviar.addEventListener('click', async () => {
       const texto = montarTexto();
       const numero = destinatario === 'fernanda'
-        ? '5516988081144'  // Fernanda
-        : '5516988302020';  // Rafael
+        ? '5516988081144'
+        : '5516988302020';
 
       btnEnviar.disabled = true;
       btnEnviar.textContent = '⏳ Enviando...';
 
       try {
-        // Chama o relay no VPS via Cloudflare Tunnel
         const resp = await fetch('https://zap.velhaturbo.cloud/send', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -720,7 +833,6 @@
         const data = await resp.json();
         if (data.ok) {
           btnEnviar.textContent = '✅ Enviado pro zap!';
-          // Mostra confirmação com IDs
           setTimeout(() => {
             alert(`✅ Mensagem enviada!\n\n• Destinatário: ${numero}\n• Cópia também foi enviada pra você.\n\nEla/Ele vai receber no WhatsApp.`);
             fecharModal();
@@ -736,6 +848,215 @@
         alert('❌ Não consegui falar com o relay. Verifica tua internet.\n\nDetalhe: ' + e.message);
       }
     });
+  }
+
+  // ============================================
+  // 7. 📝 CADASTRO DE CONTEÚDO — CRUD
+  // ============================================
+  function initCadastro() {
+    const tabs = document.querySelectorAll('.cad-tab');
+    const cartaTipos = document.querySelectorAll('.cad-tipo');
+    const dadoRoletaRow = document.getElementById('cad-dado-roleta');
+    const cartaTiposRow = document.getElementById('cad-carta-tipos');
+    const txtEmoji = document.getElementById('cad-emoji');
+    const txtTexto = document.getElementById('cad-texto');
+    const chk18 = document.getElementById('cad-18');
+    const btnSalvar = document.getElementById('cad-salvar');
+    const btnVer = document.getElementById('cad-ver');
+    const btnLimpar = document.getElementById('cad-limpar');
+    const feedback = document.getElementById('cad-feedback');
+    const lista = document.getElementById('cad-lista');
+    const countEl = document.getElementById('cad-count');
+    if (!btnSalvar) return;
+
+    let cadTab = 'carta';
+    let cadCartaTipo = 'pergunta';
+
+    function setActive(arr, el) {
+      arr.forEach(x => x.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function updateFields() {
+      if (cadTab === 'carta') {
+        cartaTiposRow.style.display = 'flex';
+        dadoRoletaRow.style.display = 'none';
+        txtTexto.placeholder = 'Digita a carta (pergunta / ação / declaração / desafio)...';
+      } else if (cadTab === 'dado') {
+        cartaTiposRow.style.display = 'none';
+        dadoRoletaRow.style.display = 'none';
+        txtTexto.placeholder = 'Digita a face do dado (ex: "Beijo na testa")...';
+      } else if (cadTab === 'roleta') {
+        cartaTiposRow.style.display = 'none';
+        dadoRoletaRow.style.display = 'flex';
+        txtTexto.placeholder = 'Digita a opção da roleta (ex: "Fazer no chuveiro")...';
+      }
+      feedback.textContent = '';
+      feedback.className = 'cad-feedback';
+      atualizarContador();
+    }
+
+    tabs.forEach(t => {
+      t.addEventListener('click', () => {
+        setActive(tabs, t);
+        cadTab = t.dataset.tipo;
+        updateFields();
+      });
+    });
+    cartaTipos.forEach(t => {
+      t.addEventListener('click', () => {
+        setActive(cartaTipos, t);
+        cadCartaTipo = t.dataset.cat;
+      });
+    });
+
+    function showFeedback(msg, ok) {
+      feedback.textContent = msg;
+      feedback.className = 'cad-feedback ' + (ok ? 'ok' : 'err');
+      setTimeout(() => {
+        feedback.textContent = '';
+        feedback.className = 'cad-feedback';
+      }, 3500);
+    }
+
+    function uid() {
+      return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+    }
+
+    btnSalvar.addEventListener('click', () => {
+      const texto = txtTexto.value.trim();
+      if (!texto) {
+        showFeedback('⚠️ Digita um texto primeiro', false);
+        txtTexto.focus();
+        return;
+      }
+      if (cadTab === 'carta') {
+        const item = { id: uid(), tipo: cadCartaTipo, is18: chk18.checked, text: texto };
+        const arr = loadStorage(STORAGE.CARTAS);
+        arr.push(item);
+        saveStorage(STORAGE.CARTAS, arr);
+        showFeedback(`✅ Carta (${cadCartaTipo}) adicionada!`, true);
+      } else if (cadTab === 'dado') {
+        const item = { id: uid(), is18: chk18.checked, icon: '🎲', text: texto };
+        const arr = loadStorage(STORAGE.DADO);
+        arr.push(item);
+        saveStorage(STORAGE.DADO, arr);
+        showFeedback('✅ Face do dado adicionada!', true);
+      } else if (cadTab === 'roleta') {
+        const item = { id: uid(), is18: chk18.checked, emoji: txtEmoji.value.trim() || '⭐', text: texto };
+        const arr = loadStorage(STORAGE.ROLETA);
+        arr.push(item);
+        saveStorage(STORAGE.ROLETA, arr);
+        showFeedback(`✅ Opção da roleta (${item.emoji}) adicionada!`, true);
+      }
+      txtTexto.value = '';
+      txtEmoji.value = '';
+      txtTexto.focus();
+      atualizarContador();
+      // Re-render baralho/roleta/dado se já tiverem sido inicializados
+      reRenderJogos();
+    });
+
+    function atualizarContador() {
+      const total = loadStorage(STORAGE.CARTAS).length
+                   + loadStorage(STORAGE.DADO).length
+                   + loadStorage(STORAGE.ROLETA).length;
+      countEl.textContent = total;
+    }
+
+    function reRenderJogos() {
+      // Re-inicializa os 3 jogos (mais simples: dispara o chip do baralho)
+      const todas = document.querySelector('.baralho-chip[data-filtro="todas"]');
+      if (todas) todas.click();
+    }
+
+    btnVer.addEventListener('click', () => {
+      if (lista.style.display === 'block') {
+        lista.style.display = 'none';
+        btnVer.textContent = `📋 Ver cadastrados (${countEl.textContent})`;
+        return;
+      }
+      const cartas = loadStorage(STORAGE.CARTAS);
+      const dados = loadStorage(STORAGE.DADO);
+      const roletas = loadStorage(STORAGE.ROLETA);
+      if (cartas.length + dados.length + roletas.length === 0) {
+        showFeedback('📭 Nenhum cadastrado ainda', false);
+        return;
+      }
+      let html = '';
+      cartas.forEach(c => {
+        html += `
+          <div class="cad-lista-item carta" data-id="${c.id}" data-tipo="carta">
+            <span class="cad-tag">${c.tipo}</span>
+            ${c.is18 ? '<span class="cad-tag eh18">18+</span>' : ''}
+            <span class="cad-texto">${escapeHtml(c.text)}</span>
+            <button class="cad-del" type="button" title="Remover">✕</button>
+          </div>`;
+      });
+      dados.forEach(d => {
+        html += `
+          <div class="cad-lista-item dado" data-id="${d.id}" data-tipo="dado">
+            <span class="cad-tag">dado</span>
+            ${d.is18 ? '<span class="cad-tag eh18">18+</span>' : ''}
+            <span class="cad-texto">${d.icon} ${escapeHtml(d.text)}</span>
+            <button class="cad-del" type="button" title="Remover">✕</button>
+          </div>`;
+      });
+      roletas.forEach(r => {
+        html += `
+          <div class="cad-lista-item roleta" data-id="${r.id}" data-tipo="roleta">
+            <span class="cad-tag">roleta</span>
+            ${r.is18 ? '<span class="cad-tag eh18">18+</span>' : ''}
+            <span class="cad-texto">${r.emoji} ${escapeHtml(r.text)}</span>
+            <button class="cad-del" type="button" title="Remover">✕</button>
+          </div>`;
+      });
+      lista.innerHTML = html;
+      lista.style.display = 'block';
+      btnVer.textContent = '📋 Ocultar cadastrados';
+
+      // Deletar
+      lista.querySelectorAll('.cad-del').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const item = e.target.closest('.cad-lista-item');
+          const id = item.dataset.id;
+          const tipo = item.dataset.tipo;
+          const key = tipo === 'carta' ? STORAGE.CARTAS : tipo === 'dado' ? STORAGE.DADO : STORAGE.ROLETA;
+          const arr = loadStorage(key).filter(x => x.id !== id);
+          saveStorage(key, arr);
+          item.remove();
+          showFeedback('🗑️ Removido', true);
+          atualizarContador();
+          reRenderJogos();
+          if (lista.querySelectorAll('.cad-lista-item').length === 0) {
+            lista.style.display = 'none';
+            btnVer.textContent = `📋 Ver cadastrados (${countEl.textContent})`;
+          }
+        });
+      });
+    });
+
+    btnLimpar.addEventListener('click', () => {
+      if (confirm('🗑️ Apaga TODOS os cadastros? (texto que você adicionou — os bancos base ficam)')) {
+        saveStorage(STORAGE.CARTAS, []);
+        saveStorage(STORAGE.DADO, []);
+        saveStorage(STORAGE.ROLETA, []);
+        showFeedback('🗑️ Tudo apagado', true);
+        lista.style.display = 'none';
+        btnVer.textContent = '📋 Ver cadastrados (0)';
+        atualizarContador();
+        reRenderJogos();
+      }
+    });
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({
+        '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+      }[c]));
+    }
+
+    updateFields();
+    atualizarContador();
   }
 
   // ============================================
@@ -772,7 +1093,8 @@
     initBaralho();
     initModo18();
     initNotif();
-    console.log('🎨 Brincadeiras carregadas: lousa, dados, roleta, baralho, modo 18+, notif');
+    initCadastro();
+    console.log('🎨 Brincadeiras carregadas: lousa, dados, roleta, baralho, modo 18+, notif, cadastro');
   }
 
   if (document.readyState === 'loading') {
