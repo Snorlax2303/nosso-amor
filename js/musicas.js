@@ -162,13 +162,6 @@ const MUSICAS = [
     significado: "Você é minha página preferida do caderno da vida."
   },
   {
-    titulo: "Evidências (ao vivo)",
-    artista: "Chitãozinho & Xororó",
-    youtubeId: "bxo9mtJjvS0",
-    capa: "https://i.ytimg.com/vi/bxo9mtJjvS0/hqdefault.jpg",
-    significado: "Já sabe né, quando a saudade aperta, essa é a trilha."
-  },
-  {
     titulo: "Galopeira",
     artista: "Chitãozinho & Xororó",
     youtubeId: "uG4sk_8M-x4",
@@ -523,8 +516,8 @@ const MUSICAS = [
   {
     titulo: "Vento No Litoral",
     artista: "Legião Urbana",
-    youtubeId: "9W3y2v_yU9E",
-    capa: "https://i.ytimg.com/vi/9W3y2v_yU9E/hqdefault.jpg",
+    youtubeId: "8XbHp0HWJtk",
+    capa: "https://i.ytimg.com/vi/8XbHp0HWJtk/hqdefault.jpg",
     significado: "O vento do nosso amor sopra sempre a favor."
   },
   {
@@ -549,10 +542,10 @@ const MUSICAS = [
     significado: "Quando tudo escurece, você é minha lanterna."
   },
   {
-    titulo: "Meninos e Meninas",
+    titulo: "Meninos E Meninas",
     artista: "Legião Urbana",
-    youtubeId: "zAjUKlWJi50",
-    capa: "https://i.ytimg.com/vi/zAjUKlWJi50/hqdefault.jpg",
+    youtubeId: "mvBaHIGhrX8",
+    capa: "https://i.ytimg.com/vi/mvBaHIGhrX8/hqdefault.jpg",
     significado: "Quando a gente se conheceu, era tudo meninos e meninas."
   },
   {
@@ -572,22 +565,22 @@ const MUSICAS = [
   {
     titulo: "Sutilmente",
     artista: "Skank",
-    youtubeId: "V8gE5wAjPvw",
-    capa: "https://i.ytimg.com/vi/V8gE5wAjPvw/hqdefault.jpg",
+    youtubeId: "v3SQTOZO36E",
+    capa: "https://i.ytimg.com/vi/v3SQTOZO36E/hqdefault.jpg",
     significado: "Você me afetou tão sutilmente que eu nem vi chegar."
   },
   {
     titulo: "Vou Deixar",
     artista: "Skank",
-    youtubeId: "tVbllJoPZ0g",
-    capa: "https://i.ytimg.com/vi/tVbllJoPZ0g/hqdefault.jpg",
+    youtubeId: "j9tAJ3ZyLMY",
+    capa: "https://i.ytimg.com/vi/j9tAJ3ZyLMY/hqdefault.jpg",
     significado: "Eu vou deixar você ser feliz, mas com você do meu lado."
   },
   {
     titulo: "Resposta",
     artista: "Skank",
-    youtubeId: "g7XgP23KMZw",
-    capa: "https://i.ytimg.com/vi/g7XgP23KMZw/hqdefault.jpg",
+    youtubeId: "81Szobx5SLM",
+    capa: "https://i.ytimg.com/vi/81Szobx5SLM/hqdefault.jpg",
     significado: "Você é a resposta de tudo que eu sempre procurei."
   },
   {
@@ -607,36 +600,36 @@ const MUSICAS = [
   {
     titulo: "Toda Forma de Amor",
     artista: "Lulu Santos",
-    youtubeId: "V8gE5wAjPvw",
-    capa: "https://i.ytimg.com/vi/V8gE5wAjPvw/hqdefault.jpg",
+    youtubeId: "bHHfzKYv32I",
+    capa: "https://i.ytimg.com/vi/bHHfzKYv32I/hqdefault.jpg",
     significado: "A gente já passou por toda forma de amor, e tá de pé."
   },
   {
     titulo: "Sereia",
     artista: "Lulu Santos",
-    youtubeId: "9W3y2v_yU9E",
-    capa: "https://i.ytimg.com/vi/9W3y2v_yU9E/hqdefault.jpg",
+    youtubeId: "mEXOXjjVs24",
+    capa: "https://i.ytimg.com/vi/mEXOXjjVs24/hqdefault.jpg",
     significado: "Você me enfeitiça igual sereia. ♡"
   },
   {
-    titulo: "Tudo Que Eu Quero",
+    titulo: "À Sua Maneira",
     artista: "Capital Inicial (com Seu Jorge)",
-    youtubeId: "g7XgP23KMZw",
-    capa: "https://i.ytimg.com/vi/g7XgP23KMZw/hqdefault.jpg",
+    youtubeId: "dxCe0b5vVh8",
+    capa: "https://i.ytimg.com/vi/dxCe0b5vVh8/hqdefault.jpg",
     significado: "Tudo que eu quero, é você. Só."
   },
   {
     titulo: "Primeiros Erros",
     artista: "Capital Inicial",
-    youtubeId: "9W3y2v_yU9E",
-    capa: "https://i.ytimg.com/vi/9W3y2v_yU9E/hqdefault.jpg",
+    youtubeId: "qiU_XXucYBE",
+    capa: "https://i.ytimg.com/vi/qiU_XXucYBE/hqdefault.jpg",
     significado: "A gente já errou, mas nossos acertos foram maiores."
   },
   {
     titulo: "Natasha",
     artista: "Capital Inicial",
-    youtubeId: "zAjUKlWJi50",
-    capa: "https://i.ytimg.com/vi/zAjUKlWJi50/hqdefault.jpg",
+    youtubeId: "FltzZX30XyY",
+    capa: "https://i.ytimg.com/vi/FltzZX30XyY/hqdefault.jpg",
     significado: "Cada pessoa que passa na nossa vida, ensina algo. Você me ensinou tudo."
   }
 ];

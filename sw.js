@@ -2,7 +2,7 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v23';  // v23: 🎵 +45 músicas (sertanejo romântico + MPB + clássicos) — total 64
+const CACHE_NAME = 'nosso-amor-v24';  // v24: 🎵 corrigiu 9 IDs duplicados (todos únicos agora: 89/89)
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
