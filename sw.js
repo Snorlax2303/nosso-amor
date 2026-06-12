@@ -2,7 +2,7 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v22';  // v22: 📲 página /nfc.html pra tag NFC (corações caindo, vibra, bypass do gate)
+const CACHE_NAME = 'nosso-amor-v23';  // v23: 🎵 +45 músicas (sertanejo romântico + MPB + clássicos) — total 64
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
