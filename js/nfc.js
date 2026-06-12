@@ -1,13 +1,24 @@
 // ============================================
-// 💕 NFC LANDING ÉPICA — 4 fases
+// 💕 NFC LANDING ÉPICA — 4 fases + Smart Routing
 // 1) Tap 3x no coração
 // 2) Foto + frase
 // 3) Música + texto letra por letra
-// 4) Botão final → app
+// 4) Entrar no app + Instalar PWA (se não instalado)
 // ============================================
 
 (function() {
   'use strict';
+
+  // ============================================
+  // Detecção: PWA já instalado?
+  // ============================================
+  // display-mode: standalone = PWA instalado
+  // iOS usa navigator.standalone
+  const isInstalled = (
+    window.matchMedia('(display-mode: standalone)').matches ||
+    window.matchMedia('(display-mode: minimal-ui)').matches ||
+    window.navigator.standalone === true  // iOS
+  );
 
   // ============================================
   // Corações caindo (sempre rodando)
@@ -37,7 +48,6 @@
       try { navigator.vibrate(pattern); } catch (e) {}
     }
   }
-  // Vibração inicial (3 pulsos curtos) ao tocar na tag
   setTimeout(() => vibrate([80, 50, 80, 50, 200]), 300);
 
   // ============================================
@@ -51,9 +61,7 @@
   const phase2 = document.getElementById('phase-2');
 
   function advanceToPhase2() {
-    // Vibra mais forte na transição
     vibrate([100, 30, 100, 30, 300]);
-    // Fade out fase 1
     phase1.style.animation = 'none';
     phase1.style.opacity = '0';
     phase1.style.transform = 'scale(1.1)';
@@ -61,7 +69,6 @@
     setTimeout(() => {
       phase1.style.display = 'none';
       phase2.style.display = '';
-      // Reseta a animação da fase 2 (re-trigger)
       phase2.style.animation = 'none';
       void phase2.offsetWidth;
       phase2.style.animation = 'fade-in 0.8s ease-out';
@@ -72,14 +79,10 @@
     heartBtn.addEventListener('click', () => {
       tapCount++;
       vibrate(60);
-      // Pulinho extra no botão
       heartBtn.style.transform = 'scale(0.85)';
       setTimeout(() => heartBtn.style.transform = '', 150);
-      // Atualiza contador
       if (tapCounter) tapCounter.textContent = tapCount + '/' + TAP_TARGET;
-      // Avança quando bater 3
       if (tapCount >= TAP_TARGET) {
-        // Esconde o botão antes de avançar
         heartBtn.style.pointerEvents = 'none';
         setTimeout(advanceToPhase2, 400);
       }
@@ -93,8 +96,6 @@
   const btnOpenLetter = document.getElementById('btn-open-letter');
 
   function startMusic() {
-    // Toca "Nossa" do Thiaguinho
-    // YouTube ID: rCkDEfM76CQ (ou trocar por outra música)
     const MUSIC_ID = 'rCkDEfM76CQ'; // Nossa - Thiaguinho
     const ytContainer = document.getElementById('yt-audio');
     if (ytContainer && MUSIC_ID) {
@@ -117,7 +118,6 @@
           i++;
           setTimeout(tick, speed);
         } else {
-          // Esconde o caret
           if (caret) caret.style.display = 'none';
           resolve();
         }
@@ -135,7 +135,6 @@
       phase2.style.display = 'none';
       phase3.style.display = '';
       phase3.style.animation = 'fade-in 0.8s ease-out';
-      // Começa música + texto
       startMusic();
       const tw = document.getElementById('typewriter');
       const sig = document.getElementById('signature');
@@ -145,7 +144,6 @@
           sig.style.display = '';
           sig.style.animation = 'fade-in 1s ease-out';
         }
-        // Avança pra fase 4 depois de 2.5s
         setTimeout(advanceToPhase4, 2500);
       });
     }, 400);
@@ -156,7 +154,7 @@
   }
 
   // ============================================
-  // FASE 3 → 4 — Automático (depois do texto + assinatura)
+  // FASE 3 → 4 — Automático (depois do texto)
   // ============================================
   const phase4 = document.getElementById('phase-4');
 
@@ -169,39 +167,102 @@
       phase3.style.display = 'none';
       phase4.style.display = '';
       phase4.style.animation = 'fade-in 0.8s ease-out';
+      // Personaliza textos da Fase 4 baseado em se PWA tá instalado
+      setupPhase4();
     }, 500);
   }
 
   // ============================================
-  // FASE 4 → APP — Botão "Entrar"
+  // FASE 4 — Setup inteligente (instalar vs só entrar)
   // ============================================
   const btnEnter = document.getElementById('btn-enter');
+  const btnInstall = document.getElementById('btn-install');
+  const btnEnterText = document.getElementById('btn-enter-text');
+  const phase4Title = document.getElementById('phase4-title');
+  const phase4Sub = document.getElementById('phase4-sub');
+  const phase4Hint = document.getElementById('phase4-hint');
+
+  // Antes do prompt de instalação ficar disponível, escuta
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    // Previne o prompt automático
+    e.preventDefault();
+    deferredPrompt = e;
+    console.log('[nfc] beforeinstallprompt capturado');
+  });
+
+  window.addEventListener('appinstalled', () => {
+    console.log('[nfc] PWA instalado!');
+    deferredPrompt = null;
+    if (btnInstall) btnInstall.style.display = 'none';
+    if (btnEnterText) btnEnterText.textContent = '✨ Abrir nosso cantinho';
+    if (phase4Hint) phase4Hint.textContent = 'Agora é só encostar no chaveiro ♡';
+  });
+
+  function setupPhase4() {
+    if (isInstalled) {
+      // JÁ instalado: só mostra o botão de entrar (com texto épico)
+      if (btnEnterText) btnEnterText.textContent = '✨ Abrir nosso cantinho';
+      if (phase4Title) phase4Title.textContent = 'Que bom que voltou!';
+      if (phase4Sub) phase4Sub.textContent = 'Toca no coração ♡';
+      if (phase4Hint) phase4Hint.textContent = 'ou encoste de novo no chaveiro 💫';
+      if (btnInstall) btnInstall.style.display = 'none';
+    } else {
+      // NÃO instalado: mostra botão de instalar (se disponível) + entrar
+      if (btnInstall && deferredPrompt) {
+        btnInstall.style.display = 'flex';
+      }
+      if (phase4Sub) {
+        phase4Sub.textContent = deferredPrompt
+          ? 'Instala pra acessar mais rápido depois ✨'
+          : 'Vem pro nosso cantinho ✨';
+      }
+    }
+  }
 
   if (btnEnter) {
     btnEnter.addEventListener('click', () => {
       vibrate([100, 30, 100]);
-      // Marca que veio via NFC (a home vai pular o gate)
       try { sessionStorage.setItem('nosso-amor-via-nfc', '1'); } catch (e) {}
-      // Redireciona pra home
       window.location.href = './?from=nfc';
     });
   }
 
+  if (btnInstall) {
+    btnInstall.addEventListener('click', async () => {
+      vibrate([100, 30, 100]);
+      if (!deferredPrompt) {
+        // Fallback: mostra instrução de instalação manual
+        if (phase4Hint) {
+          phase4Hint.innerHTML = 'No menu do Chrome (⋮), toque em <strong>"Adicionar à tela inicial"</strong>';
+          phase4Hint.style.opacity = '1';
+        }
+        return;
+      }
+      // Mostra o prompt nativo
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('[nfc] User aceitou instalar');
+      } else {
+        console.log('[nfc] User recusou instalar');
+      }
+      deferredPrompt = null;
+    });
+  }
+
   // ============================================
-  // Pula tudo se ela já entrou via NFC antes (PWA instalado)
+  // Pula apresentação se PWA já instalado (quick path)
   // ============================================
-  if (window.matchMedia('(display-mode: standalone)').matches) {
-    const jaEntrouNFC = localStorage.getItem('nosso-amor-nfc-visto');
-    if (jaEntrouNFC) {
-      // Vai direto pra fase 4 (pula a apresentação)
-      try { sessionStorage.setItem('nosso-amor-via-nfc', '1'); } catch (e) {}
-      if (phase1) phase1.style.display = 'none';
-      if (phase2) phase2.style.display = 'none';
-      if (phase3) phase3.style.display = 'none';
-      if (phase4) phase4.style.display = '';
-    } else {
-      try { localStorage.setItem('nosso-amor-nfc-visto', '1'); } catch (e) {}
-    }
+  if (isInstalled) {
+    try { sessionStorage.setItem('nosso-amor-via-nfc', '1'); } catch (e) {}
+    // Esconde todas as fases e vai direto pra Fase 4 (com setupPhase4)
+    if (phase1) phase1.style.display = 'none';
+    if (phase2) phase2.style.display = 'none';
+    if (phase3) phase3.style.display = 'none';
+    if (phase4) phase4.style.display = '';
+    // Setup texto da Fase 4 (sem esperar typewriter)
+    setTimeout(setupPhase4, 100);
   }
 
 })();

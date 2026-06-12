@@ -90,20 +90,30 @@
   </main>
 
   <!-- ============================================
-       FASE 4 — TELA FINAL (entrar no app)
+       FASE 4 — TELA FINAL (entrar no app + instalar)
        ============================================ -->
   <main class="nfc-screen nfc-phase-4" id="phase-4" style="display:none">
     <div class="phase-content">
       <div class="final-hearts">💕 💖 💗</div>
-      <h1 class="nfc-title">Tá pronta?</h1>
-      <p class="nfc-sub">Vem pro nosso cantinho ✨</p>
+      <h1 class="nfc-title" id="phase4-title">Tá pronta?</h1>
+      <p class="nfc-sub" id="phase4-sub">Vem pro nosso cantinho ✨</p>
+
+      <!-- Botão principal (muda de texto conforme PWA instalado) -->
       <button class="nfc-btn nfc-btn-final" id="btn-enter" type="button">
-        <span class="btn-text">Entrar no nosso cantinho</span>
+        <span class="btn-text" id="btn-enter-text">Entrar no nosso cantinho</span>
         <span class="btn-arrow">→</span>
       </button>
+
+      <!-- Botão de instalar PWA (só aparece se NÃO instalado) -->
+      <button class="nfc-btn nfc-btn-install" id="btn-install" type="button" style="display:none">
+        <span class="btn-text">📲 Instalar no celular</span>
+        <span class="btn-arrow">↓</span>
+      </button>
+
+      <p class="nfc-hint" id="phase4-hint">ou encoste de novo no chaveiro 💫</p>
     </div>
   </main>
 
-  <script src="./js/nfc.js?v=25"></script>
+  <script src="./js/nfc.js?v=26"></script>
 </body>
 </html>

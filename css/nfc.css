@@ -375,6 +375,32 @@ body {
   box-shadow: 0 12px 40px rgba(255, 79, 139, 0.6);
 }
 .nfc-btn-final { animation: btn-pulse 1.8s ease-in-out infinite; }
+
+/* Botão de instalar (visual diferenciado — secundário) */
+.nfc-btn-install {
+  background: linear-gradient(135deg, #5e3a8e 0%, #2d1a4a 100%);
+  box-shadow: 0 8px 32px rgba(94, 58, 142, 0.4),
+              0 0 0 0 rgba(94, 58, 142, 0.4);
+  margin-top: 8px;
+  max-width: 280px;
+  padding: 14px 24px;
+  font-size: 15px;
+  animation: btn-pulse-install 2.5s ease-in-out infinite;
+}
+.nfc-btn-install:hover, .nfc-btn-install:active {
+  background: linear-gradient(135deg, #7349a8 0%, #3d2561 100%);
+  box-shadow: 0 12px 40px rgba(94, 58, 142, 0.6);
+}
+@keyframes btn-pulse-install {
+  0%, 100% {
+    box-shadow: 0 8px 32px rgba(94, 58, 142, 0.4),
+                0 0 0 0 rgba(94, 58, 142, 0.3);
+  }
+  50% {
+    box-shadow: 0 8px 32px rgba(94, 58, 142, 0.5),
+                0 0 0 10px rgba(94, 58, 142, 0);
+  }
+}
 @keyframes btn-pulse {
   0%, 100% {
     box-shadow: 0 8px 32px rgba(255, 79, 139, 0.4),
