@@ -2,7 +2,7 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v24';  // v24: 🎵 corrigiu 9 IDs duplicados (todos únicos agora: 89/89)
+const CACHE_NAME = 'nosso-amor-v25';  // v25: 🎁 NFC landing épica (4 fases: tap, foto, música+typewriter, entrar) + corrigido "12 anos" → "13 anos" nas 365 mensagens + contador inclusivo
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

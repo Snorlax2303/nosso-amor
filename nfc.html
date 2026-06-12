@@ -21,26 +21,89 @@
   <link rel="stylesheet" href="./css/nfc.css" />
 </head>
 <body>
-  <!-- Background de corações caindo -->
+
+  <!-- Corações caindo (em todas as fases) -->
   <div class="hearts-rain" id="hearts-rain" aria-hidden="true"></div>
 
-  <!-- Tela principal -->
-  <main class="nfc-screen">
-    <div class="nfc-content">
-      <div class="nfc-emoji" id="nfc-emoji">💕</div>
-      <h1 class="nfc-title" id="nfc-title">Oi, amor!</h1>
-      <p class="nfc-sub" id="nfc-sub">Você tocou na nossa tag 💖</p>
-      <p class="nfc-from" id="nfc-from">— Rafael</p>
+  <!-- Orbs ambientes -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
 
-      <button class="nfc-btn" id="nfc-btn" type="button">
-        <span class="nfc-btn-text">Entrar no nosso cantinho</span>
-        <span class="nfc-btn-arrow">→</span>
+  <!-- ============================================
+       FASE 1 — TAP INICIAL (3 toques = revelar)
+       ============================================ -->
+  <main class="nfc-screen nfc-phase-1" id="phase-1">
+    <div class="phase-content">
+      <div class="nfc-emoji-big">💕</div>
+      <h1 class="nfc-title">Você tocou em mim</h1>
+      <p class="nfc-sub">Aperta o coração 3 vezes</p>
+      <button class="nfc-heart-btn" id="heart-tap" type="button" aria-label="Tocar">
+        <span class="heart-icon">💖</span>
       </button>
-
-      <p class="nfc-hint">ou encoste de novo no chaveiro 💫</p>
+      <p class="tap-counter" id="tap-counter">0/3</p>
     </div>
   </main>
 
-  <script src="./js/nfc.js"></script>
+  <!-- ============================================
+       FASE 2 — FOTO + FRASE
+       ============================================ -->
+  <main class="nfc-screen nfc-phase-2" id="phase-2" style="display:none">
+    <div class="phase-content phase-photo">
+      <!-- Foto do casal (vem da capa do app) -->
+      <div class="photo-frame">
+        <img id="nfc-photo" src="./assets/fotos/medium/floater-1.webp" alt="Nós dois" />
+        <div class="photo-shine"></div>
+      </div>
+      <h1 class="nfc-title-big">13 anos. 1 mensagem.<br> Pra sempre. ✨</h1>
+      <p class="nfc-sub">— desde 01 de janeiro de 2014</p>
+
+      <button class="nfc-btn" id="btn-open-letter" type="button">
+        <span class="btn-text">Toque pra abrir</span>
+        <span class="btn-arrow">→</span>
+      </button>
+    </div>
+  </main>
+
+  <!-- ============================================
+       FASE 3 — MÚSICA + TEXTO LETRA POR LETRA
+       ============================================ -->
+  <main class="nfc-screen nfc-phase-3" id="phase-3" style="display:none">
+    <div class="phase-content phase-letter">
+      <!-- Player YouTube (escondido, só áudio) -->
+      <div class="yt-audio" id="yt-audio"></div>
+
+      <!-- Ícone de "toca disco" pulsando -->
+      <div class="music-disc">
+        <div class="disc-inner">🎵</div>
+        <div class="disc-pulse"></div>
+      </div>
+
+      <!-- Texto da carta, aparece letra por letra -->
+      <div class="typewriter-container">
+        <p class="typewriter" id="typewriter"></p>
+        <span class="typewriter-caret" id="caret">▌</span>
+      </div>
+
+      <!-- "Assinatura" depois do texto -->
+      <p class="nfc-signature" id="signature" style="display:none">— Rafael ♡</p>
+    </div>
+  </main>
+
+  <!-- ============================================
+       FASE 4 — TELA FINAL (entrar no app)
+       ============================================ -->
+  <main class="nfc-screen nfc-phase-4" id="phase-4" style="display:none">
+    <div class="phase-content">
+      <div class="final-hearts">💕 💖 💗</div>
+      <h1 class="nfc-title">Tá pronta?</h1>
+      <p class="nfc-sub">Vem pro nosso cantinho ✨</p>
+      <button class="nfc-btn nfc-btn-final" id="btn-enter" type="button">
+        <span class="btn-text">Entrar no nosso cantinho</span>
+        <span class="btn-arrow">→</span>
+      </button>
+    </div>
+  </main>
+
+  <script src="./js/nfc.js?v=25"></script>
 </body>
 </html>

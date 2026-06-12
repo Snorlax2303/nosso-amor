@@ -1,14 +1,19 @@
 // ============================================
-// 💕 NFC LANDING — Tocou na tag → Animação → Botão entra
+// 💕 NFC LANDING ÉPICA — 4 fases
+// 1) Tap 3x no coração
+// 2) Foto + frase
+// 3) Música + texto letra por letra
+// 4) Botão final → app
 // ============================================
 
 (function() {
   'use strict';
 
-  // Corações caindo — 20 ao mesmo tempo com delays aleatórios
+  // ============================================
+  // Corações caindo (sempre rodando)
+  // ============================================
   const EMOJIS = ['💕', '💖', '💗', '💝', '💘', '🌹', '✨', '💫'];
   const rainEl = document.getElementById('hearts-rain');
-
   function spawnHeart() {
     if (!rainEl) return;
     const h = document.createElement('span');
@@ -21,38 +26,160 @@
     rainEl.appendChild(h);
     setTimeout(() => h.remove(), 13000);
   }
-  // Cria 20 corações com delays escalonados
-  for (let i = 0; i < 20; i++) {
-    setTimeout(spawnHeart, i * 200);
-  }
-  // E continua criando (1 a cada 600ms)
+  for (let i = 0; i < 20; i++) setTimeout(spawnHeart, i * 200);
   setInterval(spawnHeart, 600);
 
-  // Personalização: detecta modo 18+ (se vier ?18=1 na URL)
-  const url = new URL(window.location.href);
-  const is18 = url.searchParams.get('18') === '1';
-  if (is18) {
-    document.body.classList.add('nfc-18');
-    const emojiEl = document.getElementById('nfc-emoji');
-    if (emojiEl) emojiEl.textContent = '🔥';
-    const subEl = document.getElementById('nfc-sub');
-    if (subEl) subEl.textContent = 'Você tocou na tag picante... 💋';
-  }
-
-  // Vibra o celular quando abre (se suportado)
+  // ============================================
+  // Vibração
+  // ============================================
   function vibrate(pattern) {
     if (navigator.vibrate) {
       try { navigator.vibrate(pattern); } catch (e) {}
     }
   }
-  // Vibração de "oi!" — 3 pulsos curtos
+  // Vibração inicial (3 pulsos curtos) ao tocar na tag
   setTimeout(() => vibrate([80, 50, 80, 50, 200]), 300);
 
-  // Botão: vai pra home (que abre direto, gate pulado se voltou)
-  const btn = document.getElementById('nfc-btn');
-  if (btn) {
-    btn.addEventListener('click', () => {
-      vibrate(100);
+  // ============================================
+  // FASE 1 — Tap 3 vezes no coração
+  // ============================================
+  const TAP_TARGET = 3;
+  let tapCount = 0;
+  const heartBtn = document.getElementById('heart-tap');
+  const tapCounter = document.getElementById('tap-counter');
+  const phase1 = document.getElementById('phase-1');
+  const phase2 = document.getElementById('phase-2');
+
+  function advanceToPhase2() {
+    // Vibra mais forte na transição
+    vibrate([100, 30, 100, 30, 300]);
+    // Fade out fase 1
+    phase1.style.animation = 'none';
+    phase1.style.opacity = '0';
+    phase1.style.transform = 'scale(1.1)';
+    phase1.style.transition = 'opacity 0.5s, transform 0.5s';
+    setTimeout(() => {
+      phase1.style.display = 'none';
+      phase2.style.display = '';
+      // Reseta a animação da fase 2 (re-trigger)
+      phase2.style.animation = 'none';
+      void phase2.offsetWidth;
+      phase2.style.animation = 'fade-in 0.8s ease-out';
+    }, 500);
+  }
+
+  if (heartBtn) {
+    heartBtn.addEventListener('click', () => {
+      tapCount++;
+      vibrate(60);
+      // Pulinho extra no botão
+      heartBtn.style.transform = 'scale(0.85)';
+      setTimeout(() => heartBtn.style.transform = '', 150);
+      // Atualiza contador
+      if (tapCounter) tapCounter.textContent = tapCount + '/' + TAP_TARGET;
+      // Avança quando bater 3
+      if (tapCount >= TAP_TARGET) {
+        // Esconde o botão antes de avançar
+        heartBtn.style.pointerEvents = 'none';
+        setTimeout(advanceToPhase2, 400);
+      }
+    });
+  }
+
+  // ============================================
+  // FASE 2 → 3 — Botão "Toque pra abrir"
+  // ============================================
+  const phase3 = document.getElementById('phase-3');
+  const btnOpenLetter = document.getElementById('btn-open-letter');
+
+  function startMusic() {
+    // Toca "Nossa" do Thiaguinho
+    // YouTube ID: rCkDEfM76CQ (ou trocar por outra música)
+    const MUSIC_ID = 'rCkDEfM76CQ'; // Nossa - Thiaguinho
+    const ytContainer = document.getElementById('yt-audio');
+    if (ytContainer && MUSIC_ID) {
+      ytContainer.innerHTML = `<iframe
+        src="https://www.youtube.com/embed/${MUSIC_ID}?autoplay=1&loop=1&playlist=${MUSIC_ID}&controls=0&disablekb=1&fs=0&modestbranding=1"
+        allow="autoplay; encrypted-media"
+        style="position:absolute;width:1px;height:1px;opacity:0.01;top:-9999px;"
+      ></iframe>`;
+    }
+  }
+
+  function typeWriter(text, el, speed = 55) {
+    return new Promise(resolve => {
+      let i = 0;
+      el.textContent = '';
+      const caret = document.getElementById('caret');
+      function tick() {
+        if (i < text.length) {
+          el.textContent += text[i];
+          i++;
+          setTimeout(tick, speed);
+        } else {
+          // Esconde o caret
+          if (caret) caret.style.display = 'none';
+          resolve();
+        }
+      }
+      tick();
+    });
+  }
+
+  async function advanceToPhase3() {
+    vibrate(120);
+    phase2.style.animation = 'none';
+    phase2.style.opacity = '0';
+    phase2.style.transition = 'opacity 0.4s';
+    setTimeout(() => {
+      phase2.style.display = 'none';
+      phase3.style.display = '';
+      phase3.style.animation = 'fade-in 0.8s ease-out';
+      // Começa música + texto
+      startMusic();
+      const tw = document.getElementById('typewriter');
+      const sig = document.getElementById('signature');
+      const MENSAGEM = "Esse presente é o que a gente é. Tem nossos marcos, nossas músicas, nossas brincadeiras, nosso 18+ e tem a gente se amando de um jeito que o tempo não apaga. ♡";
+      typeWriter(MENSAGEM, tw, 55).then(() => {
+        if (sig) {
+          sig.style.display = '';
+          sig.style.animation = 'fade-in 1s ease-out';
+        }
+        // Avança pra fase 4 depois de 2.5s
+        setTimeout(advanceToPhase4, 2500);
+      });
+    }, 400);
+  }
+
+  if (btnOpenLetter) {
+    btnOpenLetter.addEventListener('click', advanceToPhase3);
+  }
+
+  // ============================================
+  // FASE 3 → 4 — Automático (depois do texto + assinatura)
+  // ============================================
+  const phase4 = document.getElementById('phase-4');
+
+  function advanceToPhase4() {
+    vibrate([60, 40, 60, 40, 200]);
+    phase3.style.animation = 'none';
+    phase3.style.opacity = '0';
+    phase3.style.transition = 'opacity 0.5s';
+    setTimeout(() => {
+      phase3.style.display = 'none';
+      phase4.style.display = '';
+      phase4.style.animation = 'fade-in 0.8s ease-out';
+    }, 500);
+  }
+
+  // ============================================
+  // FASE 4 → APP — Botão "Entrar"
+  // ============================================
+  const btnEnter = document.getElementById('btn-enter');
+
+  if (btnEnter) {
+    btnEnter.addEventListener('click', () => {
+      vibrate([100, 30, 100]);
       // Marca que veio via NFC (a home vai pular o gate)
       try { sessionStorage.setItem('nosso-amor-via-nfc', '1'); } catch (e) {}
       // Redireciona pra home
@@ -60,15 +187,21 @@
     });
   }
 
-  // Se ela já entrou via NFC antes (PWA instalado), pula o botão e vai direto
+  // ============================================
+  // Pula tudo se ela já entrou via NFC antes (PWA instalado)
+  // ============================================
   if (window.matchMedia('(display-mode: standalone)').matches) {
     const jaEntrouNFC = localStorage.getItem('nosso-amor-nfc-visto');
     if (jaEntrouNFC) {
-      // Vai direto pra home
+      // Vai direto pra fase 4 (pula a apresentação)
       try { sessionStorage.setItem('nosso-amor-via-nfc', '1'); } catch (e) {}
-      setTimeout(() => { window.location.href = './?from=nfc'; }, 1500);
+      if (phase1) phase1.style.display = 'none';
+      if (phase2) phase2.style.display = 'none';
+      if (phase3) phase3.style.display = 'none';
+      if (phase4) phase4.style.display = '';
     } else {
       try { localStorage.setItem('nosso-amor-nfc-visto', '1'); } catch (e) {}
     }
   }
+
 })();

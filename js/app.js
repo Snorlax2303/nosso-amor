@@ -131,7 +131,9 @@ function startContador() {
   const atualizar = () => {
     const agora = new Date();
     // Calcula anos/meses/dias "reais" (calendário)
-    let anos = agora.getFullYear() - dataInicio.getFullYear();
+    // +1 na conta de anos pra usar contagem inclusiva (tipo aniversário):
+    // 01/01/2014 → 01/01/2026 = "13 anos" (conta 2014, 2015... 2026 = 13)
+    let anos = agora.getFullYear() - dataInicio.getFullYear() + 1;
     let meses = agora.getMonth() - dataInicio.getMonth();
     let dias = agora.getDate() - dataInicio.getDate();
     if (dias < 0) {
