@@ -231,12 +231,14 @@ function renderGaleria() {
                   animation-delay: ${i * 0.18}s;">
         <div class="polaroid-tape"></div>
         <div class="polaroid-img">
-          <img src="${f.url}" alt="${f.legenda}" loading="lazy" />
+          <img src="${f.url}" alt="${f.legenda || 'Foto nossa'}" loading="lazy" />
         </div>
+        ${(f.legenda || f.data) ? `
         <div class="polaroid-caption">
-          <span class="polaroid-legenda">${f.legenda}</span>
-          <span class="polaroid-data">${f.data || ''}</span>
+          ${f.legenda ? `<span class="polaroid-legenda">${f.legenda}</span>` : ''}
+          ${f.data ? `<span class="polaroid-data">${f.data}</span>` : ''}
         </div>
+        ` : ''}
       </div>
     `;
   }).join('');
@@ -362,7 +364,7 @@ function navegarStories(delta) {
 function atualizarStoriesSlide() {
   const f = FOTOS[storiesIdx];
   document.getElementById('stories-img').src = f.url;
-  document.getElementById('stories-caption').textContent = f.legenda;
+  document.getElementById('stories-caption').textContent = f.legenda || '';
 }
 let storiesTimer = null;
 function iniciarStoriesProgresso() {

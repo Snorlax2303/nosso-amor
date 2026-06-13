@@ -8,7 +8,6 @@ const FOTOS = [
   {
     url: "./assets/fotos/medium/floater-1.webp",
     thumb: "./assets/fotos/thumb/floater-1.webp",
-    legenda: "Minha princesa 🥹",
     capa: true,
     pos: { top: "4%", left: "6%", rot: -7 },
     size: { w: 220, h: 280 },
@@ -19,7 +18,6 @@ const FOTOS = [
   {
     url: "./assets/fotos/medium/zueira-balada.webp",
     thumb: "./assets/fotos/thumb/zueira-balada.webp",
-    legenda: "Selfie da zoeira 😜",
     pos: { top: "2%", right: "3%", rot: 8 },
     size: { w: 210, h: 270 },
     tape: "tr", cor: "rose"
@@ -27,7 +25,6 @@ const FOTOS = [
   {
     url: "./assets/fotos/medium/noite-moletom.webp",
     thumb: "./assets/fotos/thumb/noite-moletom.webp",
-    legenda: "Noite especial 🌃",
     pos: { top: "32%", left: "1%", rot: -5 },
     size: { w: 220, h: 280 },
     tape: "tl", cor: "cream"
@@ -35,7 +32,6 @@ const FOTOS = [
   {
     url: "./assets/fotos/medium/vestido-preto.webp",
     thumb: "./assets/fotos/thumb/vestido-preto.webp",
-    legenda: "Juntos e lindos",
     pos: { top: "36%", right: "2%", rot: 6 },
     size: { w: 200, h: 260 },
     tape: "tr", cor: "rose"
@@ -43,7 +39,6 @@ const FOTOS = [
   {
     url: "./assets/fotos/medium/lanche-divertido.webp",
     thumb: "./assets/fotos/thumb/lanche-divertido.webp",
-    legenda: "Date do lanche ❤️",
     pos: { top: "62%", left: "4%", rot: 4 },
     size: { w: 230, h: 290 },
     tape: "tl", cor: "sage"
@@ -51,7 +46,6 @@ const FOTOS = [
   {
     url: "./assets/fotos/medium/juntos-casamento.webp",
     thumb: "./assets/fotos/thumb/juntos-casamento.webp",
-    legenda: "Onde celebramos",
     pos: { top: "68%", right: "5%", rot: -7 },
     size: { w: 200, h: 260 },
     tape: "tr", cor: "cream"
@@ -59,7 +53,6 @@ const FOTOS = [
   {
     url: "./assets/fotos/medium/ninho-caseiro.webp",
     thumb: "./assets/fotos/thumb/ninho-caseiro.webp",
-    legenda: "Nosso ninho 🏠",
     pos: { top: "94%", left: "2%", rot: 8 },
     size: { w: 215, h: 275 },
     tape: "tl", cor: "rose"
@@ -67,7 +60,6 @@ const FOTOS = [
   {
     url: "./assets/fotos/medium/bar-naruto.webp",
     thumb: "./assets/fotos/thumb/bar-naruto.webp",
-    legenda: "Onde tudo começou",
     pos: { top: "100%", right: "3%", rot: -6 },
     size: { w: 200, h: 260 },
     tape: "tr", cor: "sage"
@@ -75,7 +67,6 @@ const FOTOS = [
   {
     url: "./assets/fotos/medium/viagem-praia.webp",
     thumb: "./assets/fotos/thumb/viagem-praia.webp",
-    legenda: "Viagem dos sonhos",
     pos: { top: "128%", left: "5%", rot: 5 },
     size: { w: 220, h: 280 },
     tape: "tl", cor: "sky"
@@ -83,7 +74,6 @@ const FOTOS = [
   {
     url: "./assets/fotos/medium/paraiso-mar.webp",
     thumb: "./assets/fotos/thumb/paraiso-mar.webp",
-    legenda: "Paraíso 💚",
     pos: { top: "132%", right: "4%", rot: -8 },
     size: { w: 210, h: 270 },
     tape: "tr", cor: "rose"
@@ -91,7 +81,6 @@ const FOTOS = [
   {
     url: "./assets/fotos/medium/pai-filho-cabelo.webp",
     thumb: "./assets/fotos/thumb/pai-filho-cabelo.webp",
-    legenda: "Pai e filho 💙",
     pos: { top: "160%", left: "3%", rot: -5 },
     size: { w: 230, h: 290 },
     tape: "tl", cor: "cream"
