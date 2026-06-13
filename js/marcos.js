@@ -9,15 +9,15 @@
 
 const MARCOS = [
   {
-    data: "2012-12-15",
-    dataLabel: "Final de 2012",
+    data: "2013-12-15",
+    dataLabel: "Final de 2013",
     titulo: "Te vi pela primeira vez",
     texto: "Três semanas antes do nosso primeiro beijo. Foi o instante em que te vi e tudo mudou dentro de mim. O mundo girou devagar, o tempo parou, e eu soube ali que a minha vida nunca mais seria a mesma. ♡",
     imagem: ""
   },
   {
-    data: "2012-12-25",
-    dataLabel: "Final de 2012",
+    data: "2013-12-25",
+    dataLabel: "Final de 2013",
     titulo: "Nossa primeira conversa",
     texto: "Uma semana antes do nosso primeiro beijo. Lembro de cada palavra como se tivesse acontecido ontem. Foi ali, naquele papo, que o 'oi' virou 'oi' pra sempre e o coração bateu mais forte. ✨",
     imagem: ""

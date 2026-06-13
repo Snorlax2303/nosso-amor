@@ -2,7 +2,7 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v26';  // v26: 🎁 Smart routing NFC (Fase 4 detecta PWA: se instalado→só entrar, se não→botão "Instalar" + "Entrar")
+const CACHE_NAME = 'nosso-amor-v27';  // v27: 🎵 60 IDs de música substituídos (tocam!) + 📅 Marcos 2012→2013 corrigidos
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',

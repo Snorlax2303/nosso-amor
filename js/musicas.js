@@ -143,197 +143,197 @@ const MUSICAS = [
   {
     titulo: "Fio de Cabelo",
     artista: "Chitãozinho & Xororó",
-    youtubeId: "jQfgVcWfDE0",
-    capa: "https://i.ytimg.com/vi/jQfgVcWfDE0/hqdefault.jpg",
+    youtubeId: "48kf5eG5yeY",
+    capa: "https://i.ytimg.com/vi/48kf5eG5yeY/hqdefault.jpg",
     significado: "Cada detalhe teu me faz lembrar por que te amo."
   },
   {
     titulo: "No Rancho Fundo",
     artista: "Chitãozinho & Xororó",
-    youtubeId: "EUQY7N0P2L0",
-    capa: "https://i.ytimg.com/vi/EUQY7N0P2L0/hqdefault.jpg",
+    youtubeId: "Mo6PtQxipr8",
+    capa: "https://i.ytimg.com/vi/Mo6PtQxipr8/hqdefault.jpg",
     significado: "A gente tem o nosso cantinho, do nosso jeito."
   },
   {
     titulo: "Página de Amigos",
     artista: "Chitãozinho & Xororó",
-    youtubeId: "GbNQ9ZG3Byw",
-    capa: "https://i.ytimg.com/vi/GbNQ9ZG3Byw/hqdefault.jpg",
+    youtubeId: "8N-6CSOyCU4",
+    capa: "https://i.ytimg.com/vi/8N-6CSOyCU4/hqdefault.jpg",
     significado: "Você é minha página preferida do caderno da vida."
   },
   {
     titulo: "Galopeira",
     artista: "Chitãozinho & Xororó",
-    youtubeId: "uG4sk_8M-x4",
-    capa: "https://i.ytimg.com/vi/uG4sk_8M-x4/hqdefault.jpg",
+    youtubeId: "nPCg-fjTmWQ",
+    capa: "https://i.ytimg.com/vi/nPCg-fjTmWQ/hqdefault.jpg",
     significado: "Quando tô pensando em você, meu coração dispara igual."
   },
   {
     titulo: "Apaixonadinha",
     artista: "Marília Mendonça (com Michel Teló)",
-    youtubeId: "zckJ8DIQMm4",
-    capa: "https://i.ytimg.com/vi/zckJ8DIQMm4/hqdefault.jpg",
+    youtubeId: "1eZXuqrq910",
+    capa: "https://i.ytimg.com/vi/1eZXuqrq910/hqdefault.jpg",
     significado: "Como eu fico quando você aparece."
   },
   {
     titulo: "Término",
     artista: "Marília Mendonça",
-    youtubeId: "vxLKnJxQYYc",
-    capa: "https://i.ytimg.com/vi/vxLKnJxQYYc/hqdefault.jpg",
+    youtubeId: "Dt13Wv6Opeo",
+    capa: "https://i.ytimg.com/vi/Dt13Wv6Opeo/hqdefault.jpg",
     significado: "Não consigo nem ouvir essa sem pensar 'nunca com a gente'."
   },
   {
     titulo: "Eu Sei Que Vou Te Amar",
     artista: "Marília Mendonça (com Murilo Huff)",
-    youtubeId: "gVWhcXNjMhU",
-    capa: "https://i.ytimg.com/vi/gVWhcXNjMhU/hqdefault.jpg",
+    youtubeId: "tnfbhjbbmu4",
+    capa: "https://i.ytimg.com/vi/tnfbhjbbmu4/hqdefault.jpg",
     significado: "Eu sei que vou te amar, todos os dias da vida. ♡"
   },
   {
     titulo: "Infiel",
     artista: "Marília Mendonça",
-    youtubeId: "KkI2Xc-DT-A",
-    capa: "https://i.ytimg.com/vi/KkI2Xc-DT-A/hqdefault.jpg",
+    youtubeId: "_hIq1rUG5aY",
+    capa: "https://i.ytimg.com/vi/_hIq1rUG5aY/hqdefault.jpg",
     significado: "Eu não. Sou teu de corpo e alma."
   },
   {
     titulo: "Deus Me Proteja",
     artista: "Henrique & Juliano",
-    youtubeId: "DLnDxhJpq1Y",
-    capa: "https://i.ytimg.com/vi/DLnDxhJpq1Y/hqdefault.jpg",
+    youtubeId: "S1VqBykbfv0",
+    capa: "https://i.ytimg.com/vi/S1VqBykbfv0/hqdefault.jpg",
     significado: "Deus me proteja, mas principalmente esse nosso amor."
   },
   {
     titulo: "Vidinha de Balada",
     artista: "Henrique & Juliano",
-    youtubeId: "J7KfM4Wgrd4",
-    capa: "https://i.ytimg.com/vi/J7KfM4Wgrd4/hqdefault.jpg",
+    youtubeId: "PnAMEe0GGG8",
+    capa: "https://i.ytimg.com/vi/PnAMEe0GGG8/hqdefault.jpg",
     significado: "A gente já teve fase balada, agora a melhor fase é a nossa."
   },
   {
     titulo: "Na Hora da Raiva",
     artista: "Henrique & Juliano",
-    youtubeId: "KrO0A1MnIvQ",
-    capa: "https://i.ytimg.com/vi/KrO0A1MnIvQ/hqdefault.jpg",
+    youtubeId: "X8jD3F9PI7Q",
+    capa: "https://i.ytimg.com/vi/X8jD3F9PI7Q/hqdefault.jpg",
     significado: "A gente briga, mas a gente ama mais ainda depois."
   },
   {
     titulo: "Liberdade Provisória",
     artista: "Henrique & Juliano",
-    youtubeId: "r6LJrw0JAhU",
-    capa: "https://i.ytimg.com/vi/r6LJrw0JAhU/hqdefault.jpg",
+    youtubeId: "ff3r10rCKFs",
+    capa: "https://i.ytimg.com/vi/ff3r10rCKFs/hqdefault.jpg",
     significado: "Me solta que eu vou, mas volto pra você sempre."
   },
   {
     titulo: "Vidinha de Balcão",
     artista: "Luan Santana",
-    youtubeId: "syFZ0iZx5Cw",
-    capa: "https://i.ytimg.com/vi/syFZ0iZx5Cw/hqdefault.jpg",
+    youtubeId: "g3lP77Rq5Ao",
+    capa: "https://i.ytimg.com/vi/g3lP77Rq5Ao/hqdefault.jpg",
     significado: "A gente não tá no balcão não, tá no altar (ou quase)."
   },
   {
     titulo: "Te Esperando",
     artista: "Luan Santana",
-    youtubeId: "jZ3XgCEMOFM",
-    capa: "https://i.ytimg.com/vi/jZ3XgCEMOFM/hqdefault.jpg",
+    youtubeId: "Z5pWz_OR5Sg",
+    capa: "https://i.ytimg.com/vi/Z5pWz_OR5Sg/hqdefault.jpg",
     significado: "Toda vez que você atrasa, eu fico assim: te esperando."
   },
   {
     titulo: "Meteoro",
     artista: "Luan Santana",
-    youtubeId: "AA5m2FOHVEk",
-    capa: "https://i.ytimg.com/vi/AA5m2FOHVEk/hqdefault.jpg",
+    youtubeId: "A8iwQscRxDY",
+    capa: "https://i.ytimg.com/vi/A8iwQscRxDY/hqdefault.jpg",
     significado: "Caí de meteoro por você, e não pretendo levantar."
   },
   {
     titulo: "Esquece o Mundo Lá Fora",
     artista: "Luan Santana",
-    youtubeId: "Xk-yOmEHBz8",
-    capa: "https://i.ytimg.com/vi/Xk-yOmEHBz8/hqdefault.jpg",
+    youtubeId: "F6eqHfA3bNU",
+    capa: "https://i.ytimg.com/vi/F6eqHfA3bNU/hqdefault.jpg",
     significado: "Com você eu esqueço tudo que tá lá fora. Só existe a gente."
   },
   {
     titulo: "Erro Vagabundo",
     artista: "Jorge & Mateus",
-    youtubeId: "VgYb5H7uMRw",
-    capa: "https://i.ytimg.com/vi/VgYb5H7uMRw/hqdefault.jpg",
+    youtubeId: "BEz8l69aI8Y",
+    capa: "https://i.ytimg.com/vi/BEz8l69aI8Y/hqdefault.jpg",
     significado: "O meu erro é te amar demais, e eu não quero consertar."
   },
   {
     titulo: "Amo Você",
     artista: "Jorge & Mateus (com Maiara & Maraisa)",
-    youtubeId: "IFh7nNqG1A0",
-    capa: "https://i.ytimg.com/vi/IFh7nNqG1A0/hqdefault.jpg",
+    youtubeId: "OpVo12Y55Yg",
+    capa: "https://i.ytimg.com/vi/OpVo12Y55Yg/hqdefault.jpg",
     significado: "Amo você, simples assim."
   },
   {
     titulo: "Logo Logo",
     artista: "Jorge & Mateus",
-    youtubeId: "FiLqLDb-F0k",
-    capa: "https://i.ytimg.com/vi/FiLqLDb-F0k/hqdefault.jpg",
+    youtubeId: "4gmR2XfjztA",
+    capa: "https://i.ytimg.com/vi/4gmR2XfjztA/hqdefault.jpg",
     significado: "Logo logo eu tô aí, igual todas as noites."
   },
   {
     titulo: "Sosseguei",
     artista: "Jorge & Mateus",
-    youtubeId: "Qt5DRqDILfw",
-    capa: "https://i.ytimg.com/vi/Qt5DRqDILfw/hqdefault.jpg",
+    youtubeId: "vZcjAmfkemk",
+    capa: "https://i.ytimg.com/vi/vZcjAmfkemk/hqdefault.jpg",
     significado: "Achei o sossego que eu procurava: do seu lado."
   },
   {
     titulo: "Propaganda",
     artista: "Jorge & Mateus",
-    youtubeId: "Kow5SrCrD6w",
-    capa: "https://i.ytimg.com/vi/Kow5SrCrD6w/hqdefault.jpg",
+    youtubeId: "mQr7XemLs8s",
+    capa: "https://i.ytimg.com/vi/mQr7XemLs8s/hqdefault.jpg",
     significado: "Eu faço propaganda do nosso amor, sempre."
   },
   {
     titulo: "Meio Caminho",
     artista: "Zezé Di Camargo & Luciano",
-    youtubeId: "kA0vH3lF8dA",
-    capa: "https://i.ytimg.com/vi/kA0vH3lF8dA/hqdefault.jpg",
+    youtubeId: "WaOtWOpOGSw",
+    capa: "https://i.ytimg.com/vi/WaOtWOpOGSw/hqdefault.jpg",
     significado: "A gente já fez mais da metade do caminho. Vamos até o fim."
   },
   {
     titulo: "É O Amor",
     artista: "Zezé Di Camargo & Luciano",
-    youtubeId: "dnLKGGKLbcE",
-    capa: "https://i.ytimg.com/vi/dnLKGGKLbcE/hqdefault.jpg",
+    youtubeId: "Be6ROem9ms8",
+    capa: "https://i.ytimg.com/vi/Be6ROem9ms8/hqdefault.jpg",
     significado: "É o amor que me faz levantar todo dia feliz."
   },
   {
     titulo: "Coração Está Em Pedaços",
     artista: "Zezé Di Camargo & Luciano",
-    youtubeId: "ZywEx4vOSR8",
-    capa: "https://i.ytimg.com/vi/ZywEx4vOSR8/hqdefault.jpg",
+    youtubeId: "M_lo8BHG6no",
+    capa: "https://i.ytimg.com/vi/M_lo8BHG6no/hqdefault.jpg",
     significado: "Antes de você, meu coração tava em pedaços. Você juntou."
   },
   {
     titulo: "Pra Não Pensar Em Você",
     artista: "Zezé Di Camargo & Luciano",
-    youtubeId: "7eD7sTBz0d8",
-    capa: "https://i.ytimg.com/vi/7eD7sTBz0d8/hqdefault.jpg",
+    youtubeId: "JPITxZbf5H4",
+    capa: "https://i.ytimg.com/vi/JPITxZbf5H4/hqdefault.jpg",
     significado: "Já tentei não pensar, não consigo. É você o tempo todo."
   },
   {
     titulo: "Andar Com Fé",
     artista: "João Bosco & Vinícius",
-    youtubeId: "gVu4HsQ-vcE",
-    capa: "https://i.ytimg.com/vi/gVu4HsQ-vcE/hqdefault.jpg",
+    youtubeId: "afKp9gKzFQo",
+    capa: "https://i.ytimg.com/vi/afKp9gKzFQo/hqdefault.jpg",
     significado: "Andar com fé, com você do lado, é tudo que eu preciso."
   },
   {
     titulo: "Sai da Minha Aba",
     artista: "Gusttavo Lima",
-    youtubeId: "W3JNIQ8PjCQ",
-    capa: "https://i.ytimg.com/vi/W3JNIQ8PjCQ/hqdefault.jpg",
+    youtubeId: "rqoBO3Nw2ZM",
+    capa: "https://i.ytimg.com/vi/rqoBO3Nw2ZM/hqdefault.jpg",
     significado: "Sai da minha aba não, fica pertinho de mim."
   },
   {
     titulo: "Inventor dos Amores",
     artista: "Gusttavo Lima (com Jorge & Mateus)",
-    youtubeId: "c5K0mBbnxE0",
-    capa: "https://i.ytimg.com/vi/c5K0mBbnxE0/hqdefault.jpg",
+    youtubeId: "_y9OCAzcJVw",
+    capa: "https://i.ytimg.com/vi/_y9OCAzcJVw/hqdefault.jpg",
     significado: "Você é o inventor dos meus amores, o único que valeu."
   },
 
@@ -341,176 +341,176 @@ const MUSICAS = [
   {
     titulo: "Anunciação",
     artista: "Alceu Valença",
-    youtubeId: "Vv_sIWGyVno",
-    capa: "https://i.ytimg.com/vi/Vv_sIWGyVno/hqdefault.jpg",
+    youtubeId: "j42byy7G_Ow",
+    capa: "https://i.ytimg.com/vi/j42byy7G_Ow/hqdefault.jpg",
     significado: "Você veio pra anunciar o amor na minha vida."
   },
   {
     titulo: "Trem das Cores",
     artista: "Caetano Veloso",
-    youtubeId: "nXKCSpEXZn0",
-    capa: "https://i.ytimg.com/vi/nXKCSpEXZn0/hqdefault.jpg",
+    youtubeId: "kS1zGVi3Uxs",
+    capa: "https://i.ytimg.com/vi/kS1zGVi3Uxs/hqdefault.jpg",
     significado: "O trem das nossas memórias passa colorido na minha cabeça."
   },
   {
     titulo: "Tigresa",
     artista: "Caetano Veloso",
-    youtubeId: "HJ9PCv2wzRE",
-    capa: "https://i.ytimg.com/vi/HJ9PCv2wzRE/hqdefault.jpg",
+    youtubeId: "sSqU6vgs3Dc",
+    capa: "https://i.ytimg.com/vi/sSqU6vgs3Dc/hqdefault.jpg",
     significado: "Você é a minha tigresa, mansa e feroz ao mesmo tempo."
   },
   {
     titulo: "O Sal da Terra",
     artista: "Caetano Veloso",
-    youtubeId: "8R3n-LLUxaA",
-    capa: "https://i.ytimg.com/vi/8R3n-LLUxaA/hqdefault.jpg",
+    youtubeId: "wAmtLN4PlLU",
+    capa: "https://i.ytimg.com/vi/wAmtLN4PlLU/hqdefault.jpg",
     significado: "Você é o sal da minha terra, dá gosto à vida."
   },
   {
     titulo: "Luz do Sol",
     artista: "Caetano Veloso",
-    youtubeId: "WOYs3aXDL1Q",
-    capa: "https://i.ytimg.com/vi/WOYs3aXDL1Q/hqdefault.jpg",
+    youtubeId: "wVZ5yejK9GA",
+    capa: "https://i.ytimg.com/vi/wVZ5yejK9GA/hqdefault.jpg",
     significado: "Você é a luz do sol que entra na minha janela de manhã."
   },
   {
     titulo: "O Trenzinho do Caipira",
     artista: "Heitor Villa-Lobos",
-    youtubeId: "KE-1LZGZqN8",
-    capa: "https://i.ytimg.com/vi/KE-1LZGZqN8/hqdefault.jpg",
+    youtubeId: "wIG4h7lvj4Y",
+    capa: "https://i.ytimg.com/vi/wIG4h7lvj4Y/hqdefault.jpg",
     significado: "A gente tem um ritmo só nosso, igual trenzinho do caipira."
   },
   {
     titulo: "Garota de Ipanema",
     artista: "Tom Jobim & Vinícius",
-    youtubeId: "n5rOTUwxVhE",
-    capa: "https://i.ytimg.com/vi/n5rOTUwxVhE/hqdefault.jpg",
+    youtubeId: "rOAGNjCYprY",
+    capa: "https://i.ytimg.com/vi/rOAGNjCYprY/hqdefault.jpg",
     significado: "A garota mais linda que eu vi, é você. ♡"
   },
   {
     titulo: "Águas de Março",
     artista: "Tom Jobim",
-    youtubeId: "4lD6oFqmpsI",
-    capa: "https://i.ytimg.com/vi/4lD6oFqmpsI/hqdefault.jpg",
+    youtubeId: "E1tOV7y94DY",
+    capa: "https://i.ytimg.com/vi/E1tOV7y94DY/hqdefault.jpg",
     significado: "A gente tá no fim do verão, mas o amor continua enchendo."
   },
   {
     titulo: "Corcovado",
     artista: "Tom Jobim",
-    youtubeId: "IuWX9O7_Jz4",
-    capa: "https://i.ytimg.com/vi/IuWX9O7_Jz4/hqdefault.jpg",
+    youtubeId: "wilIgoJ294M",
+    capa: "https://i.ytimg.com/vi/wilIgoJ294M/hqdefault.jpg",
     significado: "Em qualquer lugar do mundo, eu penso em você."
   },
   {
     titulo: "Wave",
     artista: "Tom Jobim",
-    youtubeId: "LPv0VMAt_a0",
-    capa: "https://i.ytimg.com/vi/LPv0VMAt_a0/hqdefault.jpg",
+    youtubeId: "w73hEZKnDeA",
+    capa: "https://i.ytimg.com/vi/w73hEZKnDeA/hqdefault.jpg",
     significado: "Vem dar uma volta comigo, igual as ondas do mar."
   },
   {
     titulo: "Eu Sei Que Vou Te Amar",
     artista: "Tom Jobim & Vinícius",
-    youtubeId: "M_cxA9byBd8",
-    capa: "https://i.ytimg.com/vi/M_cxA9byBd8/hqdefault.jpg",
+    youtubeId: "ec_Jzn0bW8w",
+    capa: "https://i.ytimg.com/vi/ec_Jzn0bW8w/hqdefault.jpg",
     significado: "A música mais bonita que já fizeram, e descreve a gente."
   },
   {
     titulo: "Travessia",
     artista: "Milton Nascimento",
-    youtubeId: "OOe1OX5t8gg",
-    capa: "https://i.ytimg.com/vi/OOe1OX5t8gg/hqdefault.jpg",
+    youtubeId: "kDe3qOhrJLo",
+    capa: "https://i.ytimg.com/vi/kDe3qOhrJLo/hqdefault.jpg",
     significado: "A travessia mais bonita da minha vida, foi contigo."
   },
   {
     titulo: "Cais",
     artista: "Milton Nascimento",
-    youtubeId: "FBN_Qt_aC0A",
-    capa: "https://i.ytimg.com/vi/FBN_Qt_aC0A/hqdefault.jpg",
+    youtubeId: "frHaMD7eVfA",
+    capa: "https://i.ytimg.com/vi/frHaMD7eVfA/hqdefault.jpg",
     significado: "Você é o meu cais, o lugar onde eu descanso."
   },
   {
     titulo: "Canção da América",
     artista: "Milton Nascimento",
-    youtubeId: "uQ1_ZsCSaFM",
-    capa: "https://i.ytimg.com/vi/uQ1_ZsCSaFM/hqdefault.jpg",
+    youtubeId: "t5WzApglqMc",
+    capa: "https://i.ytimg.com/vi/t5WzApglqMc/hqdefault.jpg",
     significado: "Amigo é coisa pra se guardar debaixo de 7 chaves. Como você."
   },
   {
     titulo: "Amor I Love You",
     artista: "Marisa Monte",
-    youtubeId: "gxVu3MAtLgA",
-    capa: "https://i.ytimg.com/vi/gxVu3MAtLgA/hqdefault.jpg",
+    youtubeId: "hDJDoF1hXdk",
+    capa: "https://i.ytimg.com/vi/hDJDoF1hXdk/hqdefault.jpg",
     significado: "Amor, I love you, em todas as línguas."
   },
   {
     titulo: "Beija Eu",
     artista: "Marisa Monte",
-    youtubeId: "wZ4q2v3r3yE",
-    capa: "https://i.ytimg.com/vi/wZ4q2v3r3yE/hqdefault.jpg",
+    youtubeId: "rJEzHWNKJoA",
+    capa: "https://i.ytimg.com/vi/rJEzHWNKJoA/hqdefault.jpg",
     significado: "Beija eu, beija eu, beija eu. Toda vez que precisar."
   },
   {
     titulo: "Depois",
     artista: "Marisa Monte (com Arnaldo Antunes)",
-    youtubeId: "FRbyfYx8gyY",
-    capa: "https://i.ytimg.com/vi/FRbyfYx8gyY/hqdefault.jpg",
+    youtubeId: "BM-mnklMWCQ",
+    capa: "https://i.ytimg.com/vi/BM-mnklMWCQ/hqdefault.jpg",
     significado: "Depois, amanhã, sempre, pra sempre. Com você."
   },
   {
     titulo: "Não É Proibido",
     artista: "Marisa Monte",
-    youtubeId: "GmDQJq5P1zY",
-    capa: "https://i.ytimg.com/vi/GmDQJq5P1zY/hqdefault.jpg",
+    youtubeId: "D05vdXdvJIk",
+    capa: "https://i.ytimg.com/vi/D05vdXdvJIk/hqdefault.jpg",
     significado: "Amar você não é proibido, é necessário."
   },
   {
     titulo: "Caminhoneiro",
     artista: "Roberto Carlos (com刘德华)",
-    youtubeId: "kK3eI0D-pk0",
-    capa: "https://i.ytimg.com/vi/kK3eI0D-pk0/hqdefault.jpg",
+    youtubeId: "mvg052EGMqc",
+    capa: "https://i.ytimg.com/vi/mvg052EGMqc/hqdefault.jpg",
     significado: "Mesmo longe, eu penso em você em cada estrada."
   },
   {
     titulo: "Lady Laura",
     artista: "Roberto Carlos",
-    youtubeId: "DQ8c-Dq5pjM",
-    capa: "https://i.ytimg.com/vi/DQ8c-Dq5pjM/hqdefault.jpg",
+    youtubeId: "8sioAQVcaDQ",
+    capa: "https://i.ytimg.com/vi/8sioAQVcaDQ/hqdefault.jpg",
     significado: "Lady Laura, minha lady, é você."
   },
   {
     titulo: "Quero Que Vá Tudo Pro Inferno",
     artista: "Roberto Carlos (com Gal Costa)",
-    youtubeId: "ttO0D4Vpsho",
-    capa: "https://i.ytimg.com/vi/ttO0D4Vpsho/hqdefault.jpg",
+    youtubeId: "8QmmAY-hLf4",
+    capa: "https://i.ytimg.com/vi/8QmmAY-hLf4/hqdefault.jpg",
     significado: "Menos o nosso amor. Esse fica."
   },
   {
     titulo: "Emoções",
     artista: "Roberto Carlos",
-    youtubeId: "yEQShTCyFFI",
-    capa: "https://i.ytimg.com/vi/yEQShTCyFFI/hqdefault.jpg",
+    youtubeId: "DI-n5j_jGyI",
+    capa: "https://i.ytimg.com/vi/DI-n5j_jGyI/hqdefault.jpg",
     significado: "Quando você me olha, é isso que eu sinto."
   },
   {
     titulo: "Jesus Cristo",
     artista: "Roberto Carlos",
-    youtubeId: "c9qKJJaJpqE",
-    capa: "https://i.ytimg.com/vi/c9qKJJaJpqE/hqdefault.jpg",
+    youtubeId: "f9VS9z3L9RQ",
+    capa: "https://i.ytimg.com/vi/f9VS9z3L9RQ/hqdefault.jpg",
     significado: "Eu nasci há 10 mil anos atrás e não amei ninguém como você."
   },
   {
     titulo: "Café da Manhã",
     artista: "Roberto Carlos",
-    youtubeId: "GQxNyjFnLgM",
-    capa: "https://i.ytimg.com/vi/GQxNyjFnLgM/hqdefault.jpg",
+    youtubeId: "3VpChkkUX9Y",
+    capa: "https://i.ytimg.com/vi/3VpChkkUX9Y/hqdefault.jpg",
     significado: "O melhor café da manhã é quando você tá do meu lado."
   },
   {
     titulo: "Mais Uma Vez",
     artista: "Renato Russo (solo)",
-    youtubeId: "K5Dgk3U7hRw",
-    capa: "https://i.ytimg.com/vi/K5Dgk3U7hRw/hqdefault.jpg",
+    youtubeId: "H_KHjeR2PUs",
+    capa: "https://i.ytimg.com/vi/H_KHjeR2PUs/hqdefault.jpg",
     significado: "Se eu fosse explicar o que sinto, eu diria: mais uma vez."
   },
   {
@@ -523,22 +523,22 @@ const MUSICAS = [
   {
     titulo: "Pais e Filhos",
     artista: "Legião Urbana",
-    youtubeId: "DRg3V1lTqUg",
-    capa: "https://i.ytimg.com/vi/DRg3V1lTqUg/hqdefault.jpg",
+    youtubeId: "sfixHYBWaiU",
+    capa: "https://i.ytimg.com/vi/sfixHYBWaiU/hqdefault.jpg",
     significado: "A gente construiu uma família linda. Nossos filhos são a gente."
   },
   {
     titulo: "Faroeste Caboclo",
     artista: "Legião Urbana",
-    youtubeId: "c4hA_qDB1Ko",
-    capa: "https://i.ytimg.com/vi/c4hA_qDB1Ko/hqdefault.jpg",
+    youtubeId: "eL6zdEwRKws",
+    capa: "https://i.ytimg.com/vi/eL6zdEwRKws/hqdefault.jpg",
     significado: "A história do João de Santo Cristo é a nossa: cheia de reviravoltas e amor."
   },
   {
     titulo: "Lanterna Dos Afogados",
     artista: "Legião Urbana",
-    youtubeId: "N-m_T18VR5w",
-    capa: "https://i.ytimg.com/vi/N-m_T18VR5w/hqdefault.jpg",
+    youtubeId: "trFdRPqjwyk",
+    capa: "https://i.ytimg.com/vi/trFdRPqjwyk/hqdefault.jpg",
     significado: "Quando tudo escurece, você é minha lanterna."
   },
   {
@@ -551,15 +551,15 @@ const MUSICAS = [
   {
     titulo: "Índios",
     artista: "Legião Urbana",
-    youtubeId: "xIBZHRPVqos",
-    capa: "https://i.ytimg.com/vi/xIBZHRPVqos/hqdefault.jpg",
+    youtubeId: "nM_gEzvhsM0",
+    capa: "https://i.ytimg.com/vi/nM_gEzvhsM0/hqdefault.jpg",
     significado: "Quem tem amor, tem o resto. A gente tem tudo."
   },
   {
     titulo: "Pessoal Inestimável",
     artista: "Legião Urbana",
-    youtubeId: "6HmC4fPOZw4",
-    capa: "https://i.ytimg.com/vi/6HmC4fPOZw4/hqdefault.jpg",
+    youtubeId: "nM_gEzvhsM0",
+    capa: "https://i.ytimg.com/vi/nM_gEzvhsM0/hqdefault.jpg",
     significado: "Você é a pessoa mais inestimável da minha vida."
   },
   {
@@ -586,15 +586,15 @@ const MUSICAS = [
   {
     titulo: "Acima do Sol",
     artista: "Skank",
-    youtubeId: "RZ4yDh3DJo0",
-    capa: "https://i.ytimg.com/vi/RZ4yDh3DJo0/hqdefault.jpg",
+    youtubeId: "2m-vthh7s8U",
+    capa: "https://i.ytimg.com/vi/2m-vthh7s8U/hqdefault.jpg",
     significado: "A gente tá acima do sol, acima de tudo."
   },
   {
     titulo: "Tão Bem",
     artista: "Lulu Santos",
-    youtubeId: "Wl5tpaG5wC8",
-    capa: "https://i.ytimg.com/vi/Wl5tpaG5wC8/hqdefault.jpg",
+    youtubeId: "Y0UcBpKX8pg",
+    capa: "https://i.ytimg.com/vi/Y0UcBpKX8pg/hqdefault.jpg",
     significado: "Do seu lado, eu tô tão bem."
   },
   {
