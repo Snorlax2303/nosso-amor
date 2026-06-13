@@ -828,7 +828,7 @@
         const resp = await fetch('https://zap.velhaturbo.cloud/send', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ numero, texto, de: remetente })
+          body: JSON.stringify({ to: numero, text: texto, de: remetente })
         });
         const data = await resp.json();
         if (data.ok) {

@@ -2,7 +2,7 @@
 // SERVICE WORKER — Nosso Amor PWA
 // Estratégia: network-first pra HTML/JS, cache-first só pra imagens/fonts
 // ============================================
-const CACHE_NAME = 'nosso-amor-v28';  // v28: 🏷️ Legendas das fotos removidas (fotos.js), app.js render condicional
+const CACHE_NAME = 'nosso-amor-v29';  // v29: 🐛 fix payload Zap (numero/texto→to/text, padrão do relay)
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
