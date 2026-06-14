@@ -50,6 +50,8 @@
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const STORAGE_KEY = 'nosso-amor-lousa-v1';
+    const RELAY_BASE = 'https://zap.velhaturbo.cloud';
+    let lastSyncedAt = 0;  // pra evitar loop de save→load→save
 
     function resizeCanvas() {
       const rect = canvas.getBoundingClientRect();
@@ -176,30 +178,86 @@
     canvas.addEventListener('touchend', end);
 
     function saveToStorage() {
+      const data = canvas.toDataURL('image/png');
+      // 1) Salva local (backup offline)
+      try { localStorage.setItem(STORAGE_KEY, data); } catch (e) {}
+      // 2) Sincroniza no relay (compartilhado entre os 2)
+      syncToRelay(data).catch(err => console.warn('lousa sync falhou:', err));
+    }
+
+    async function syncToRelay(data) {
+      const resp = await fetch(`${RELAY_BASE}/lousa/save`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ image: data }),
+      });
+      const json = await resp.json();
+      if (json.ok) lastSyncedAt = json.saved_at;
+      return json;
+    }
+
+    async function loadFromServer() {
       try {
-        localStorage.setItem(STORAGE_KEY, canvas.toDataURL('image/png'));
-      } catch (e) { /* cheio, ignora */ }
+        const resp = await fetch(`${RELAY_BASE}/lousa/get`);
+        const json = await resp.json();
+        if (!json.ok || json.empty) return false;
+        // Só redesenha se for mais novo que o que a gente tem
+        if (json.updated_at && json.updated_at <= lastSyncedAt) return false;
+        return new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            const rect = canvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            // Limpa e redesenha em CSS pixels (ctx já está com scale DPR)
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.scale(dpr, dpr);
+            ctx.drawImage(img, 0, 0, rect.width, rect.height);
+            // Salva no localStorage também (cache)
+            try { localStorage.setItem(STORAGE_KEY, json.image); } catch (e) {}
+            lastSyncedAt = json.updated_at;
+            speakMascot('Lousa atualizada! 🎨');
+            resolve(true);
+          };
+          img.onerror = () => resolve(false);
+          img.src = json.image;
+        });
+      } catch (e) {
+        return false;
+      }
     }
 
-    function loadFromStorage() {
-      const data = localStorage.getItem(STORAGE_KEY);
-      if (!data) return;
-      const img = new Image();
-      img.onload = () => {
-        ctx.drawImage(img, 0, 0, canvas.width / (window.devicePixelRatio || 1), canvas.height / (window.devicePixelRatio || 1));
-      };
-      img.src = data;
-    }
-
-    setTimeout(() => {
+    setTimeout(async () => {
       resizeCanvas();
-      loadFromStorage();
+      // 1) Carrega do localStorage (imediato, sem rede)
+      const local = localStorage.getItem(STORAGE_KEY);
+      if (local) {
+        const img = new Image();
+        img.onload = () => {
+          const rect = canvas.getBoundingClientRect();
+          ctx.drawImage(img, 0, 0, rect.width, rect.height);
+        };
+        img.src = local;
+      }
+      // 2) Depois busca do servidor (sync com o outro)
+      //    pequena espera pra não competir com o load local
+      setTimeout(async () => {
+        await loadFromServer();
+      }, 300);
     }, 50);
     let resizeTimer = null;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(resizeCanvas, 150);
     });
+
+    // 3) Poll periódico: a cada 15s busca atualização do servidor
+    //    (caso o outro tenha desenhado e nós estejamos com a lousa aberta)
+    setInterval(() => {
+      if (document.visibilityState === 'visible') {
+        loadFromServer();
+      }
+    }, 15000);
   }
 
   // Helper pra Maya reagir
